@@ -1,0 +1,45 @@
+{
+	"compiler": {
+		"version": "0.8.13+commit.abaa5c0e"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"smart-contracts/bekwest.sol": "bekwest"
+		},
+		"evmVersion": "london",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": true,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"smart-contracts/bekwest.sol": {
+			"keccak256": "0x4fa206714edec58dbb96c0a31f5e7545e63f09c23692b6c0ec77465c9202a05a",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://714a82cfe6bb5f69e7802e4d1da499a61b8ec0e4e7bbae7ba931afa6932ec14d",
+				"dweb:/ipfs/QmPPEMu796zJnd6bVQUmuNWuzvVphGTPM3mWzyA747QhTg"
+			]
+		}
+	},
+	"version": 1
+}
