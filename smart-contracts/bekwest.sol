@@ -47,4 +47,28 @@ contract bekwest {
     uint256 currentResultId;
     uint256 currentGrantId;
     uint256 currentRewardId;
+
+        function checkIfDonorExists(address _donorWalletAddress)
+        public
+        view
+        returns (bool)
+    {
+        return allDonors[_donorWalletAddress].isNotBlank;
+    }
+
+    function checkIfApplicantExists(address _applicantWalletAddress)
+        public
+        view
+        returns (bool)
+    {
+        return allApplicants[_applicantWalletAddress].isNotBlank;
+    }
+
+    function checkIfVoterExists(address _voterWalletAddress)
+        public
+        view
+        returns (bool)
+    {
+        return allVoters[_voterWalletAddress].isNotBlank;
+    }
 }
