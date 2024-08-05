@@ -19,9 +19,15 @@ contract bekwest {
     // {uint256: donorId}
     mapping(uint256 => uint256) private numbersOfApplicationsForDonations;
 
+    // {uint256: donorId}
+    mapping(uint256 => uint256) private numbersOfVotesForDonations;
+
     // {address: applicantWalletAddress}
     mapping(address => Applicant) private allApplicants;
     Application[] private allApplications;
+
+    // {address: applicantWalletAddress}
+    mapping(address => uint256) private numbersOfApplicationsOfApplicants;
 
     // {address: voterWalletAddress}
     mapping(address => Voter) private allVoters;
@@ -29,7 +35,7 @@ contract bekwest {
 
     // {uint256: donationId}, {address: applicantWalletAddress}
     mapping(uint256 => mapping(address => uint256))
-        private allVoteCountsOfDonation;
+        private allVoteCountsOfAllVotersOfAllDonations;
 
     // {uint256: donationId}
     mapping(uint256 => Result[]) private allResultsOfDonation;
@@ -40,7 +46,8 @@ contract bekwest {
     mapping(address => Reward[]) private allRewards;
 
     // {uint256: donationId}, {address: applicantWalletAddress}
-    mapping(uint256 => mapping(address => bool)) private applicationToDonation;
+    mapping(uint256 => mapping(address => bool))
+        private applicationsToDonations;
 
     // {uint256: donationId}, {address: voterWalletAddress}
     mapping(uint256 => mapping(address => bool)) private votingInDonation;
@@ -295,5 +302,254 @@ contract bekwest {
         );
 
         return applicantOfDonation;
+    }
+
+    function approveApplication(uint256 _applicationId) public {
+        Application memory applicationToBeApproved = allApplications[
+            _applicationId
+        ];
+        applicationToBeApproved.isApproved = true;
+        allApplications[_applicationId] = applicationToBeApproved;
+    }
+
+    function createApplicantAccount(
+        address _applicantWalletAddress,
+        string memory _adjective,
+        string memory _gender,
+        string memory _countryOfResidence,
+        string memory _ageBracket
+    ) public {
+        uint256 newApplicantId = currentApplicantId;
+
+        Applicant memory newApplicant;
+
+        newApplicant.id = newApplicantId;
+        newApplicant.walletAddress = _applicantWalletAddress;
+        newApplicant.adjective = _adjective;
+        newApplicant.gender = _gender;
+        newApplicant.countryOfResidence = _countryOfResidence;
+        newApplicant.ageBracket = _ageBracket;
+        newApplicant.isNotBlank = true;
+
+        allApplicants[_applicantWalletAddress] = newApplicant;
+        currentApplicantId++;
+    }
+
+    function getAllDonations() public view returns (Donation[] memory) {
+        return allDonations;
+    }
+
+    function getApplicationsOfApplicant(address _applicantWalletAddress)
+        public
+        view
+        returns (Application[] memory)
+    {
+        uint256 numberOfApplicationsOfApplicant = numbersOfApplicationsOfApplicants[
+                _applicantWalletAddress
+            ];
+
+        Application[] memory allApplicationsOfApplicant = new Application[](
+            numberOfApplicationsOfApplicant
+        );
+
+        uint256 applicationIndex = 0;
+
+        for (
+            uint256 applicationId = 0;
+            applicationId < allApplications.length;
+            applicationId++
+        ) {
+            Application memory runningApplication = allApplications[
+                applicationId
+            ];
+
+            if (
+                runningApplication.applicantWalletAddress ==
+                _applicantWalletAddress
+            ) {
+                allApplicationsOfApplicant[
+                    applicationIndex
+                ] = runningApplication;
+
+                applicationIndex++;
+
+                if (applicationIndex == numberOfApplicationsOfApplicant) {
+                    break;
+                }
+            }
+        }
+
+        return allApplicationsOfApplicant;
+    }
+
+    function getTotalAmountOfGrantsGivenToApplicantInWei(
+        address _applicantWalletAddress
+    ) public view returns (uint256) {
+        uint256 totalAmountOfGrantGivenToApplicantInWei = 0;
+
+        for (uint256 grantId = 0; grantId < allGrants.length; grantId++) {
+            Grant memory runningGrant = allGrants[grantId];
+
+            if (
+                runningGrant.applicantWalletAddress == _applicantWalletAddress
+            ) {
+                totalAmountOfGrantGivenToApplicantInWei += runningGrant
+                    .amountGrantedInWei;
+            }
+        }
+
+        return totalAmountOfGrantGivenToApplicantInWei;
+    }
+
+    function getTotalAmountOfVotesForDonation(uint256 _donationId)
+        public
+        view
+        returns (uint256)
+    {
+        return numbersOfVotesForDonations[_donationId];
+    }
+
+    function getApplicationOfApplicantForDonation(
+        uint256 _donationId,
+        uint256 _applicationId,
+        address _applicantWalletAddress
+    ) public view returns (Application memory) {
+        Application[]
+            memory allApplicationsOfApplicant = getApplicationsOfApplicant(
+                _applicantWalletAddress
+            );
+
+        Application memory applicationOfApplicantForDonation;
+
+        for (
+            uint256 applicationId = 0;
+            applicationId < allApplicationsOfApplicant.length;
+            applicationId++
+        ) {
+            Application memory runningApplication = allApplicationsOfApplicant[
+                applicationId
+            ];
+
+            if (
+                runningApplication.donationId == _donationId &&
+                runningApplication.id == _applicationId
+            ) {
+                applicationOfApplicantForDonation.id = runningApplication.id;
+                applicationOfApplicantForDonation
+                    .applicantId = runningApplication.applicantId;
+                applicationOfApplicantForDonation
+                    .applicantWalletAddress = runningApplication
+                    .applicantWalletAddress;
+                applicationOfApplicantForDonation
+                    .donationId = runningApplication.donationId;
+
+                applicationOfApplicantForDonation
+                    .pitchStatement = runningApplication.pitchStatement;
+
+                applicationOfApplicantForDonation
+                    .isApproved = runningApplication.isApproved;
+
+                applicationOfApplicantForDonation
+                    .isNotBlank = runningApplication.isNotBlank;
+            }
+        }
+
+        return applicationOfApplicantForDonation;
+    }
+
+    function getPotentialAmountOfGrantOfDonationInWei(uint256 _donationId)
+        public
+        view
+        returns (uint256)
+    {
+        return (getDonationById(_donationId).amountDonatedInWei * 80) / 100;
+    }
+
+    function checkIfApplicantHasAlreadyMadeAnApplicationToDonation(
+        uint256 _donationId,
+        address _applicantWalletAddress
+    ) public view returns (bool) {
+        return applicationsToDonations[_donationId][_applicantWalletAddress];
+    }
+
+    function makeApplication(
+        uint256 _donationId,
+        uint256 _applicantId,
+        address _applicantWalletAddress,
+        string memory _pitchStatement
+    ) public {
+        uint256 newApplicationId = currentApplicationId;
+
+        Application memory newApplication;
+
+        newApplication.id = newApplicationId;
+
+        newApplication.applicantId = _applicantId;
+
+        newApplication.applicantWalletAddress = _applicantWalletAddress;
+
+        newApplication.donationId = _donationId;
+
+        newApplication.pitchStatement = _pitchStatement;
+        newApplication.isNotBlank = true;
+        allApplications.push(newApplication);
+
+        uint256 currentNumberOfApplicationsForDonation = numbersOfApplicationsForDonations[
+                _donationId
+            ];
+
+        uint256 newNumberOfApplicationsForDonation = currentNumberOfApplicationsForDonation +
+                1;
+
+        numbersOfApplicationsForDonations[
+            _donationId
+        ] = newNumberOfApplicationsForDonation;
+
+        uint256 currentNumberOfApplicationsOfApplicant = numbersOfApplicationsOfApplicants[
+                _applicantWalletAddress
+            ];
+
+        uint256 newNumberOfApplicationsOfApplicant = currentNumberOfApplicationsOfApplicant +
+                1;
+
+        numbersOfApplicationsOfApplicants[
+            _applicantWalletAddress
+        ] = newNumberOfApplicationsOfApplicant;
+
+        currentApplicationId++;
+    }
+
+    function getTotalAmountOfRewardsGivenToVoterInWei(
+        uint256 _voterId,
+        address _voterWalletAddress
+    ) public view returns (uint256) {
+        Reward[] memory allRewardsOfVoter = allRewards[_voterWalletAddress];
+        uint256 totalAmountOfRewardsGivenToVoterInWei = 0;
+
+        for (
+            uint256 rewardId = 0;
+            rewardId < allRewardsOfVoter.length;
+            rewardId++
+        ) {
+            Reward memory runningReward = allRewardsOfVoter[rewardId];
+
+            if (
+                runningReward.voterId == _voterId &&
+                runningReward.voterWalletAddress == _voterWalletAddress
+            ) {
+                totalAmountOfRewardsGivenToVoterInWei += runningReward
+                    .amountRewardedInWei;
+            }
+        }
+
+        return 0;
+    }
+
+    function getVoterByWalletAddress(address _voterWalletAddress)
+        public
+        view
+        returns (Voter memory)
+    {
+        return allVoters[_voterWalletAddress];
     }
 }
