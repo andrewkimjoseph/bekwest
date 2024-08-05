@@ -15,7 +15,7 @@ struct Donation {
     uint256 id;
     uint256 donorId;
     address donorWalletAddress;
-    string topic;   
+    string topic;
     string industry;
     uint256 maxNumberOfApplications;
     uint256 maxNumberOfVoters;
@@ -64,27 +64,21 @@ struct Vote {
     bool isNotBlank;
 }
 
-struct Result {
-    uint256 id;
-    uint256 donationId;
-    uint256 applicantId;
-    address applicantWalletAddress;
-    uint256 voteCount;
-    bool isNotBlank;
-}
-
 struct Grant {
     uint256 id;
+    uint256 donationId;
     uint256 applicationId;
-    address donationId;
+    uint256 applicantId;
+    address applicantWalletAddress;
     uint256 amountGrantedInWei;
     bool isNotBlank;
 }
 
 struct Reward {
     uint256 id;
+    uint256 voterId;
     address voterWalletAddress;
     uint256 donationId;
-    uint256 amountGrantedInWei;
+    uint256 amountRewardedInWei;
     bool isNotBlank;
 }
