@@ -29,13 +29,12 @@ contract bekwest {
     // {address: applicantWalletAddress}
     mapping(address => uint256) private numbersOfApplicationsOfApplicants;
 
+    // {address: applicantWalletAddress}
+    mapping(address => uint256) private numbersOfVotesOfVoters;
+
     // {address: voterWalletAddress}
     mapping(address => Voter) private allVoters;
     Vote[] private allVotes;
-
-    // {uint256: donationId}, {address: applicantWalletAddress}
-    mapping(uint256 => mapping(address => uint256))
-        private allVoteCountsOfAllVotersOfAllDonations;
 
     // {uint256: donationId}
     mapping(uint256 => Result[]) private allResultsOfDonation;
@@ -434,23 +433,7 @@ contract bekwest {
                 runningApplication.donationId == _donationId &&
                 runningApplication.id == _applicationId
             ) {
-                applicationOfApplicantForDonation.id = runningApplication.id;
-                applicationOfApplicantForDonation
-                    .applicantId = runningApplication.applicantId;
-                applicationOfApplicantForDonation
-                    .applicantWalletAddress = runningApplication
-                    .applicantWalletAddress;
-                applicationOfApplicantForDonation
-                    .donationId = runningApplication.donationId;
-
-                applicationOfApplicantForDonation
-                    .pitchStatement = runningApplication.pitchStatement;
-
-                applicationOfApplicantForDonation
-                    .isApproved = runningApplication.isApproved;
-
-                applicationOfApplicantForDonation
-                    .isNotBlank = runningApplication.isNotBlank;
+                applicationOfApplicantForDonation = runningApplication;
             }
         }
 
@@ -483,13 +466,9 @@ contract bekwest {
         Application memory newApplication;
 
         newApplication.id = newApplicationId;
-
         newApplication.applicantId = _applicantId;
-
         newApplication.applicantWalletAddress = _applicantWalletAddress;
-
         newApplication.donationId = _donationId;
-
         newApplication.pitchStatement = _pitchStatement;
         newApplication.isNotBlank = true;
         allApplications.push(newApplication);
@@ -497,26 +476,43 @@ contract bekwest {
         uint256 currentNumberOfApplicationsForDonation = numbersOfApplicationsForDonations[
                 _donationId
             ];
-
         uint256 newNumberOfApplicationsForDonation = currentNumberOfApplicationsForDonation +
                 1;
 
         numbersOfApplicationsForDonations[
             _donationId
         ] = newNumberOfApplicationsForDonation;
-
         uint256 currentNumberOfApplicationsOfApplicant = numbersOfApplicationsOfApplicants[
                 _applicantWalletAddress
             ];
 
         uint256 newNumberOfApplicationsOfApplicant = currentNumberOfApplicationsOfApplicant +
                 1;
-
         numbersOfApplicationsOfApplicants[
             _applicantWalletAddress
         ] = newNumberOfApplicationsOfApplicant;
 
         currentApplicationId++;
+    }
+
+    function createVoterAccount(
+        address _voterWalletAddress,
+        string memory _adjective,
+        string memory _gender,
+        string memory _countryOfResidence
+    ) public {
+        uint256 newVoterId = currentVoterId;
+
+        Voter memory newVoter;
+
+        newVoter.id = newVoterId;
+        newVoter.walletAddress = _voterWalletAddress;
+        newVoter.adjective = _adjective;
+        newVoter.gender = _gender;
+        newVoter.countryOfResidence = _countryOfResidence;
+        newVoter.isNotBlank = true;
+
+        currentVoterId++;
     }
 
     function getTotalAmountOfRewardsGivenToVoterInWei(
@@ -539,10 +535,12 @@ contract bekwest {
             ) {
                 totalAmountOfRewardsGivenToVoterInWei += runningReward
                     .amountRewardedInWei;
+
+                break;
             }
         }
 
-        return 0;
+        return totalAmountOfRewardsGivenToVoterInWei;
     }
 
     function getVoterByWalletAddress(address _voterWalletAddress)
@@ -551,5 +549,58 @@ contract bekwest {
         returns (Voter memory)
     {
         return allVoters[_voterWalletAddress];
+    }
+
+    function getTotalAmountOfVotesMadeByVoter(address _voterWalletAddress)
+        public
+        view
+        returns (uint256)
+    {
+        return numbersOfVotesOfVoters[_voterWalletAddress];
+    }
+
+    function checkIfVoterHasAlreadyMadeAVoteInDonation(
+        uint256 _donationId,
+        address _voterWalletAddress
+    ) public view returns (bool) {
+        return votingInDonation[_donationId][_voterWalletAddress];
+    }
+
+    function getVoteOfVoterForDonation(
+        uint256 _donationId,
+        address _voterWalletAddress
+    ) public view returns (Vote memory) {
+        Vote memory voteOfVoterForDonation;
+
+        Voter memory particularVoter = getVoterByWalletAddress(
+            _voterWalletAddress
+        );
+
+        for (uint256 voteId = 0; voteId < allVotes.length; voteId++) {
+            Vote memory runningVote = allVotes[voteId];
+
+            if (
+                runningVote.donationId == _donationId &&
+                runningVote.voterId == particularVoter.id
+            ) {
+                voteOfVoterForDonation = runningVote;
+                break;
+            }
+        }
+
+        return voteOfVoterForDonation;
+    }
+
+    function getPotentialAmountOfRewardOfDonationInWei(uint256 _donationId)
+        public
+        view
+        returns (uint256)
+    {
+        uint256 numberOfVotesForDonation = numbersOfVotesForDonations[
+            _donationId
+        ];
+        return
+            ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
+            numberOfVotesForDonation;
     }
 }
