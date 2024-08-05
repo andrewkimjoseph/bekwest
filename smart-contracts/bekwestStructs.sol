@@ -38,8 +38,9 @@ struct Applicant {
 
 struct Application {
     uint256 id;
-    uint256 donorId;
     uint256 applicantId;
+    address applicantWalletAddress;
+    uint256 donationId;
     string pitchStatement;
     bool isApproved;
     bool isNotBlank;
