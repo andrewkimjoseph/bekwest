@@ -64,18 +64,9 @@ struct Vote {
     bool isNotBlank;
 }
 
-struct Result {
-    uint256 id;
-    uint256 donationId;
-    uint256 applicantId;
-    address applicantWalletAddress;
-    uint256 voteCount;
-    bool isNotBlank;
-}
-
 struct Grant {
     uint256 id;
-    address donationId;
+    uint256 donationId;
     uint256 applicationId;
     uint256 applicantId;
     address applicantWalletAddress;
