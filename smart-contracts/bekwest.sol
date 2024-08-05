@@ -2,11 +2,14 @@
 
 pragma solidity 0.8.13;
 
-import {Donor, Donation, Applicant, Application, Voter, Vote, Result, Grant, Reward} from "./bekwestStructs.sol";
+import {Donor, Donation, Applicant, Application, Voter, Vote, Grant, Reward} from "./bekwestStructs.sol";
+import {ERC20} from "./bekwestInterfaces.sol";
 
 contract bekwest {
     address bekwestOwnerWalletAddress =
         0x6dce6E80b113607bABf97041A0C8C5ACCC4d1a4e;
+
+    ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
 
     // {address: donorWalletAddress}
     mapping(address => Donor) public allDonors;
@@ -32,12 +35,17 @@ contract bekwest {
     // {address: applicantWalletAddress}
     mapping(address => uint256) public numbersOfVotesOfVoters;
 
+    // {uint256: donorId, address: applicantWalletAddress}
+
+    mapping(uint256 => address) public granteesOfDonations;
+
     // {address: voterWalletAddress}
     mapping(address => Voter) public allVoters;
     Vote[] public allVotes;
 
-    // {uint256: donationId}
-    mapping(uint256 => Result[]) public allResultsOfDonation;
+    // {uint256: donationId, address: applicantWalletAddress, uint256: voteCount}
+    mapping(uint256 => mapping(address => uint256))
+        public allVoteCountsOfApplicantsOfDonation;
 
     Grant[] public allGrants;
 
@@ -56,7 +64,6 @@ contract bekwest {
     uint256 currentApplicationId;
     uint256 currentVoterId;
     uint256 currentVoteId;
-    uint256 currentResultId;
     uint256 currentGrantId;
     uint256 currentRewardId;
 
@@ -194,6 +201,14 @@ contract bekwest {
         returns (Donation memory)
     {
         return allDonations[_donationId];
+    }
+
+        function getApplicationById(uint256 _applicationId)
+        public
+        view
+        returns (Application memory)
+    {
+        return allApplications[_applicationId];
     }
 
     function getApplicantByWalletAddress(address _applicantWalletAddress)
@@ -603,28 +618,50 @@ contract bekwest {
             numberOfVotesForDonation;
     }
 
-
-    function makeVote(
+    function makeAVote(
         uint256 _donationId,
-        uint256 _applicantId,
+        uint256 _applicationId,
+        address _applicantWalletAddress,
         address _voterWalletAddress
     ) public {
-        uint256 newVoteId = currentVoteId;
+        if (
+            checkIfVoterHasAlreadyMadeAVoteInDonation(
+                _donationId,
+                _voterWalletAddress
+            )
+        ) revert();
 
+        Donation memory particularDonation = getDonationById(_donationId);
+        Application memory votedForApplication = getApplicationById(_applicationId);
+
+
+        if (particularDonation.votingIsClosed) revert();
+
+        uint256 newVoteId = currentVoteId;
+        // Create voter
         Voter memory votingVoter = getVoterByWalletAddress(_voterWalletAddress);
         Vote memory newVote;
         newVote.id = newVoteId;
         newVote.voterId = votingVoter.id;
-        newVote.applicantId = _applicantId;
+        newVote.applicantId = votedForApplication.applicantId;
         newVote.donationId = _donationId;
         newVote.isNotBlank = true;
 
+        uint256 donationId = particularDonation.id;
+
+        // Mark voter as having voted in this donation
+        votingInDonation[donationId][votingVoter.walletAddress] = true;
+
+        sendRewardToVoter(donationId, votingVoter.walletAddress);
+
+        // Update number of votes of donation
         uint256 currentNumberOfVotesOfDonation = numbersOfVotesForDonations[
-            _donationId
+            donationId
         ];
         uint256 newNumberOfVotesOfDonation = currentNumberOfVotesOfDonation + 1;
-        numbersOfVotesForDonations[_donationId] = newNumberOfVotesOfDonation;
+        numbersOfVotesForDonations[donationId] = newNumberOfVotesOfDonation;
 
+        // Update number of votes of this voter
         uint256 currentNumberOfVotesOfVoter = numbersOfVotesOfVoters[
             votingVoter.walletAddress
         ];
@@ -633,23 +670,143 @@ contract bekwest {
             votingVoter.walletAddress
         ] = newNumberOfVotesOfVoter;
 
-        votingInDonation[_donationId][votingVoter.walletAddress] = true;
+        // Update number of votes for this [Applicant]'s result
+        uint256 currentNumberOfVotesOfApplicant = allVoteCountsOfApplicantsOfDonation[
+                donationId
+            ][_applicantWalletAddress];
+        uint256 newNumberOfVotesOfApplicant = currentNumberOfVotesOfApplicant +
+            1;
+        allVoteCountsOfApplicantsOfDonation[donationId][
+            _voterWalletAddress
+        ] = newNumberOfVotesOfApplicant;
 
-        Result[] memory resultsOfVotingInDonation = allResultsOfDonation[_donationId];
-
-        if (resultsOfVotingInDonation.length == 0){
-            
+        // Create or update result
+        if (
+            newNumberOfVotesOfDonation == particularDonation.maxNumberOfVoters
+        ) {
+            // Close [Donation]
+            closeDonation(donationId);
+            // Pay out winning [Applicant]
+            sendGrantToWinningApplicant(donationId, votedForApplication.applicantId);
         }
-
     }
 
+    function sendGrantToWinningApplicant(
+        uint256 _donationId,
+        uint256 _applicantId
+    ) private {
+        Applicant memory winningApplicant = getWinningApplicantOfDonation(
+            _donationId
+        );
 
-    function getAllResultsOfVotingInDonation(uint256 _donationId)
+        uint256 amountGrantedInWei = getPotentialAmountOfGrantOfDonationInWei(
+            _donationId
+        );
+
+        uint256 newGrantId = currentGrantId;
+
+        Grant memory newGrant;
+        
+        newGrant.id = newGrantId;
+        newGrant.donationId = _donationId;
+        newGrant.applicantId = _applicantId;
+        newGrant.applicantWalletAddress = winningApplicant.walletAddress;
+        newGrant.amountGrantedInWei = amountGrantedInWei;
+        newGrant.isNotBlank = true;
+
+        allGrants.push(newGrant);
+        
+        cUSD.transfer(winningApplicant.walletAddress, amountGrantedInWei);
+        currentGrantId++;
+    }
+
+    function sendRewardToVoter(uint256 _donationId, address _voterWalletAddress)
+        private
+    {
+        uint256 newRewardId = currentRewardId;
+
+        Voter memory voterToBeRewarded = getVoterByWalletAddress(
+            _voterWalletAddress
+        );
+        uint256 amountRewardedInWei = getPotentialAmountOfRewardOfDonationInWei(
+            _donationId
+        );
+
+        Reward memory newReward;
+
+        newReward.id = newRewardId;
+        newReward.voterId = voterToBeRewarded.id;
+        newReward.voterWalletAddress = voterToBeRewarded.walletAddress;
+        newReward.donationId = _donationId;
+        newReward.amountRewardedInWei = amountRewardedInWei;
+        newReward.isNotBlank = true;
+
+        allRewards[_voterWalletAddress].push(newReward);
+
+        cUSD.transfer(_voterWalletAddress, amountRewardedInWei);
+
+        currentRewardId++;
+    }
+
+    function closeDonation(uint256 _donationId) private {
+        Donation memory donationToBeClosed = getDonationById(_donationId);
+        donationToBeClosed.votingIsClosed = true;
+        allDonations[_donationId] = donationToBeClosed;
+    }
+
+    function getVoteCountOfApplicantOfDonation(
+        uint256 _donationId,
+        address _applicantWalletAddress
+    ) public view returns (uint256) {
+        return
+            allVoteCountsOfApplicantsOfDonation[_donationId][
+                _applicantWalletAddress
+            ];
+    }
+
+    function getWinningApplicantOfDonation(uint256 _donationId)
         public
         view
-        returns (Result[] memory)
+        returns (Applicant memory)
     {
-       return allResultsOfDonation[_donationId];
+        uint256 runningVoteCount = 0;
+        Applicant memory winningApplicant;
+
+        Applicant[] memory applicantsOfDonation = getAllApplicantsOfDonation(
+            _donationId
+        );
+
+        // Iterate through the applicants array to find the one with the highest votes
+        for (
+            uint256 applicantId = 0;
+            applicantId < applicantsOfDonation.length;
+            applicantId++
+        ) {
+            Applicant memory runningApplicant = applicantsOfDonation[
+                applicantId
+            ];
+            uint256 voteCount = allVoteCountsOfApplicantsOfDonation[
+                _donationId
+            ][runningApplicant.walletAddress];
+
+            if (voteCount > runningVoteCount) {
+                runningVoteCount = voteCount;
+                winningApplicant = applicantsOfDonation[applicantId];
+            }
+        }
+
+        return winningApplicant;
     }
 
+    function getGranteeOfDonation(uint256 _donationId)
+        public
+        view
+        returns (Applicant memory)
+    {
+        address applicantWalletAddress = granteesOfDonations[_donationId];
+        Applicant memory grantee = getApplicantByWalletAddress(
+            applicantWalletAddress
+        );
+        return grantee;
+    }
 }

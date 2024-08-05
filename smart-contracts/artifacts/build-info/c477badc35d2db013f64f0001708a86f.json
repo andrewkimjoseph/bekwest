@@ -1,5 +1,5 @@
 {
-	"id": "43b28de1fb484b5c53adaadbd294afb9",
+	"id": "c477badc35d2db013f64f0001708a86f",
 	"_format": "hh-sol-build-info-1",
 	"solcVersion": "0.8.13",
 	"solcLongVersion": "0.8.13+commit.abaa5c0e",
@@ -7,7 +7,7 @@
 		"language": "Solidity",
 		"sources": {
 			"smart-contracts/bekwestStructs.sol": {
-				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.8.13;\n\nstruct Donor {\n    uint256 id;\n    address walletAddress;\n    string adjective;\n    string mainIndustryOfInterest;\n    uint256 numberOfDonationsCreated;\n    bool isNotBlank;\n}\n\nstruct Donation {\n    uint256 id;\n    uint256 donorId;\n    address donorWalletAddress;\n    string topic;\n    string industry;\n    uint256 maxNumberOfApplications;\n    uint256 maxNumberOfVoters;\n    uint256 amountDonatedInWei;\n    bool applicationIsClosed;\n    bool votingIsClosed;\n    bool isNotBlank;\n}\n\nstruct Applicant {\n    uint256 id;\n    uint256 applicantId;\n    address walletAddress;\n    string adjective;\n    string gender;\n    string countryOfResidence;\n    string ageBracket;\n    bool isNotBlank;\n}\n\nstruct Application {\n    uint256 id;\n    uint256 applicantId;\n    address applicantWalletAddress;\n    uint256 donationId;\n    string pitchStatement;\n    bool isApproved;\n    bool isNotBlank;\n}\n\nstruct Voter {\n    uint256 id;\n    address walletAddress;\n    string adjective;\n    string gender;\n    string countryOfResidence;\n    bool isNotBlank;\n}\n\nstruct Vote {\n    uint256 id;\n    uint256 voterId;\n    uint256 applicantId;\n    uint256 donationId;\n    bool isRewarded;\n    bool isNotBlank;\n}\n\nstruct Result {\n    uint256 id;\n    uint256 donationId;\n    uint256 applicantId;\n    address applicantWalletAddress;\n    uint256 voteCount;\n    bool isNotBlank;\n}\n\nstruct Grant {\n    uint256 id;\n    address donationId;\n    uint256 applicationId;\n    uint256 applicantId;\n    address applicantWalletAddress;\n    uint256 amountGrantedInWei;\n    bool isNotBlank;\n}\n\nstruct Reward {\n    uint256 id;\n    uint256 voterId;\n    address voterWalletAddress;\n    uint256 donationId;\n    uint256 amountRewardedInWei;\n    bool isNotBlank;\n}\n"
+				"content": "// SPDX-License-Identifier: MIT\n\npragma solidity 0.8.13;\n\nstruct Donor {\n    uint256 id;\n    address walletAddress;\n    string adjective;\n    string mainIndustryOfInterest;\n    uint256 numberOfDonationsCreated;\n    bool isNotBlank;\n}\n\nstruct Donation {\n    uint256 id;\n    uint256 donorId;\n    address donorWalletAddress;\n    string topic;\n    string industry;\n    uint256 maxNumberOfApplications;\n    uint256 maxNumberOfVoters;\n    uint256 amountDonatedInWei;\n    bool applicationIsClosed;\n    bool votingIsClosed;\n    bool isNotBlank;\n}\n\nstruct Applicant {\n    uint256 id;\n    uint256 applicantId;\n    address walletAddress;\n    string adjective;\n    string gender;\n    string countryOfResidence;\n    string ageBracket;\n    bool isNotBlank;\n}\n\nstruct Application {\n    uint256 id;\n    uint256 applicantId;\n    address applicantWalletAddress;\n    uint256 donationId;\n    string pitchStatement;\n    bool isApproved;\n    bool isNotBlank;\n}\n\nstruct Voter {\n    uint256 id;\n    address walletAddress;\n    string adjective;\n    string gender;\n    string countryOfResidence;\n    bool isNotBlank;\n}\n\nstruct Vote {\n    uint256 id;\n    uint256 voterId;\n    uint256 applicantId;\n    uint256 donationId;\n    bool isRewarded;\n    bool isNotBlank;\n}\n\nstruct Grant {\n    uint256 id;\n    uint256 donationId;\n    uint256 applicationId;\n    uint256 applicantId;\n    address applicantWalletAddress;\n    uint256 amountGrantedInWei;\n    bool isNotBlank;\n}\n\nstruct Reward {\n    uint256 id;\n    uint256 voterId;\n    address voterWalletAddress;\n    uint256 donationId;\n    uint256 amountRewardedInWei;\n    bool isNotBlank;\n}\n"
 			}
 		},
 		"settings": {
@@ -57,13 +57,10 @@
 							14
 						],
 						"Grant": [
-							123
-						],
-						"Result": [
-							108
+							110
 						],
 						"Reward": [
-							136
+							123
 						],
 						"Vote": [
 							95
@@ -72,7 +69,7 @@
 							82
 						]
 					},
-					"id": 137,
+					"id": 124,
 					"license": "MIT",
 					"nodeType": "SourceUnit",
 					"nodes": [
@@ -257,7 +254,7 @@
 							"name": "Donor",
 							"nameLocation": "65:5:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
+							"scope": 124,
 							"src": "58:175:0",
 							"visibility": "public"
 						},
@@ -567,7 +564,7 @@
 							"name": "Donation",
 							"nameLocation": "242:8:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
+							"scope": 124,
 							"src": "235:303:0",
 							"visibility": "public"
 						},
@@ -796,7 +793,7 @@
 							"name": "Applicant",
 							"nameLocation": "547:9:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
+							"scope": 124,
 							"src": "540:204:0",
 							"visibility": "public"
 						},
@@ -998,7 +995,7 @@
 							"name": "Application",
 							"nameLocation": "753:11:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
+							"scope": 124,
 							"src": "746:192:0",
 							"visibility": "public"
 						},
@@ -1173,7 +1170,7 @@
 							"name": "Voter",
 							"nameLocation": "947:5:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
+							"scope": 124,
 							"src": "940:152:0",
 							"visibility": "public"
 						},
@@ -1347,23 +1344,23 @@
 							"name": "Vote",
 							"nameLocation": "1101:4:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
+							"scope": 124,
 							"src": "1094:143:0",
 							"visibility": "public"
 						},
 						{
-							"canonicalName": "Result",
-							"id": 108,
+							"canonicalName": "Grant",
+							"id": 110,
 							"members": [
 								{
 									"constant": false,
 									"id": 97,
 									"mutability": "mutable",
 									"name": "id",
-									"nameLocation": "1267:2:0",
+									"nameLocation": "1266:2:0",
 									"nodeType": "VariableDeclaration",
-									"scope": 108,
-									"src": "1259:10:0",
+									"scope": 110,
+									"src": "1258:10:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1374,7 +1371,7 @@
 										"id": 96,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1259:7:0",
+										"src": "1258:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1387,10 +1384,10 @@
 									"id": 99,
 									"mutability": "mutable",
 									"name": "donationId",
-									"nameLocation": "1283:10:0",
+									"nameLocation": "1282:10:0",
 									"nodeType": "VariableDeclaration",
-									"scope": 108,
-									"src": "1275:18:0",
+									"scope": 110,
+									"src": "1274:18:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1401,7 +1398,7 @@
 										"id": 98,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1275:7:0",
+										"src": "1274:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1413,11 +1410,11 @@
 									"constant": false,
 									"id": 101,
 									"mutability": "mutable",
-									"name": "applicantId",
-									"nameLocation": "1307:11:0",
+									"name": "applicationId",
+									"nameLocation": "1306:13:0",
 									"nodeType": "VariableDeclaration",
-									"scope": 108,
-									"src": "1299:19:0",
+									"scope": 110,
+									"src": "1298:21:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1428,7 +1425,7 @@
 										"id": 100,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1299:7:0",
+										"src": "1298:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1440,26 +1437,25 @@
 									"constant": false,
 									"id": 103,
 									"mutability": "mutable",
-									"name": "applicantWalletAddress",
-									"nameLocation": "1332:22:0",
+									"name": "applicantId",
+									"nameLocation": "1333:11:0",
 									"nodeType": "VariableDeclaration",
-									"scope": 108,
-									"src": "1324:30:0",
+									"scope": 110,
+									"src": "1325:19:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
-										"typeIdentifier": "t_address",
-										"typeString": "address"
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
 									},
 									"typeName": {
 										"id": 102,
-										"name": "address",
+										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1324:7:0",
-										"stateMutability": "nonpayable",
+										"src": "1325:7:0",
 										"typeDescriptions": {
-											"typeIdentifier": "t_address",
-											"typeString": "address"
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
 										}
 									},
 									"visibility": "internal"
@@ -1468,104 +1464,11 @@
 									"constant": false,
 									"id": 105,
 									"mutability": "mutable",
-									"name": "voteCount",
-									"nameLocation": "1368:9:0",
+									"name": "applicantWalletAddress",
+									"nameLocation": "1358:22:0",
 									"nodeType": "VariableDeclaration",
-									"scope": 108,
-									"src": "1360:17:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 104,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1360:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 107,
-									"mutability": "mutable",
-									"name": "isNotBlank",
-									"nameLocation": "1388:10:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 108,
-									"src": "1383:15:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_bool",
-										"typeString": "bool"
-									},
-									"typeName": {
-										"id": 106,
-										"name": "bool",
-										"nodeType": "ElementaryTypeName",
-										"src": "1383:4:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_bool",
-											"typeString": "bool"
-										}
-									},
-									"visibility": "internal"
-								}
-							],
-							"name": "Result",
-							"nameLocation": "1246:6:0",
-							"nodeType": "StructDefinition",
-							"scope": 137,
-							"src": "1239:162:0",
-							"visibility": "public"
-						},
-						{
-							"canonicalName": "Grant",
-							"id": 123,
-							"members": [
-								{
-									"constant": false,
-									"id": 110,
-									"mutability": "mutable",
-									"name": "id",
-									"nameLocation": "1430:2:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 123,
-									"src": "1422:10:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 109,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1422:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 112,
-									"mutability": "mutable",
-									"name": "donationId",
-									"nameLocation": "1446:10:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 123,
-									"src": "1438:18:0",
+									"scope": 110,
+									"src": "1350:30:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1573,10 +1476,10 @@
 										"typeString": "address"
 									},
 									"typeName": {
-										"id": 111,
+										"id": 104,
 										"name": "address",
 										"nodeType": "ElementaryTypeName",
-										"src": "1438:7:0",
+										"src": "1350:7:0",
 										"stateMutability": "nonpayable",
 										"typeDescriptions": {
 											"typeIdentifier": "t_address",
@@ -1587,13 +1490,106 @@
 								},
 								{
 									"constant": false,
-									"id": 114,
+									"id": 107,
 									"mutability": "mutable",
-									"name": "applicationId",
-									"nameLocation": "1470:13:0",
+									"name": "amountGrantedInWei",
+									"nameLocation": "1394:18:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 110,
+									"src": "1386:26:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 106,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "1386:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 109,
+									"mutability": "mutable",
+									"name": "isNotBlank",
+									"nameLocation": "1423:10:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 110,
+									"src": "1418:15:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_bool",
+										"typeString": "bool"
+									},
+									"typeName": {
+										"id": 108,
+										"name": "bool",
+										"nodeType": "ElementaryTypeName",
+										"src": "1418:4:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_bool",
+											"typeString": "bool"
+										}
+									},
+									"visibility": "internal"
+								}
+							],
+							"name": "Grant",
+							"nameLocation": "1246:5:0",
+							"nodeType": "StructDefinition",
+							"scope": 124,
+							"src": "1239:197:0",
+							"visibility": "public"
+						},
+						{
+							"canonicalName": "Reward",
+							"id": 123,
+							"members": [
+								{
+									"constant": false,
+									"id": 112,
+									"mutability": "mutable",
+									"name": "id",
+									"nameLocation": "1466:2:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 123,
-									"src": "1462:21:0",
+									"src": "1458:10:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 111,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "1458:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 114,
+									"mutability": "mutable",
+									"name": "voterId",
+									"nameLocation": "1482:7:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 123,
+									"src": "1474:15:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1604,7 +1600,7 @@
 										"id": 113,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1462:7:0",
+										"src": "1474:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1616,38 +1612,11 @@
 									"constant": false,
 									"id": 116,
 									"mutability": "mutable",
-									"name": "applicantId",
-									"nameLocation": "1497:11:0",
+									"name": "voterWalletAddress",
+									"nameLocation": "1503:18:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 123,
-									"src": "1489:19:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 115,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1489:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 118,
-									"mutability": "mutable",
-									"name": "applicantWalletAddress",
-									"nameLocation": "1522:22:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 123,
-									"src": "1514:30:0",
+									"src": "1495:26:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1655,10 +1624,10 @@
 										"typeString": "address"
 									},
 									"typeName": {
-										"id": 117,
+										"id": 115,
 										"name": "address",
 										"nodeType": "ElementaryTypeName",
-										"src": "1514:7:0",
+										"src": "1495:7:0",
 										"stateMutability": "nonpayable",
 										"typeDescriptions": {
 											"typeIdentifier": "t_address",
@@ -1669,13 +1638,40 @@
 								},
 								{
 									"constant": false,
-									"id": 120,
+									"id": 118,
 									"mutability": "mutable",
-									"name": "amountGrantedInWei",
-									"nameLocation": "1558:18:0",
+									"name": "donationId",
+									"nameLocation": "1535:10:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 123,
-									"src": "1550:26:0",
+									"src": "1527:18:0",
+									"stateVariable": false,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 117,
+										"name": "uint256",
+										"nodeType": "ElementaryTypeName",
+										"src": "1527:7:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"visibility": "internal"
+								},
+								{
+									"constant": false,
+									"id": 120,
+									"mutability": "mutable",
+									"name": "amountRewardedInWei",
+									"nameLocation": "1559:19:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 123,
+									"src": "1551:27:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1686,7 +1682,7 @@
 										"id": 119,
 										"name": "uint256",
 										"nodeType": "ElementaryTypeName",
-										"src": "1550:7:0",
+										"src": "1551:7:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_uint256",
 											"typeString": "uint256"
@@ -1699,10 +1695,10 @@
 									"id": 122,
 									"mutability": "mutable",
 									"name": "isNotBlank",
-									"nameLocation": "1587:10:0",
+									"nameLocation": "1589:10:0",
 									"nodeType": "VariableDeclaration",
 									"scope": 123,
-									"src": "1582:15:0",
+									"src": "1584:15:0",
 									"stateVariable": false,
 									"storageLocation": "default",
 									"typeDescriptions": {
@@ -1713,182 +1709,7 @@
 										"id": 121,
 										"name": "bool",
 										"nodeType": "ElementaryTypeName",
-										"src": "1582:4:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_bool",
-											"typeString": "bool"
-										}
-									},
-									"visibility": "internal"
-								}
-							],
-							"name": "Grant",
-							"nameLocation": "1410:5:0",
-							"nodeType": "StructDefinition",
-							"scope": 137,
-							"src": "1403:197:0",
-							"visibility": "public"
-						},
-						{
-							"canonicalName": "Reward",
-							"id": 136,
-							"members": [
-								{
-									"constant": false,
-									"id": 125,
-									"mutability": "mutable",
-									"name": "id",
-									"nameLocation": "1630:2:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 136,
-									"src": "1622:10:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 124,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1622:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 127,
-									"mutability": "mutable",
-									"name": "voterId",
-									"nameLocation": "1646:7:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 136,
-									"src": "1638:15:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 126,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1638:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 129,
-									"mutability": "mutable",
-									"name": "voterWalletAddress",
-									"nameLocation": "1667:18:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 136,
-									"src": "1659:26:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_address",
-										"typeString": "address"
-									},
-									"typeName": {
-										"id": 128,
-										"name": "address",
-										"nodeType": "ElementaryTypeName",
-										"src": "1659:7:0",
-										"stateMutability": "nonpayable",
-										"typeDescriptions": {
-											"typeIdentifier": "t_address",
-											"typeString": "address"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 131,
-									"mutability": "mutable",
-									"name": "donationId",
-									"nameLocation": "1699:10:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 136,
-									"src": "1691:18:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 130,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1691:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 133,
-									"mutability": "mutable",
-									"name": "amountRewardedInWei",
-									"nameLocation": "1723:19:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 136,
-									"src": "1715:27:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_uint256",
-										"typeString": "uint256"
-									},
-									"typeName": {
-										"id": 132,
-										"name": "uint256",
-										"nodeType": "ElementaryTypeName",
-										"src": "1715:7:0",
-										"typeDescriptions": {
-											"typeIdentifier": "t_uint256",
-											"typeString": "uint256"
-										}
-									},
-									"visibility": "internal"
-								},
-								{
-									"constant": false,
-									"id": 135,
-									"mutability": "mutable",
-									"name": "isNotBlank",
-									"nameLocation": "1753:10:0",
-									"nodeType": "VariableDeclaration",
-									"scope": 136,
-									"src": "1748:15:0",
-									"stateVariable": false,
-									"storageLocation": "default",
-									"typeDescriptions": {
-										"typeIdentifier": "t_bool",
-										"typeString": "bool"
-									},
-									"typeName": {
-										"id": 134,
-										"name": "bool",
-										"nodeType": "ElementaryTypeName",
-										"src": "1748:4:0",
+										"src": "1584:4:0",
 										"typeDescriptions": {
 											"typeIdentifier": "t_bool",
 											"typeString": "bool"
@@ -1898,14 +1719,14 @@
 								}
 							],
 							"name": "Reward",
-							"nameLocation": "1609:6:0",
+							"nameLocation": "1445:6:0",
 							"nodeType": "StructDefinition",
-							"scope": 137,
-							"src": "1602:164:0",
+							"scope": 124,
+							"src": "1438:164:0",
 							"visibility": "public"
 						}
 					],
-					"src": "33:1734:0"
+					"src": "33:1570:0"
 				},
 				"id": 0
 			}
