@@ -8,7 +8,7 @@ struct Donor {
     string adjective;
     string mainIndustryOfInterest;
     uint256 numberOfDonationsCreated;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Donation {
@@ -23,7 +23,7 @@ struct Donation {
     uint256 currentNumberOfApplications;
     bool applicationIsClosed;
     bool votingIsClosed;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Applicant {
@@ -34,7 +34,7 @@ struct Applicant {
     string gender;
     string countryOfResidence;
     string ageBracket;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Application {
@@ -43,7 +43,7 @@ struct Application {
     uint256 applicantId;
     string pitchStatement;
     bool isApproved;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Voter {
@@ -52,7 +52,7 @@ struct Voter {
     string adjective;
     string gender;
     string countryOfResidence;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Vote {
@@ -61,7 +61,7 @@ struct Vote {
     uint256 applicantId;
     uint256 donationId;
     bool isRewarded;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Result {
@@ -70,7 +70,7 @@ struct Result {
     uint256 applicantId;
     address applicantWalletAddress;
     uint256 voteCount;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Grant {
@@ -78,7 +78,7 @@ struct Grant {
     uint256 applicationId;
     address donationId;
     uint256 amountGrantedInWei;
-    bool isBlank;
+    bool isNotBlank;
 }
 
 struct Reward {
@@ -86,5 +86,5 @@ struct Reward {
     address voterWalletAddress;
     uint256 donationId;
     uint256 amountGrantedInWei;
-    bool isBlank;
+    bool isNotBlank;
 }

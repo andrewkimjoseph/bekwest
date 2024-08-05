@@ -33,11 +33,19 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0x4fa206714edec58dbb96c0a31f5e7545e63f09c23692b6c0ec77465c9202a05a",
+			"keccak256": "0xdcb3c66cda001567250e9e9f921b5e990a784f5440ec842f79e045dad092af53",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://714a82cfe6bb5f69e7802e4d1da499a61b8ec0e4e7bbae7ba931afa6932ec14d",
-				"dweb:/ipfs/QmPPEMu796zJnd6bVQUmuNWuzvVphGTPM3mWzyA747QhTg"
+				"bzz-raw://cf344da524ff40389c577b69b068b119569b6d7f6c70d30067956ccb6eb136aa",
+				"dweb:/ipfs/QmfZ2nDkt7LKrhQWn8dA85WxDuNdzCkbCkReE9WDrLHPdq"
+			]
+		},
+		"smart-contracts/bekwestStructs.sol": {
+			"keccak256": "0xf10725dea8a71e9415b67544bb4c1be496ebde575477af14faf642baff57e9a1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://5a796366ac2635a62d835e8372908d73aaa976ba407e4b62b8f9733e4fb50e22",
+				"dweb:/ipfs/QmdYJGs3NXzCEFiwJVPR266emKf9XjtovqLkZqgZUHhN2B"
 			]
 		}
 	},
