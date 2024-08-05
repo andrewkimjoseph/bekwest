@@ -20,7 +20,6 @@ struct Donation {
     uint256 maxNumberOfApplications;
     uint256 maxNumberOfVoters;
     uint256 amountDonatedInWei;
-    uint256 currentNumberOfApplications;
     bool applicationIsClosed;
     bool votingIsClosed;
     bool isNotBlank;
