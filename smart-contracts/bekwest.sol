@@ -10,7 +10,15 @@ contract bekwest {
 
     // {address: donorWalletAddress}
     mapping(address => Donor) private allDonors;
+
+    // {address: donorWalletAddress}
+    mapping(address => uint256) private numbersOfDonationsCreatedByDonors;
+
     Donation[] private allDonations;
+
+
+    // {uint256: donorId}
+    mapping(uint256 => uint256) private numbersOfApplicationsForDonations;
 
     // {address: applicantWalletAddress}
     mapping(address => Applicant) private allApplicants;
@@ -48,7 +56,7 @@ contract bekwest {
     uint256 currentGrantId;
     uint256 currentRewardId;
 
-        function checkIfDonorExists(address _donorWalletAddress)
+    function checkIfDonorExists(address _donorWalletAddress)
         public
         view
         returns (bool)
@@ -70,5 +78,96 @@ contract bekwest {
         returns (bool)
     {
         return allVoters[_voterWalletAddress].isNotBlank;
+    }
+
+    function createDonorAccount(
+        address _donorWalletAddress,
+        string memory _adjective,
+        string memory _mainIndustryOfInterest
+    ) public {
+        uint256 newDonorId = currentDonorId;
+
+        Donor memory newDonor;
+
+        newDonor.id = newDonorId;
+        newDonor.walletAddress = _donorWalletAddress;
+        newDonor.adjective = _adjective;
+        newDonor.mainIndustryOfInterest = _mainIndustryOfInterest;
+        newDonor.numberOfDonationsCreated = 0;
+        newDonor.isNotBlank = true;
+
+        allDonors[_donorWalletAddress] = newDonor;
+        currentDonorId++;
+    }
+
+    function getDonorbyWalletAddress(address _donorWalletAddress)
+        public
+        view
+        returns (Donor memory)
+    {
+        return allDonors[_donorWalletAddress];
+    }
+
+    function getAllDonationsCreatedByDonor(address _donorWalletAddress)
+        public
+        view
+        returns (Donation[] memory)
+    {
+        uint256 numberOfDonationsCreatedByParticipant = numbersOfDonationsCreatedByDonors[
+                _donorWalletAddress
+            ];
+
+        Donation[] memory allDonationsCreatedByDonor = new Donation[](
+            numberOfDonationsCreatedByParticipant
+        );
+
+        uint256 donationIndex = 0;
+
+        for (
+            uint256 donationId = 0;
+            donationId < allDonations.length;
+            donationId++
+        ) {
+            Donation memory runningDonation = allDonations[donationId];
+
+            if (runningDonation.donorWalletAddress == _donorWalletAddress) {
+                allDonationsCreatedByDonor[donationIndex] = runningDonation;
+                donationIndex++;
+
+                if (donationIndex == numberOfDonationsCreatedByParticipant) {
+                    break;
+                }
+            }
+        }
+
+        return allDonationsCreatedByDonor;
+    }
+
+    function createDonation(
+        uint256 _donorId,
+        address _donorWalletAddress,
+        string memory _topic,
+        string memory _industry,
+        uint256 _maxNumberOfApplications,
+        uint256 _maxNumberOfVoters,
+        uint256 _amountDonatedInWei
+    ) public {
+        uint256 newDonationId = currentDonationId;
+
+        Donation memory newDonation;
+
+        newDonation.id = newDonationId;
+        newDonation.donorId = _donorId;
+        newDonation.donorWalletAddress = _donorWalletAddress;
+        newDonation.topic = _topic;
+        newDonation.industry = _industry;
+        newDonation.maxNumberOfApplications = _maxNumberOfApplications;
+        newDonation.maxNumberOfVoters = _maxNumberOfVoters;
+        newDonation.amountDonatedInWei = _amountDonatedInWei;
+
+        allDonations.push(newDonation);
+
+
+        currentDonationId++;
     }
 }
