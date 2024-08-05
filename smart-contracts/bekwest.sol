@@ -9,47 +9,46 @@ contract bekwest {
         0x6dce6E80b113607bABf97041A0C8C5ACCC4d1a4e;
 
     // {address: donorWalletAddress}
-    mapping(address => Donor) private allDonors;
+    mapping(address => Donor) public allDonors;
 
     // {address: donorWalletAddress}
-    mapping(address => uint256) private numbersOfDonationsCreatedByDonors;
+    mapping(address => uint256) public numbersOfDonationsCreatedByDonors;
 
-    Donation[] private allDonations;
-
-    // {uint256: donorId}
-    mapping(uint256 => uint256) private numbersOfApplicationsForDonations;
+    Donation[] public allDonations;
 
     // {uint256: donorId}
-    mapping(uint256 => uint256) private numbersOfVotesForDonations;
+    mapping(uint256 => uint256) public numbersOfApplicationsForDonations;
+
+    // {uint256: donorId}
+    mapping(uint256 => uint256) public numbersOfVotesForDonations;
 
     // {address: applicantWalletAddress}
-    mapping(address => Applicant) private allApplicants;
-    Application[] private allApplications;
+    mapping(address => Applicant) public allApplicants;
+    Application[] public allApplications;
 
     // {address: applicantWalletAddress}
-    mapping(address => uint256) private numbersOfApplicationsOfApplicants;
+    mapping(address => uint256) public numbersOfApplicationsOfApplicants;
 
     // {address: applicantWalletAddress}
-    mapping(address => uint256) private numbersOfVotesOfVoters;
+    mapping(address => uint256) public numbersOfVotesOfVoters;
 
     // {address: voterWalletAddress}
-    mapping(address => Voter) private allVoters;
-    Vote[] private allVotes;
+    mapping(address => Voter) public allVoters;
+    Vote[] public allVotes;
 
     // {uint256: donationId}
-    mapping(uint256 => Result[]) private allResultsOfDonation;
+    mapping(uint256 => Result[]) public allResultsOfDonation;
 
-    Grant[] private allGrants;
+    Grant[] public allGrants;
 
     // {address: voterWalletAddress}
-    mapping(address => Reward[]) private allRewards;
+    mapping(address => Reward[]) public allRewards;
 
     // {uint256: donationId}, {address: applicantWalletAddress}
-    mapping(uint256 => mapping(address => bool))
-        private applicationsToDonations;
+    mapping(uint256 => mapping(address => bool)) public applicationsToDonations;
 
     // {uint256: donationId}, {address: voterWalletAddress}
-    mapping(uint256 => mapping(address => bool)) private votingInDonation;
+    mapping(uint256 => mapping(address => bool)) public votingInDonation;
 
     uint256 currentDonorId;
     uint256 currentDonationId;
@@ -603,4 +602,54 @@ contract bekwest {
             ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
             numberOfVotesForDonation;
     }
+
+
+    function makeVote(
+        uint256 _donationId,
+        uint256 _applicantId,
+        address _voterWalletAddress
+    ) public {
+        uint256 newVoteId = currentVoteId;
+
+        Voter memory votingVoter = getVoterByWalletAddress(_voterWalletAddress);
+        Vote memory newVote;
+        newVote.id = newVoteId;
+        newVote.voterId = votingVoter.id;
+        newVote.applicantId = _applicantId;
+        newVote.donationId = _donationId;
+        newVote.isNotBlank = true;
+
+        uint256 currentNumberOfVotesOfDonation = numbersOfVotesForDonations[
+            _donationId
+        ];
+        uint256 newNumberOfVotesOfDonation = currentNumberOfVotesOfDonation + 1;
+        numbersOfVotesForDonations[_donationId] = newNumberOfVotesOfDonation;
+
+        uint256 currentNumberOfVotesOfVoter = numbersOfVotesOfVoters[
+            votingVoter.walletAddress
+        ];
+        uint256 newNumberOfVotesOfVoter = currentNumberOfVotesOfVoter + 1;
+        numbersOfVotesOfVoters[
+            votingVoter.walletAddress
+        ] = newNumberOfVotesOfVoter;
+
+        votingInDonation[_donationId][votingVoter.walletAddress] = true;
+
+        Result[] memory resultsOfVotingInDonation = allResultsOfDonation[_donationId];
+
+        if (resultsOfVotingInDonation.length == 0){
+            
+        }
+
+    }
+
+
+    function getAllResultsOfVotingInDonation(uint256 _donationId)
+        public
+        view
+        returns (Result[] memory)
+    {
+       return allResultsOfDonation[_donationId];
+    }
+
 }
