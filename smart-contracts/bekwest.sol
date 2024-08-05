@@ -16,7 +16,6 @@ contract bekwest {
 
     Donation[] private allDonations;
 
-
     // {uint256: donorId}
     mapping(uint256 => uint256) private numbersOfApplicationsForDonations;
 
@@ -100,7 +99,7 @@ contract bekwest {
         currentDonorId++;
     }
 
-    function getDonorbyWalletAddress(address _donorWalletAddress)
+    function getDonorByWalletAddress(address _donorWalletAddress)
         public
         view
         returns (Donor memory)
@@ -165,9 +164,136 @@ contract bekwest {
         newDonation.maxNumberOfVoters = _maxNumberOfVoters;
         newDonation.amountDonatedInWei = _amountDonatedInWei;
 
+        uint256 currentNumberOfApplicationsForDonations = 0;
+        numbersOfApplicationsForDonations[
+            newDonationId
+        ] = currentNumberOfApplicationsForDonations;
+
+        uint256 currentNumberOfDonationsCreatedByDonor = numbersOfDonationsCreatedByDonors[
+                _donorWalletAddress
+            ];
+        uint256 newNumberOfDonationsCreatedByDonor = currentNumberOfDonationsCreatedByDonor +
+                1;
+        numbersOfDonationsCreatedByDonors[
+            _donorWalletAddress
+        ] = newNumberOfDonationsCreatedByDonor;
+
         allDonations.push(newDonation);
 
-
         currentDonationId++;
+    }
+
+    function getDonationById(uint256 _donationId)
+        public
+        view
+        returns (Donation memory)
+    {
+        return allDonations[_donationId];
+    }
+
+    function getApplicantByWalletAddress(address _applicantWalletAddress)
+        public
+        view
+        returns (Applicant memory)
+    {
+        return allApplicants[_applicantWalletAddress];
+    }
+
+    function getAllApplicantsOfDonation(uint256 _donationId)
+        public
+        view
+        returns (Applicant[] memory)
+    {
+        uint256 numberOfApplicationsOfDonation = numbersOfApplicationsForDonations[
+                _donationId
+            ];
+
+        Applicant[] memory allApplicantsOfDonations = new Applicant[](
+            numberOfApplicationsOfDonation
+        );
+
+        uint256 applicantIndex = 0;
+
+        for (
+            uint256 applicationId = 0;
+            applicationId < allApplications.length;
+            applicationId++
+        ) {
+            Application memory runningApplicaton = allApplications[
+                applicationId
+            ];
+
+            if (runningApplicaton.donationId == _donationId) {
+                allApplicantsOfDonations[
+                    applicantIndex
+                ] = getApplicantByWalletAddress(
+                    runningApplicaton.applicantWalletAddress
+                );
+
+                applicantIndex++;
+
+                if (applicantIndex == numberOfApplicationsOfDonation) {
+                    break;
+                }
+            }
+        }
+
+        return allApplicantsOfDonations;
+    }
+
+    function getAllApplicationsOfDonation(uint256 _donationId)
+        public
+        view
+        returns (Application[] memory)
+    {
+        uint256 numberOfApplicationsOfDonation = numbersOfApplicationsForDonations[
+                _donationId
+            ];
+
+        Application[] memory allApplicationsOfDonations = new Application[](
+            numberOfApplicationsOfDonation
+        );
+
+        uint256 applicationIndex = 0;
+
+        for (
+            uint256 applicationId = 0;
+            applicationId < allApplications.length;
+            applicationId++
+        ) {
+            Application memory runningApplicaton = allApplications[
+                applicationId
+            ];
+
+            if (runningApplicaton.donationId == _donationId) {
+                allApplicationsOfDonations[
+                    applicationIndex
+                ] = runningApplicaton;
+
+                applicationIndex++;
+
+                if (applicationIndex == numberOfApplicationsOfDonation) {
+                    break;
+                }
+            }
+        }
+
+        return allApplicationsOfDonations;
+    }
+
+    function getApplicantOfDonation(uint256 _applicationId)
+        public
+        view
+        returns (Applicant memory)
+    {
+        Application memory applicationOfDonation = allApplications[
+            _applicationId
+        ];
+
+        Applicant memory applicantOfDonation = getApplicantByWalletAddress(
+            applicationOfDonation.applicantWalletAddress
+        );
+
+        return applicantOfDonation;
     }
 }
