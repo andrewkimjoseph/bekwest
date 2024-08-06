@@ -2,7 +2,7 @@
 
 pragma solidity 0.8.13;
 
-import {Donor, Donation, Applicant, Application, Voter, Vote, Grant, Reward} from "./bekwestStructs.sol";
+import {Donor, Donation, Applicant, Application, Voter, Result, Vote, Grant, Reward} from "./bekwestStructs.sol";
 import {ERC20} from "./bekwestInterfaces.sol";
 
 contract bekwest {
@@ -866,12 +866,52 @@ contract bekwest {
         );
         return grantee;
     }
+
+    function getLatestResultsOfDonation(uint256 _donationId)
+        public
+        view
+        returns (Result[] memory)
+    {
+        Applicant[] memory applicantsOfDonation = getAllApplicantsOfDonation(
+            _donationId
+        );
+
+        Result[] memory latestResultsOfDonation = new Result[](
+            applicantsOfDonation.length
+        );
+
+        for (
+            uint256 applicantId = 0;
+            applicantId < applicantsOfDonation.length;
+            applicantId++
+        ) {
+            Applicant memory runningApplicant = applicantsOfDonation[
+                applicantId
+            ];
+
+            uint256 latestVoteCountOfApplicant = allVoteCountsOfApplicantsOfDonation[
+                    _donationId
+                ][runningApplicant.walletAddress];
+
+            Result memory newResult;
+
+            newResult.id = applicantId;
+            newResult.donationId = _donationId;
+            newResult.applicantId = runningApplicant.id;
+            newResult.voteCount = latestVoteCountOfApplicant;
+            newResult.isNotBlank = true;
+
+            latestResultsOfDonation[applicantId] = newResult;
+        }
+
+        return latestResultsOfDonation;
+    }
 }
 
 //  First deployment address -   0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
 //  Second deployment address -  0x374E05c7AFB37B286EeD7F421a26494AdDA20D8A
 //  FINAL FINAL                  0x19E0FcBd394F174aAa0840D4871622742fC3883c
-//  
+//
 //  Donor wallet address -       0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
 //  ...
 //  Applicant wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
