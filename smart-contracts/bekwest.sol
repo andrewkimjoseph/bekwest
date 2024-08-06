@@ -190,7 +190,6 @@ contract bekwest {
             _donorWalletAddress
         ] = newNumberOfDonationsCreatedByDonor;
 
-
         currentDonationId++;
     }
 
@@ -316,12 +315,19 @@ contract bekwest {
         return applicantOfDonation;
     }
 
-    function approveApplication(uint256 _applicationId) public {
+    function approveApplication(uint256 _applicationId, uint256 _donationId)
+        public
+    {
         Application memory applicationToBeApproved = allApplications[
             _applicationId
         ];
-        applicationToBeApproved.isApproved = true;
-        allApplications[_applicationId] = applicationToBeApproved;
+
+        if (applicationToBeApproved.donationId == _donationId) {
+            applicationToBeApproved.isApproved = true;
+            allApplications[_applicationId] = applicationToBeApproved;
+        } else {
+            revert();
+        }
     }
 
     function createApplicantAccount(

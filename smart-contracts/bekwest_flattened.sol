@@ -125,8 +125,7 @@ pragma solidity 0.8.13;
 
 
 contract bekwest {
-    address bekwestWalletAddress =
-        0xE49B05F2c7DD51f61E415E1DFAc10B80074B001A;
+    address bekwestWalletAddress = 0xE49B05F2c7DD51f61E415E1DFAc10B80074B001A;
 
     // cUSD token address on both Celo Alfajores and Celo Dango
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
@@ -294,10 +293,12 @@ contract bekwest {
         newDonation.industry = _industry;
         newDonation.maxNumberOfApplications = _maxNumberOfApplications;
         newDonation.maxNumberOfVotes = _maxNumberOfVotes;
-        allDonations.push(newDonation);
+        newDonation.isNotBlank = true;
 
         uint256 amountDonatedInWei = _amountDonated * cUSDDecimalPlaces;
         newDonation.amountDonatedInWei = amountDonatedInWei;
+
+        allDonations.push(newDonation);
 
         uint256 currentNumberOfDonationsCreatedByDonor = numbersOfDonationsCreatedByDonors[
                 _donorWalletAddress
@@ -308,7 +309,6 @@ contract bekwest {
             _donorWalletAddress
         ] = newNumberOfDonationsCreatedByDonor;
 
-        allDonations.push(newDonation);
 
         currentDonationId++;
     }
@@ -593,6 +593,10 @@ contract bekwest {
         address _applicantWalletAddress,
         string memory _pitchStatement
     ) public {
+        Donation memory appliedDonation = getDonationById(_donationId);
+
+        if (appliedDonation.applicationIsClosed) revert();
+
         if (
             checkIfApplicantHasAlreadyMadeAnApplicationToDonation(
                 _donationId,
@@ -633,6 +637,13 @@ contract bekwest {
         currentApplicationId++;
 
         // TO DO - Close application
+
+        if (
+            newNumberOfApplicationsForDonation ==
+            appliedDonation.maxNumberOfApplications
+        ) {
+            closeApplicationOfDonation(_donationId);
+        }
     }
 
     function createVoterAccount(
@@ -777,7 +788,7 @@ contract bekwest {
             )
         ) revert();
 
-        // If voting is not closed and voter has not yet casted their vote
+        // If voting is not closed and voter has not yet casted their vote, proceed
 
         Application memory votedForApplication = getApplicationById(
             _applicationId
@@ -826,14 +837,12 @@ contract bekwest {
         uint256 newNumberOfVotesOfApplicant = currentNumberOfVotesOfApplicant +
             1;
         allVoteCountsOfApplicantsOfDonation[donationId][
-            _voterWalletAddress
+            votedForApplication.applicantWalletAddress
         ] = newNumberOfVotesOfApplicant;
 
-        if (
-            newNumberOfVotesOfDonation == particularDonation.maxNumberOfVotes
-        ) {
+        if (newNumberOfVotesOfDonation == particularDonation.maxNumberOfVotes) {
             // Close [Donation]
-            closeDonation(donationId);
+            closeVotingOfDonation(donationId);
             // Pay out winning [Applicant]
             sendGrantToWinningApplicant(
                 donationId,
@@ -903,16 +912,22 @@ contract bekwest {
         currentRewardId++;
     }
 
-    function sendRewardToBekwest(
-        uint256 _donationId
-    ) private {
-        uint256 amountRewardedInWei = getPotentialAmountOfRewardToBekwest(_donationId);
+    function sendRewardToBekwest(uint256 _donationId) private {
+        uint256 amountRewardedInWei = getPotentialAmountOfRewardToBekwest(
+            _donationId
+        );
         cUSD.transfer(bekwestWalletAddress, amountRewardedInWei);
     }
 
-    function closeDonation(uint256 _donationId) private {
+    function closeVotingOfDonation(uint256 _donationId) private {
         Donation memory donationToBeClosed = getDonationById(_donationId);
         donationToBeClosed.votingIsClosed = true;
+        allDonations[_donationId] = donationToBeClosed;
+    }
+
+    function closeApplicationOfDonation(uint256 _donationId) private {
+        Donation memory donationToBeClosed = getDonationById(_donationId);
+        donationToBeClosed.applicationIsClosed = true;
         allDonations[_donationId] = donationToBeClosed;
     }
 
