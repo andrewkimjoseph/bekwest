@@ -640,7 +640,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_amountDonatedInWei",
+						"name": "_amountDonated",
 						"type": "uint256"
 					}
 				],
@@ -2089,11 +2089,11 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0xe44cc377af75fc43f9c43f3289a81fb3766279da13b0ff1e7fcf51d6fd30b58a",
+			"keccak256": "0xd672235b0554dba68e8a104cc606435c2cdf1462ae560c95282f74bda2695183",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2bf1d9afa3adc9cae0d3becc5a207a204724f6d40478f13edf3e05b3cfd7d4bd",
-				"dweb:/ipfs/QmVt4g9QVxAgB8ieTHmeWQezCoytctoA7qVFWkmw1Nkc5H"
+				"bzz-raw://35ffbbd537ace33b005613ef0f552cebd7282235a2345f28741503e48bd1d1c2",
+				"dweb:/ipfs/Qmb4j6zXKCWKvxtxBtmyX6rj3sk8m51kvZQ6MxEwnbwka2"
 			]
 		},
 		"smart-contracts/bekwestInterfaces.sol": {
