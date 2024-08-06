@@ -2113,11 +2113,11 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0x05da7fdc131d8cc7a87c5d5a432512122ee4e34ba8451157ca269d8a4aca90f7",
+			"keccak256": "0xcb7797aa05b9d4332b95630c55397aafcf5b1e9456d7275cc05b96b011f9a177",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://9e618c9e92b111afb1d941b225459ccbe27baee17e4577324a2d34d6a1d40564",
-				"dweb:/ipfs/QmURKygrTVGSsKkW9rGwEEwQcY95XjdnWfAdErVsNNKu53"
+				"bzz-raw://50f385ee4c014c1025de356216304944d4e69fae490b92c48b3d1541c7da74ed",
+				"dweb:/ipfs/QmRoE8eR49bu6n7JqZkbjVWJB2gB1BzPnnZM5Rt5KMJwV5"
 			]
 		},
 		"smart-contracts/bekwestInterfaces.sol": {
