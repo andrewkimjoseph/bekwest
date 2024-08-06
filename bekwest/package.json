@@ -1,34 +1,30 @@
 {
   "name": "bekwest",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Custom Celo Composer project.",
   "private": true,
+  "author": "Andrew Kim Joseph",
+  "license": "MIT",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "react-app:dev": "yarn workspace @celo-composer-minipay-template/react-app dev",
+    "react-app:build": "yarn workspace @celo-composer-minipay-template/react-app build",
+    "react-app:start": "yarn workspace @celo-composer-minipay-template/react-app start",
+    "react-app:lint": "yarn workspace @celo-composer-minipay-template/react-app lint"
   },
-  "dependencies": {
-    "@chakra-ui/react": "^2.8.2",
-    "@emotion/react": "^11.13.0",
-    "@emotion/styled": "^11.13.0",
-    "@rainbow-me/rainbowkit": "^2.1.4",
-    "@tanstack/react-query": "^5.51.21",
-    "framer-motion": "^11.3.21",
-    "next": "14.2.5",
-    "react": "^18",
-    "react-dom": "^18",
-    "viem": "^2.18.8",
-    "wagmi": "^2.12.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/celo-org/celo-composer.git"
   },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.5",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
-  }
+  "bugs": {
+    "url": "https://github.com/celo-org/celo-composer/issues"
+  },
+  "homepage": "https://github.com/celo-org/celo-composer/blob/main/README.md",
+  "workspaces": [
+    "packages/*",
+    "hardhat/*"
+  ],
+  "keywords": [
+    "celo-composer",
+    "celo"
+  ]
 }
