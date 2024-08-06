@@ -617,6 +617,13 @@ contract bekwest {
         uint256 numberOfVotesForDonation = numbersOfVotesForDonations[
             _donationId
         ];
+
+        if (numberOfVotesForDonation == 0) {
+            return
+                ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
+                1;
+        }
+
         return
             ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
             numberOfVotesForDonation;

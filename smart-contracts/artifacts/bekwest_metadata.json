@@ -2089,11 +2089,11 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0xd672235b0554dba68e8a104cc606435c2cdf1462ae560c95282f74bda2695183",
+			"keccak256": "0x652b435813af1f0451fcc448ccb8a2e98293229ff3e0534fb7db644e37c9c638",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://35ffbbd537ace33b005613ef0f552cebd7282235a2345f28741503e48bd1d1c2",
-				"dweb:/ipfs/Qmb4j6zXKCWKvxtxBtmyX6rj3sk8m51kvZQ6MxEwnbwka2"
+				"bzz-raw://53c90383fe184c8af52718b8a25be70b96457588970671e06dde72596038dc4f",
+				"dweb:/ipfs/QmbZmVrVxhSapCUz875ML7KmvThasNero1Prtsu5kC434G"
 			]
 		},
 		"smart-contracts/bekwestInterfaces.sol": {

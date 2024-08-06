@@ -130,6 +130,7 @@ contract bekwest {
 
     // cUSD token address on both Celo Alfajores and Celo Dango
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
+    uint256 cUSDDecimalPlaces = 10**(cUSD.decimals());
 
     // {address: donorWalletAddress}
     mapping(address => Donor) public allDonors;
@@ -280,7 +281,7 @@ contract bekwest {
         string memory _industry,
         uint256 _maxNumberOfApplications,
         uint256 _maxNumberOfVoters,
-        uint256 _amountDonatedInWei
+        uint256 _amountDonated
     ) public {
         uint256 newDonationId = currentDonationId;
 
@@ -293,7 +294,9 @@ contract bekwest {
         newDonation.industry = _industry;
         newDonation.maxNumberOfApplications = _maxNumberOfApplications;
         newDonation.maxNumberOfVoters = _maxNumberOfVoters;
-        newDonation.amountDonatedInWei = _amountDonatedInWei;
+
+        uint256 amountDonatedInWei = _amountDonated * cUSDDecimalPlaces;
+        newDonation.amountDonatedInWei = amountDonatedInWei;
 
         uint256 currentNumberOfDonationsCreatedByDonor = numbersOfDonationsCreatedByDonors[
                 _donorWalletAddress
@@ -733,6 +736,13 @@ contract bekwest {
         uint256 numberOfVotesForDonation = numbersOfVotesForDonations[
             _donationId
         ];
+
+        if (numberOfVotesForDonation == 0) {
+            return
+                ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
+                1;
+        }
+
         return
             ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
             numberOfVotesForDonation;
@@ -940,3 +950,7 @@ contract bekwest {
         return grantee;
     }
 }
+
+// First deployment address - 0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
+//
+//
