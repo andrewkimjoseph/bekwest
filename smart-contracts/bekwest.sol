@@ -9,6 +9,7 @@ contract bekwest {
     address bekwestOwnerWalletAddress =
         0x6dce6E80b113607bABf97041A0C8C5ACCC4d1a4e;
 
+    // cUSD token address on both Celo Alfajores and Celo Dango
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
 
     // {address: donorWalletAddress}
@@ -36,7 +37,6 @@ contract bekwest {
     mapping(address => uint256) public numbersOfVotesOfVoters;
 
     // {uint256: donorId, address: applicantWalletAddress}
-
     mapping(uint256 => address) public granteesOfDonations;
 
     // {address: voterWalletAddress}
@@ -58,14 +58,14 @@ contract bekwest {
     // {uint256: donationId}, {address: voterWalletAddress}
     mapping(uint256 => mapping(address => bool)) public votingInDonation;
 
-    uint256 currentDonorId;
-    uint256 currentDonationId;
-    uint256 currentApplicantId;
-    uint256 currentApplicationId;
-    uint256 currentVoterId;
-    uint256 currentVoteId;
-    uint256 currentGrantId;
-    uint256 currentRewardId;
+    uint256 public currentDonorId;
+    uint256 public currentDonationId;
+    uint256 public currentApplicantId;
+    uint256 public currentApplicationId;
+    uint256 public currentVoterId;
+    uint256 public currentVoteId;
+    uint256 public currentGrantId;
+    uint256 public currentRewardId;
 
     function checkIfDonorExists(address _donorWalletAddress)
         public
@@ -176,11 +176,6 @@ contract bekwest {
         newDonation.maxNumberOfVoters = _maxNumberOfVoters;
         newDonation.amountDonatedInWei = _amountDonatedInWei;
 
-        uint256 currentNumberOfApplicationsForDonations = 0;
-        numbersOfApplicationsForDonations[
-            newDonationId
-        ] = currentNumberOfApplicationsForDonations;
-
         uint256 currentNumberOfDonationsCreatedByDonor = numbersOfDonationsCreatedByDonors[
                 _donorWalletAddress
             ];
@@ -203,7 +198,7 @@ contract bekwest {
         return allDonations[_donationId];
     }
 
-        function getApplicationById(uint256 _applicationId)
+    function getApplicationById(uint256 _applicationId)
         public
         view
         returns (Application memory)
@@ -475,6 +470,12 @@ contract bekwest {
         address _applicantWalletAddress,
         string memory _pitchStatement
     ) public {
+        if (
+            checkIfApplicantHasAlreadyMadeAnApplicationToDonation(
+                _donationId,
+                _applicantWalletAddress
+            )
+        ) revert();
         uint256 newApplicationId = currentApplicationId;
 
         Application memory newApplication;
@@ -624,6 +625,9 @@ contract bekwest {
         address _applicantWalletAddress,
         address _voterWalletAddress
     ) public {
+        Donation memory particularDonation = getDonationById(_donationId);
+        if (particularDonation.votingIsClosed) revert();
+
         if (
             checkIfVoterHasAlreadyMadeAVoteInDonation(
                 _donationId,
@@ -631,15 +635,17 @@ contract bekwest {
             )
         ) revert();
 
-        Donation memory particularDonation = getDonationById(_donationId);
-        Application memory votedForApplication = getApplicationById(_applicationId);
+        // If voting is not closed and voter has not yet casted their vote
 
-
-        if (particularDonation.votingIsClosed) revert();
+        Application memory votedForApplication = getApplicationById(
+            _applicationId
+        );
 
         uint256 newVoteId = currentVoteId;
-        // Create voter
+        // Fetch voter
         Voter memory votingVoter = getVoterByWalletAddress(_voterWalletAddress);
+
+        // Create vote
         Vote memory newVote;
         newVote.id = newVoteId;
         newVote.voterId = votingVoter.id;
@@ -652,6 +658,7 @@ contract bekwest {
         // Mark voter as having voted in this donation
         votingInDonation[donationId][votingVoter.walletAddress] = true;
 
+        // Reward voter
         sendRewardToVoter(donationId, votingVoter.walletAddress);
 
         // Update number of votes of donation
@@ -680,15 +687,19 @@ contract bekwest {
             _voterWalletAddress
         ] = newNumberOfVotesOfApplicant;
 
-        // Create or update result
         if (
             newNumberOfVotesOfDonation == particularDonation.maxNumberOfVoters
         ) {
             // Close [Donation]
             closeDonation(donationId);
             // Pay out winning [Applicant]
-            sendGrantToWinningApplicant(donationId, votedForApplication.applicantId);
+            sendGrantToWinningApplicant(
+                donationId,
+                votedForApplication.applicantId
+            );
         }
+
+        currentVoteId++;
     }
 
     function sendGrantToWinningApplicant(
@@ -706,7 +717,7 @@ contract bekwest {
         uint256 newGrantId = currentGrantId;
 
         Grant memory newGrant;
-        
+
         newGrant.id = newGrantId;
         newGrant.donationId = _donationId;
         newGrant.applicantId = _applicantId;
@@ -715,7 +726,7 @@ contract bekwest {
         newGrant.isNotBlank = true;
 
         allGrants.push(newGrant);
-        
+
         cUSD.transfer(winningApplicant.walletAddress, amountGrantedInWei);
         currentGrantId++;
     }
