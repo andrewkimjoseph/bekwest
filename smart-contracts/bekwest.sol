@@ -6,10 +6,11 @@ import {Donor, Donation, Applicant, Application, Voter, Vote, Grant, Reward} fro
 import {ERC20} from "./bekwestInterfaces.sol";
 
 contract bekwest {
-    address bekwestOwnerWalletAddress =
-        0x6dce6E80b113607bABf97041A0C8C5ACCC4d1a4e;
+    address bekwestWalletAddress = 0xE49B05F2c7DD51f61E415E1DFAc10B80074B001A;
 
+    // cUSD token address on both Celo Alfajores and Celo Dango
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
+    uint256 cUSDDecimalPlaces = 10**(cUSD.decimals());
 
     // {address: donorWalletAddress}
     mapping(address => Donor) public allDonors;
@@ -36,7 +37,6 @@ contract bekwest {
     mapping(address => uint256) public numbersOfVotesOfVoters;
 
     // {uint256: donorId, address: applicantWalletAddress}
-
     mapping(uint256 => address) public granteesOfDonations;
 
     // {address: voterWalletAddress}
@@ -58,14 +58,14 @@ contract bekwest {
     // {uint256: donationId}, {address: voterWalletAddress}
     mapping(uint256 => mapping(address => bool)) public votingInDonation;
 
-    uint256 currentDonorId;
-    uint256 currentDonationId;
-    uint256 currentApplicantId;
-    uint256 currentApplicationId;
-    uint256 currentVoterId;
-    uint256 currentVoteId;
-    uint256 currentGrantId;
-    uint256 currentRewardId;
+    uint256 public currentDonorId;
+    uint256 public currentDonationId;
+    uint256 public currentApplicantId;
+    uint256 public currentApplicationId;
+    uint256 public currentVoterId;
+    uint256 public currentVoteId;
+    uint256 public currentGrantId;
+    uint256 public currentRewardId;
 
     function checkIfDonorExists(address _donorWalletAddress)
         public
@@ -160,8 +160,8 @@ contract bekwest {
         string memory _topic,
         string memory _industry,
         uint256 _maxNumberOfApplications,
-        uint256 _maxNumberOfVoters,
-        uint256 _amountDonatedInWei
+        uint256 _maxNumberOfVotes,
+        uint256 _amountDonated
     ) public {
         uint256 newDonationId = currentDonationId;
 
@@ -173,13 +173,13 @@ contract bekwest {
         newDonation.topic = _topic;
         newDonation.industry = _industry;
         newDonation.maxNumberOfApplications = _maxNumberOfApplications;
-        newDonation.maxNumberOfVoters = _maxNumberOfVoters;
-        newDonation.amountDonatedInWei = _amountDonatedInWei;
+        newDonation.maxNumberOfVotes = _maxNumberOfVotes;
+        newDonation.isNotBlank = true;
 
-        uint256 currentNumberOfApplicationsForDonations = 0;
-        numbersOfApplicationsForDonations[
-            newDonationId
-        ] = currentNumberOfApplicationsForDonations;
+        uint256 amountDonatedInWei = _amountDonated * cUSDDecimalPlaces;
+        newDonation.amountDonatedInWei = amountDonatedInWei;
+
+        allDonations.push(newDonation);
 
         uint256 currentNumberOfDonationsCreatedByDonor = numbersOfDonationsCreatedByDonors[
                 _donorWalletAddress
@@ -189,8 +189,6 @@ contract bekwest {
         numbersOfDonationsCreatedByDonors[
             _donorWalletAddress
         ] = newNumberOfDonationsCreatedByDonor;
-
-        allDonations.push(newDonation);
 
         currentDonationId++;
     }
@@ -203,7 +201,7 @@ contract bekwest {
         return allDonations[_donationId];
     }
 
-        function getApplicationById(uint256 _applicationId)
+    function getApplicationById(uint256 _applicationId)
         public
         view
         returns (Application memory)
@@ -317,12 +315,19 @@ contract bekwest {
         return applicantOfDonation;
     }
 
-    function approveApplication(uint256 _applicationId) public {
+    function approveApplication(uint256 _applicationId, uint256 _donationId)
+        public
+    {
         Application memory applicationToBeApproved = allApplications[
             _applicationId
         ];
-        applicationToBeApproved.isApproved = true;
-        allApplications[_applicationId] = applicationToBeApproved;
+
+        if (applicationToBeApproved.donationId == _donationId) {
+            applicationToBeApproved.isApproved = true;
+            allApplications[_applicationId] = applicationToBeApproved;
+        } else {
+            revert();
+        }
     }
 
     function createApplicantAccount(
@@ -475,6 +480,16 @@ contract bekwest {
         address _applicantWalletAddress,
         string memory _pitchStatement
     ) public {
+        Donation memory appliedDonation = getDonationById(_donationId);
+
+        if (appliedDonation.applicationIsClosed) revert();
+
+        if (
+            checkIfApplicantHasAlreadyMadeAnApplicationToDonation(
+                _donationId,
+                _applicantWalletAddress
+            )
+        ) revert();
         uint256 newApplicationId = currentApplicationId;
 
         Application memory newApplication;
@@ -507,6 +522,15 @@ contract bekwest {
         ] = newNumberOfApplicationsOfApplicant;
 
         currentApplicationId++;
+
+        // TO DO - Close application
+
+        if (
+            newNumberOfApplicationsForDonation ==
+            appliedDonation.maxNumberOfApplications
+        ) {
+            closeApplicationOfDonation(_donationId);
+        }
     }
 
     function createVoterAccount(
@@ -525,6 +549,8 @@ contract bekwest {
         newVoter.gender = _gender;
         newVoter.countryOfResidence = _countryOfResidence;
         newVoter.isNotBlank = true;
+
+        allVoters[_voterWalletAddress] = newVoter;
 
         currentVoterId++;
     }
@@ -613,9 +639,24 @@ contract bekwest {
         uint256 numberOfVotesForDonation = numbersOfVotesForDonations[
             _donationId
         ];
+
+        if (numberOfVotesForDonation == 0) {
+            return
+                ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
+                1;
+        }
+
         return
             ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
             numberOfVotesForDonation;
+    }
+
+    function getPotentialAmountOfRewardToBekwest(uint256 _donationId)
+        public
+        view
+        returns (uint256)
+    {
+        return (getDonationById(_donationId).amountDonatedInWei * 10) / 100;
     }
 
     function makeAVote(
@@ -624,6 +665,9 @@ contract bekwest {
         address _applicantWalletAddress,
         address _voterWalletAddress
     ) public {
+        Donation memory particularDonation = getDonationById(_donationId);
+        if (particularDonation.votingIsClosed) revert();
+
         if (
             checkIfVoterHasAlreadyMadeAVoteInDonation(
                 _donationId,
@@ -631,15 +675,17 @@ contract bekwest {
             )
         ) revert();
 
-        Donation memory particularDonation = getDonationById(_donationId);
-        Application memory votedForApplication = getApplicationById(_applicationId);
+        // If voting is not closed and voter has not yet casted their vote, proceed
 
-
-        if (particularDonation.votingIsClosed) revert();
+        Application memory votedForApplication = getApplicationById(
+            _applicationId
+        );
 
         uint256 newVoteId = currentVoteId;
-        // Create voter
+        // Fetch voter
         Voter memory votingVoter = getVoterByWalletAddress(_voterWalletAddress);
+
+        // Create vote
         Vote memory newVote;
         newVote.id = newVoteId;
         newVote.voterId = votingVoter.id;
@@ -652,6 +698,7 @@ contract bekwest {
         // Mark voter as having voted in this donation
         votingInDonation[donationId][votingVoter.walletAddress] = true;
 
+        // Reward voter
         sendRewardToVoter(donationId, votingVoter.walletAddress);
 
         // Update number of votes of donation
@@ -677,18 +724,22 @@ contract bekwest {
         uint256 newNumberOfVotesOfApplicant = currentNumberOfVotesOfApplicant +
             1;
         allVoteCountsOfApplicantsOfDonation[donationId][
-            _voterWalletAddress
+            votedForApplication.applicantWalletAddress
         ] = newNumberOfVotesOfApplicant;
 
-        // Create or update result
-        if (
-            newNumberOfVotesOfDonation == particularDonation.maxNumberOfVoters
-        ) {
+        if (newNumberOfVotesOfDonation == particularDonation.maxNumberOfVotes) {
             // Close [Donation]
-            closeDonation(donationId);
+            closeVotingOfDonation(donationId);
             // Pay out winning [Applicant]
-            sendGrantToWinningApplicant(donationId, votedForApplication.applicantId);
+            sendGrantToWinningApplicant(
+                donationId,
+                votedForApplication.applicantId
+            );
+            // Pay out contract owner
+            sendRewardToBekwest(donationId);
         }
+
+        currentVoteId++;
     }
 
     function sendGrantToWinningApplicant(
@@ -706,7 +757,7 @@ contract bekwest {
         uint256 newGrantId = currentGrantId;
 
         Grant memory newGrant;
-        
+
         newGrant.id = newGrantId;
         newGrant.donationId = _donationId;
         newGrant.applicantId = _applicantId;
@@ -715,7 +766,7 @@ contract bekwest {
         newGrant.isNotBlank = true;
 
         allGrants.push(newGrant);
-        
+
         cUSD.transfer(winningApplicant.walletAddress, amountGrantedInWei);
         currentGrantId++;
     }
@@ -748,9 +799,22 @@ contract bekwest {
         currentRewardId++;
     }
 
-    function closeDonation(uint256 _donationId) private {
+    function sendRewardToBekwest(uint256 _donationId) private {
+        uint256 amountRewardedInWei = getPotentialAmountOfRewardToBekwest(
+            _donationId
+        );
+        cUSD.transfer(bekwestWalletAddress, amountRewardedInWei);
+    }
+
+    function closeVotingOfDonation(uint256 _donationId) private {
         Donation memory donationToBeClosed = getDonationById(_donationId);
         donationToBeClosed.votingIsClosed = true;
+        allDonations[_donationId] = donationToBeClosed;
+    }
+
+    function closeApplicationOfDonation(uint256 _donationId) private {
+        Donation memory donationToBeClosed = getDonationById(_donationId);
+        donationToBeClosed.applicationIsClosed = true;
         allDonations[_donationId] = donationToBeClosed;
     }
 
@@ -810,3 +874,15 @@ contract bekwest {
         return grantee;
     }
 }
+
+// First deployment address - 0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
+//
+// Donor wallet address - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+// ...
+// Applicant wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+// Applicant wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
+// ...
+// Voter wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+// Voter wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
+// Voter wallet address 3 - 0x1c30082ae6F51E31F28736be3f715261223E4EDe - The Old Lady
+// ...

@@ -408,7 +408,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"smart-contracts/bekwestInterfaces.sol": "ERC20"
+			"smart-contracts/bekwest_flattened.sol": "ERC20"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -422,12 +422,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"smart-contracts/bekwestInterfaces.sol": {
-			"keccak256": "0x4acce7d460c304b2e6126a4bfb77efda48174390fdcd08c77158a20ca8594f82",
-			"license": "MIT",
+		"smart-contracts/bekwest_flattened.sol": {
+			"keccak256": "0x931f45ee22a86197c91d73e8810912b0438a213b7391a0720c4c47e54caa02aa",
 			"urls": [
-				"bzz-raw://bddf71c061b3b723fd321e4c24882258a00b5a4f537626b01ef741c70f29d1fd",
-				"dweb:/ipfs/QmRvNKgdkJxuheMZjgTmxAWhyhhQnASnereevJHpM4TZmH"
+				"bzz-raw://37c8142f94d0dbaa65c0c8335fe24816fa7f9a353c37dfdfc2531f2cbd7d500d",
+				"dweb:/ipfs/QmbzVJmLs6889Xum4LWJ8VP4H4DV2xxHHv9P74sh6T1tpQ"
 			]
 		}
 	},
