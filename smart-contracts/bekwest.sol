@@ -464,7 +464,7 @@ contract bekwest {
         view
         returns (uint256)
     {
-        return (getDonationById(_donationId).amountDonatedInWei * 80) / 100;
+        return (getDonationById(_donationId).amountDonatedInWei * 75) / 100;
     }
 
     function checkIfApplicantHasAlreadyMadeAnApplicationToDonation(
@@ -522,8 +522,6 @@ contract bekwest {
         ] = newNumberOfApplicationsOfApplicant;
 
         currentApplicationId++;
-
-        // TO DO - Close application
 
         if (
             newNumberOfApplicationsForDonation ==
@@ -636,19 +634,12 @@ contract bekwest {
         view
         returns (uint256)
     {
-        uint256 numberOfVotesForDonation = numbersOfVotesForDonations[
-            _donationId
-        ];
-
-        if (numberOfVotesForDonation == 0) {
-            return
-                ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
-                1;
-        }
+        Donation memory particularDonation = getDonationById(_donationId);
 
         return
-            ((getDonationById(_donationId).amountDonatedInWei * 10) / 100) /
-            numberOfVotesForDonation;
+            (particularDonation.amountDonatedInWei * 15) /
+            100 /
+            particularDonation.maxNumberOfVotes;
     }
 
     function getPotentialAmountOfRewardToBekwest(uint256 _donationId)
@@ -692,6 +683,8 @@ contract bekwest {
         newVote.applicantId = votedForApplication.applicantId;
         newVote.donationId = _donationId;
         newVote.isNotBlank = true;
+
+        allVotes.push(newVote);
 
         uint256 donationId = particularDonation.id;
 
@@ -875,14 +868,16 @@ contract bekwest {
     }
 }
 
-// First deployment address - 0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
-//
-// Donor wallet address - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
-// ...
-// Applicant wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
-// Applicant wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
-// ...
-// Voter wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
-// Voter wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
-// Voter wallet address 3 - 0x1c30082ae6F51E31F28736be3f715261223E4EDe - The Old Lady
-// ...
+//  First deployment address -   0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
+//  Second deployment address -  0x374E05c7AFB37B286EeD7F421a26494AdDA20D8A
+//  FINAL FINAL                  0x19E0FcBd394F174aAa0840D4871622742fC3883c
+//  
+//  Donor wallet address -       0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+//  ...
+//  Applicant wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+//  Applicant wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
+//  ...
+//  Voter wallet address 1 -     0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+//  Voter wallet address 2 -     0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
+//  Voter wallet address 3 -     0x1c30082ae6F51E31F28736be3f715261223E4EDe - The Old Lady
+//  ...

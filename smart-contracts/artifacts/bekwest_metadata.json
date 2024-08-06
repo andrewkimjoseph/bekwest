@@ -150,7 +150,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "maxNumberOfVoters",
+						"name": "maxNumberOfVotes",
 						"type": "uint256"
 					},
 					{
@@ -461,6 +461,11 @@
 						"internalType": "uint256",
 						"name": "_applicationId",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_donationId",
+						"type": "uint256"
 					}
 				],
 				"name": "approveApplication",
@@ -635,7 +640,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "_maxNumberOfVoters",
+						"name": "_maxNumberOfVotes",
 						"type": "uint256"
 					},
 					{
@@ -959,7 +964,7 @@
 							},
 							{
 								"internalType": "uint256",
-								"name": "maxNumberOfVoters",
+								"name": "maxNumberOfVotes",
 								"type": "uint256"
 							},
 							{
@@ -1035,7 +1040,7 @@
 							},
 							{
 								"internalType": "uint256",
-								"name": "maxNumberOfVoters",
+								"name": "maxNumberOfVotes",
 								"type": "uint256"
 							},
 							{
@@ -1411,7 +1416,7 @@
 							},
 							{
 								"internalType": "uint256",
-								"name": "maxNumberOfVoters",
+								"name": "maxNumberOfVotes",
 								"type": "uint256"
 							},
 							{
@@ -1583,6 +1588,25 @@
 					}
 				],
 				"name": "getPotentialAmountOfRewardOfDonationInWei",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_donationId",
+						"type": "uint256"
+					}
+				],
+				"name": "getPotentialAmountOfRewardToBekwest",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -2089,11 +2113,11 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0x652b435813af1f0451fcc448ccb8a2e98293229ff3e0534fb7db644e37c9c638",
+			"keccak256": "0x9d514a58867843f73a17c15d5449db3402a0ac5f77d9e06094fc130ab1854222",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://53c90383fe184c8af52718b8a25be70b96457588970671e06dde72596038dc4f",
-				"dweb:/ipfs/QmbZmVrVxhSapCUz875ML7KmvThasNero1Prtsu5kC434G"
+				"bzz-raw://c04cc8d0ae04b48fb627ceda9f11b2335be5d9594d474ca871756ef7e6f29572",
+				"dweb:/ipfs/QmQJ3AjmmyJusDGYhFT3DDb1ZsGMCaUNXhutEaxVmwdkD5"
 			]
 		},
 		"smart-contracts/bekwestInterfaces.sol": {
@@ -2105,11 +2129,11 @@
 			]
 		},
 		"smart-contracts/bekwestStructs.sol": {
-			"keccak256": "0x35661ca50e9d4346d25c6659039d6f620126c99a77d2189e74e92836ca3b3552",
+			"keccak256": "0x24beeb4f3a17fbb209f0f0096bcde0f2eb27368bff4820638f9146cdf1dcf364",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://22440906db6960637bef7be1658ff337b51ed223c46d285be58f44ba666a68b2",
-				"dweb:/ipfs/QmQ82V1tyaB4H1bou9hWCmfmzS781vj5qJQ4NRZWNbRCpu"
+				"bzz-raw://accb7c07d75025c295999884cabd4cb52b5e80aab7cc1c6d0e4796f7236c452c",
+				"dweb:/ipfs/QmZ91JV2M5Z3rbAhLXyYgBZqDg4kZDHfLuzV4ZNFxwxTW4"
 			]
 		}
 	},
