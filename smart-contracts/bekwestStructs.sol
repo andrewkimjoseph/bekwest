@@ -18,7 +18,7 @@ struct Donation {
     string topic;
     string industry;
     uint256 maxNumberOfApplications;
-    uint256 maxNumberOfVoters;
+    uint256 maxNumberOfVotes;
     uint256 amountDonatedInWei;
     bool applicationIsClosed;
     bool votingIsClosed;

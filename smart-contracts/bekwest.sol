@@ -6,8 +6,8 @@ import {Donor, Donation, Applicant, Application, Voter, Vote, Grant, Reward} fro
 import {ERC20} from "./bekwestInterfaces.sol";
 
 contract bekwest {
-    address bekwestOwnerWalletAddress =
-        0x6dce6E80b113607bABf97041A0C8C5ACCC4d1a4e;
+    address bekwestWalletAddress =
+        0xE49B05F2c7DD51f61E415E1DFAc10B80074B001A;
 
     // cUSD token address on both Celo Alfajores and Celo Dango
     ERC20 cUSD = ERC20(0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1);
@@ -161,7 +161,7 @@ contract bekwest {
         string memory _topic,
         string memory _industry,
         uint256 _maxNumberOfApplications,
-        uint256 _maxNumberOfVoters,
+        uint256 _maxNumberOfVotes,
         uint256 _amountDonated
     ) public {
         uint256 newDonationId = currentDonationId;
@@ -174,7 +174,8 @@ contract bekwest {
         newDonation.topic = _topic;
         newDonation.industry = _industry;
         newDonation.maxNumberOfApplications = _maxNumberOfApplications;
-        newDonation.maxNumberOfVoters = _maxNumberOfVoters;
+        newDonation.maxNumberOfVotes = _maxNumberOfVotes;
+        allDonations.push(newDonation);
 
         uint256 amountDonatedInWei = _amountDonated * cUSDDecimalPlaces;
         newDonation.amountDonatedInWei = amountDonatedInWei;
@@ -511,6 +512,8 @@ contract bekwest {
         ] = newNumberOfApplicationsOfApplicant;
 
         currentApplicationId++;
+
+        // TO DO - Close application
     }
 
     function createVoterAccount(
@@ -529,6 +532,8 @@ contract bekwest {
         newVoter.gender = _gender;
         newVoter.countryOfResidence = _countryOfResidence;
         newVoter.isNotBlank = true;
+
+        allVoters[_voterWalletAddress] = newVoter;
 
         currentVoterId++;
     }
@@ -629,6 +634,14 @@ contract bekwest {
             numberOfVotesForDonation;
     }
 
+    function getPotentialAmountOfRewardToBekwest(uint256 _donationId)
+        public
+        view
+        returns (uint256)
+    {
+        return (getDonationById(_donationId).amountDonatedInWei * 10) / 100;
+    }
+
     function makeAVote(
         uint256 _donationId,
         uint256 _applicationId,
@@ -698,7 +711,7 @@ contract bekwest {
         ] = newNumberOfVotesOfApplicant;
 
         if (
-            newNumberOfVotesOfDonation == particularDonation.maxNumberOfVoters
+            newNumberOfVotesOfDonation == particularDonation.maxNumberOfVotes
         ) {
             // Close [Donation]
             closeDonation(donationId);
@@ -707,6 +720,8 @@ contract bekwest {
                 donationId,
                 votedForApplication.applicantId
             );
+            // Pay out contract owner
+            sendRewardToBekwest(donationId);
         }
 
         currentVoteId++;
@@ -767,6 +782,13 @@ contract bekwest {
         cUSD.transfer(_voterWalletAddress, amountRewardedInWei);
 
         currentRewardId++;
+    }
+
+    function sendRewardToBekwest(
+        uint256 _donationId
+    ) private {
+        uint256 amountRewardedInWei = getPotentialAmountOfRewardToBekwest(_donationId);
+        cUSD.transfer(bekwestWalletAddress, amountRewardedInWei);
     }
 
     function closeDonation(uint256 _donationId) private {
@@ -834,4 +856,12 @@ contract bekwest {
 
 // First deployment address - 0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
 //
-//
+// Donor wallet address - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+// ...
+// Applicant wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+// Applicant wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
+// ...
+// Voter wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
+// Voter wallet address 2 - 0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
+// Voter wallet address 3 - 0x1c30082ae6F51E31F28736be3f715261223E4EDe - The Old Lady
+// ...
