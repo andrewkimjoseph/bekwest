@@ -61,6 +61,7 @@ export default function Home() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
+          onClick={() => router.push("/donor/1")}
           mb={24}
           loadingText="Creating your donor account"
           borderRadius={"10"}

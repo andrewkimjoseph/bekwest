@@ -110,6 +110,7 @@ import {
         <Button
           w={"full"}
           mb={24}
+          onClick={() => router.push("/donor/1/donations/1/applications")}
           loadingText="Creating your donor account"
           borderRadius={"10"}
           bgColor={"#1E1E49"}

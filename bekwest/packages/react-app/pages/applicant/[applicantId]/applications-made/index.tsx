@@ -42,7 +42,7 @@ import {
           {[1, 2, 3, 4, 5, 6].map((survey) => (
             <div>
               <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-                <Card variant={"elevated"} borderRadius={12} w={"full"}>
+                <Card variant={"elevated"} borderRadius={12} w={"full"} onClick={() => router.push("/applicant/1/applications-made/1")}>
                   <CardBody>
                     <Box className="flex flex-row items-left items-center relative">
                       <Avatar

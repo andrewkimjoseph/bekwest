@@ -78,7 +78,7 @@ import {
           {[1, 2, 3, 4, 5, 6].map((survey) => (
             <div>
               <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-                <Card variant={"elevated"} borderRadius={12} w={"full"}>
+                <Card variant={"elevated"} borderRadius={12} w={"full"} onClick={() => router.push("/donor/1/donations/1")}>
                   <CardBody>
                     <Box className="flex flex-row items-left items-center relative">
                       <Avatar
@@ -107,6 +107,8 @@ import {
           <Button
             w={"full"}
             mb={24}
+            onClick={() => router.push("/donor/1/create-donation")}
+
             boxShadow="base"
             loadingText="Creating your donor account"
             borderRadius={"10"}
@@ -117,7 +119,7 @@ import {
               textColor: "white",
             }}
           >
-            Create your donor account
+            Create donation
           </Button>
         </Box>
       </Box>

@@ -60,6 +60,8 @@ export default function Home() {
           w={"full"}
           mb={24}
           loadingText="Creating your donor account"
+          onClick={() => router.push("/donor/1")}
+
           borderRadius={"10"}
           bgColor={"#EB3C7F"}
           textColor={"white"}
