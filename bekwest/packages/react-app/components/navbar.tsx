@@ -52,13 +52,13 @@ export default function BekwestNavbar() {
     },
     {
       title: "Donor View",
-      href: "/",    },
+      href: "/donor/1",    },
     {
       title: "Applicant View",
-      href: "/",    },
+      href: "/applicant/1",    },
     {
       title: "Voter View",
-      href: "/",    },
+      href: "/voter/1",    },
   ];
 
   useEffect(() => {

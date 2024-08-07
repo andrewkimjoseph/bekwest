@@ -1,4 +1,5 @@
 import { Box, Image, Button, Select } from "@chakra-ui/react";
+import router from "next/router";
 import { useState } from "react";
 export default function Home() {
   const [entitySelection, setEntitySelection] = useState("Donor");
@@ -31,7 +32,15 @@ export default function Home() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
+          mb={24}
           loadingText="Creating your participant account"
+          onClick={()=>{
+
+            router.push(`/create-account/${entitySelection.toLocaleLowerCase()}`);
+
+
+
+          }}
           borderRadius={"10"}
           bgColor={"#1E1E49"}
           textColor={"white"}
