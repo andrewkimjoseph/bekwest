@@ -31,6 +31,7 @@ export default function Home() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
+          mb={24}
           loadingText="Creating your participant account"
           borderRadius={"10"}
           bgColor={"#1E1E49"}

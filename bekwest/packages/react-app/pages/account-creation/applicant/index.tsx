@@ -11,7 +11,7 @@ export default function Home() {
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
         <Text fontSize={20}>Applicant Account Creation</Text>
         <Spacer></Spacer>
-        <ArrowBackIcon color={"#EB3C7F"} onClick={() => router.back()} />
+        <ArrowBackIcon color={"#EB3C7F"} onClick={() => router.back()} boxSize={6}/>
       </Box>
 
       <Box px={4}>
@@ -97,6 +97,7 @@ export default function Home() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
+          mb={24}
           loadingText="Creating your donor account"
           borderRadius={"10"}
           bgColor={"#EB3C7F"}
