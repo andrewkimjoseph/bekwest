@@ -1,12 +1,48 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import Image from "next/image";
-import { useEffect, useState } from "react";
-
+import { Box, Image, Button, Select } from "@chakra-ui/react";
+import { useState } from "react";
 export default function Home() {
+  const [entitySelection, setEntitySelection] = useState("Donor");
 
-    return (
-        <div className="flex flex-col justify-center items-center">
+  return (
+    <Box className="flex flex-col  items-center h-screen" bgColor={"#E6E8FA"}>
+      <Box boxSize="sm">
+        <Image
+          src="/feature.png"
+          alt="Feature"
+          objectFit="cover"
+          className="w-full"
+        />
+      </Box>
+      <Box w={"full"} px={4}>
+        <Select
+          bgColor={"white"}
+          focusBorderColor="#EB3C7F"
+          value={entitySelection}
+          onChange={(event) => {
+            setEntitySelection(event.target.value);
+          }}
+        >
+          <option value="Donor">Donor</option>
+          <option value="Applicant">Applicant</option>
+          <option value="Voter">Voter</option>
+        </Select>
+      </Box>
 
-        </div>
-    );
+      <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
+        <Button
+          w={"full"}
+          loadingText="Creating your participant account"
+          borderRadius={"10"}
+          bgColor={"#1E1E49"}
+          textColor={"white"}
+          _hover={{
+            bgColor: "#EB3C7F",
+            textColor: "white",
+          }}
+        >
+          Continue as {entitySelection.toLowerCase()}
+        </Button>
+      </Box>
+    </Box>
+  );
 }
