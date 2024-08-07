@@ -4,7 +4,7 @@ import {
   lightTheme,
 } from "@rainbow-me/rainbowkit";
 import "@rainbow-me/rainbowkit/styles.css";
-import { injectedWallet } from "@rainbow-me/rainbowkit/wallets";
+import { injectedWallet, metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 import type { AppProps } from "next/app";
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { celo, celoAlfajores } from "wagmi/chains";
@@ -24,7 +24,7 @@ const connectors = connectorsForWallets(
     },
   ],
   {
-    appName: "Celo Composer",
+    appName: "bekwest",
     projectId: "a6ad1f48f6b4d2e0e97fefe606105d62",
   }
 );

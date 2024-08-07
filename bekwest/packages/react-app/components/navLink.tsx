@@ -12,7 +12,7 @@ const NavLink = ({ children, href }: NavLinkProps) => (
     rounded={"md"}
     textColor={"white"}
     fontSize={"16px"}
-    fontWeight={"bold"}
+    // fontWeight={"bold"}
     _hover={{
       textColor: "white",
       textDecoration: "none",

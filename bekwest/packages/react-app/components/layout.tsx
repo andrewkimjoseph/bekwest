@@ -1,21 +1,18 @@
 import { FC, ReactNode } from "react";
 import Header from "./navbar";
 import BekwestNavbar from "./navbar";
+import { Box } from "@chakra-ui/react";
 
 interface Props {
-    children: ReactNode;
+  children: ReactNode;
 }
 const Layout: FC<Props> = ({ children }) => {
-    return (
-        <>
-            <div className="">
-                <BekwestNavbar />
-                <div className="">
-                    {children}
-                </div>
-            </div>
-        </>
-    );
+  return (
+    <Box >
+      <BekwestNavbar />
+      {children}
+    </Box>
+  );
 };
 
 export default Layout;
