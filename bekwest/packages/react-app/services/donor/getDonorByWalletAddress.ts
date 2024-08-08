@@ -6,7 +6,7 @@ import { celoAlfajores } from "viem/chains";
 
 export const getDonorByWalletAddress = async (
     _signerAddress: `0x${string}` | undefined,
-    { _donorWalletAddress }: GetDonorByWalletAddress
+    { _donorWalletAddress }: GetDonorByWalletAddressProps
 ): Promise<Donor | null> => {
     let donor: Donor | null = null;
     if (window.ethereum) {
@@ -39,6 +39,6 @@ export const getDonorByWalletAddress = async (
     return donor;
 };
 
-export type GetDonorByWalletAddress = {
+export type GetDonorByWalletAddressProps = {
     _donorWalletAddress: `0x${string}`;
 };
