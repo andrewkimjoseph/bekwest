@@ -36,6 +36,10 @@ export default function DonorHome() {
 
   const [donor, setDonor] = useState<Donor | null>(null);
 
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
   useEffect(() => {
     const checkIfDonorExistsAndSetFn = async () => {
       if (address) {
@@ -61,28 +65,11 @@ export default function DonorHome() {
       }
     };
 
-    const getTotalAmountOfDonationsCreatedSet = () => {
-      const amount = parseWeiAmountToEther(
-        allDonationsCreatedByDonor.reduce(
-          (runningTotal, currentDonation) =>
-            runningTotal + currentDonation.amountDonatedInWei,
-          0
-        )
-      );
-
-      setTotalAmountDonated(amount);
-
-      return 0;
-    };
-
     checkIfDonorExistsAndSetFn();
     getAllDonationsCreatedByDonorAndSet();
-    getTotalAmountOfDonationsCreatedSet();
   }, [address]);
 
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+
 
   if (!isMounted) {
     return (
@@ -127,7 +114,14 @@ export default function DonorHome() {
         </Text>
         {/* <Spacer></Spacer> */}
         <Text fontWeight={"bold"} fontSize={"20"}>
-          {totalAmountDonated} cUSD
+          {parseWeiAmountToEther(
+            allDonationsCreatedByDonor.reduce(
+              (runningTotal, currentDonation) =>
+                runningTotal + currentDonation.amountDonatedInWei,
+              0
+            )
+          )}{" "}
+          cUSD
         </Text>
       </Box>
 
@@ -154,12 +148,12 @@ export default function DonorHome() {
           </Box>
         ) : (
           allDonationsCreatedByDonor.map((donation) => (
-            <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
+            <Box className="flex flex-row items-left items-center py-2 mx-4 relative" key={donation.id}>
               <Card
                 variant={"elevated"}
                 borderRadius={12}
                 w={"full"}
-                onClick={() => router.push("/donor/1/donations/1")}
+                onClick={() => router.push(`/donor/${donor?.id}/donations/${donation?.id}`)}
               >
                 <CardBody p={3}>
                   <Box className="flex flex-row items-left items-center relative">
@@ -170,11 +164,12 @@ export default function DonorHome() {
                     />
 
                     <Box className="flex flex-col items-left relative ml-4">
-                      <Text fontSize={20} mb={2}>
-                        Topic: Climate change
+                      <Text fontSize={16} mb={2}>
+                        Topic: {donation.topic}
                       </Text>
-                      <Text fontSize={20} mb={2}>
-                        Amount: 5
+                      <Text fontSize={14} mb={2}>
+                        Amount:{" "}
+                        {parseWeiAmountToEther(donation.amountDonatedInWei)} cUSD
                       </Text>
                     </Box>
                   </Box>
