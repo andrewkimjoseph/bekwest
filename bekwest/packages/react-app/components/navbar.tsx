@@ -67,15 +67,15 @@ export default function BekwestNavbar() {
     },
     {
       title: "Donor View",
-      href: donorExists? `/donor/${donor?.id}` : "/"
+      href: donorExists? `/donor/${donor?.id}` : "/create-account/donor"
     },
     {
       title: "Applicant View",
-      href: applicantExists? `/applicant/${applicant?.id}`: "/"
+      href: applicantExists? `/applicant/${applicant?.id}`: "/create-account/applicant"
     },
     {
       title: "Voter View",
-      href: voterExists? `/voter/${voter?.id}`: "/"
+      href: voterExists? `/voter/${voter?.id}`: "/create-account/voter"
     },
   ];
 
@@ -114,7 +114,7 @@ export default function BekwestNavbar() {
 
 
         if (applicantIsFound) {
-          setApplicantExists(applicantExists);
+          setApplicantExists(applicantIsFound);
           const applicant = await getApplicantByWalletAddress(address, {
             _applicantWalletAddress: address,
           });
@@ -128,7 +128,7 @@ export default function BekwestNavbar() {
         const voterIsFound = await checkIfVoterExists(address);
 
         if (voterIsFound) {
-          setVoterExists(voterExists);
+          setVoterExists(voterIsFound);
           const voter = await getVoterByWalletAddress(address, {
             _voterWalletAddress: address,
           });
