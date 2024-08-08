@@ -17,6 +17,7 @@ import Layout from "@/components/layout";
 import { ChakraProvider } from "@chakra-ui/react";
 import { fonts } from "@/utils/font";
 import Head from "next/head";
+import { Analytics } from '@vercel/analytics/react';
 
 const connectors = connectorsForWallets(
   [
@@ -71,6 +72,7 @@ function App({ Component, pageProps }: AppProps) {
             >
               <Layout>
                 <Component {...pageProps} />
+                <Analytics />
               </Layout>
             </RainbowKitProvider>
           </QueryClientProvider>

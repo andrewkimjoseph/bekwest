@@ -36,7 +36,7 @@ import {
         <Box w={"full"} px={4} className="flex flex-col" mt={4}>
           <Text fontSize={16}>Topic</Text>
           <Card variant={"outline"} borderRadius={12} w={"full"} mt={2}>
-            <CardBody>
+            <CardBody p={3}>
               <Text fontSize={16}>Climate change</Text>
             </CardBody>
           </Card>
@@ -44,7 +44,7 @@ import {
         <Box w={"full"} px={4} className="flex flex-col" mt={4}>
           <Text fontSize={16}>Maximum Number Of Applicants</Text>
           <Card variant={"outline"} borderRadius={12} w={"full"} mt={2}>
-            <CardBody>
+            <CardBody p={3}>
               <Text fontSize={14}>3</Text>
             </CardBody>
           </Card>
@@ -54,7 +54,7 @@ import {
         <Box w={"full"} px={4} className="flex flex-col" mt={4}>
           <Text fontSize={16}>Net Grant Amount</Text>
           <Card variant={"outline"} borderRadius={12} w={"full"} mt={2}>
-            <CardBody>
+            <CardBody p={3}>
               <Text fontSize={14}>1 cUSD</Text>
             </CardBody>
           </Card>
