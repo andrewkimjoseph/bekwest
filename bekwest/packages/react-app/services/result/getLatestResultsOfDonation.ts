@@ -44,7 +44,7 @@ export const getLatestResultsOfDonation = async (
             fetchedLatestResultOfDonationToBeParsed["applicantWalletAddress"],
 
           voteCount: Number(
-            fetchedLatestResultOfDonationToBeParsed["amountGrantedInWei"]
+            fetchedLatestResultOfDonationToBeParsed["voteCount"]
           ),
 
           isNotBlank: fetchedLatestResultOfDonationToBeParsed["isNotBlank"],
