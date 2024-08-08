@@ -87,7 +87,7 @@ export default function Home() {
           <div>
             <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
               <Card variant={"elevated"} borderRadius={12} w={"full"}     onClick={() => router.push("/voter/1/votable-donations/1")}>
-                <CardBody>
+                <CardBody p={3}>
                   <Box className="flex flex-row items-left items-center relative">
                     <Avatar
                       name="Sasuke Uchiha"

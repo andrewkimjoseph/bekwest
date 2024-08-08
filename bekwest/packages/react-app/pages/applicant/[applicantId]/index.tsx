@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Box,
@@ -25,12 +25,7 @@ export default function Home() {
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
         <Text fontSize={26}>Welcome, AW!</Text>
 
-        <CheckCircleIcon
-          color={"#1E1E49"}
-  
-          ml={2}
-          boxSize={6}
-        />
+        <CheckCircleIcon color={"#1E1E49"} ml={2} boxSize={6} />
 
         <Spacer></Spacer>
         <ArrowBackIcon
@@ -46,7 +41,6 @@ export default function Home() {
           boxShadow="base"
           loadingText="Creating your donor account"
           onClick={() => router.push("/applicant/1/applications-made")}
-
           borderRadius={"10"}
           bgColor={"#1E1E49"}
           textColor={"white"}
@@ -83,9 +77,13 @@ export default function Home() {
         {[1, 2, 3, 4, 5, 6].map((survey) => (
           <div>
             <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-              <Card variant={"elevated"} borderRadius={12} w={"full"}                    onClick={() => router.push("/applicant/1/open-donations/1")}
+              <Card
+                variant={"elevated"}
+                borderRadius={12}
+                w={"full"}
+                onClick={() => router.push("/applicant/1/open-donations/1")}
               >
-                <CardBody>
+                <CardBody p={3}>
                   <Box className="flex flex-row items-left items-center relative">
                     <Avatar
                       name="Sasuke Uchiha"
