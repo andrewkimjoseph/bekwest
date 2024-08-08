@@ -6,7 +6,7 @@ import { celoAlfajores } from "viem/chains";
 
 export const getAllDonationsCreatedByDonor = async (
   _signerAddress: `0x${string}` | undefined,
-  { _donorWalletAddress }: GetAllDonationsCreatedByDonor
+  { _donorWalletAddress }: GetAllDonationsCreatedByDonorProps
 ): Promise<Donation[]> => {
   let allDonationsCreatedByDonor: Donation[] = [];
   if (window.ethereum) {
@@ -53,7 +53,7 @@ export const getAllDonationsCreatedByDonor = async (
           isNotBlank: fetchedDonationCreatedByDonorToBeParsed["isNotBlank"],
         };
 
-        fetchedDonationsCreatedByDonor.push(fetchedDonationCreatedByDonor);
+        allDonationsCreatedByDonor.push(fetchedDonationCreatedByDonor);
       }
 
       return allDonationsCreatedByDonor;
@@ -65,6 +65,6 @@ export const getAllDonationsCreatedByDonor = async (
   return allDonationsCreatedByDonor;
 };
 
-export type GetAllDonationsCreatedByDonor = {
+export type GetAllDonationsCreatedByDonorProps = {
   _donorWalletAddress: `0x${string}`;
 };

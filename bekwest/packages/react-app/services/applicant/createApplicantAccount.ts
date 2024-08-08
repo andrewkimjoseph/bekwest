@@ -3,13 +3,15 @@ import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress
 import { createPublicClient, createWalletClient, custom } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createDonorAccount = async (
+export const createApplicantAccount = async (
   _signerAddress: `0x${string}` | undefined,
   {
-    _donorWalletAddress,
+    _applicantWalletAddress,
     _adjective,
-    _mainIndustryOfInterest,
-  }: CreateDonorAccountProps
+    _gender,
+    _countryOfResidence,
+    _ageBracket,
+  }: CreateApplicantAccountProps
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
@@ -22,20 +24,26 @@ export const createDonorAccount = async (
     });
     const [address] = await privateClient.getAddresses();
     try {
-      const createDonorAccountTxnHash = await privateClient.writeContract({
+      const createApplicantAccountTxnHash = await privateClient.writeContract({
         account: address,
         address: bekwestContractAddress,
         abi: bekwestContractABI,
-        functionName: "createDonorAccount",
-        args: [_donorWalletAddress, _adjective, _mainIndustryOfInterest],
+        functionName: "createApplicantAccount",
+        args: [
+            _applicantWalletAddress,
+            _adjective,
+            _gender,
+            _countryOfResidence,
+            _ageBracket,
+        ],
       });
 
-      const createDonorAccountTxnReceipt =
+      const createApplicantAccountTxnReceipt =
         await publicClient.waitForTransactionReceipt({
-          hash: createDonorAccountTxnHash,
+          hash: createApplicantAccountTxnHash,
         });
 
-      if (createDonorAccountTxnReceipt.status == "success") {
+      if (createApplicantAccountTxnReceipt.status == "success") {
         return true;
       } else {
         return false;
@@ -47,9 +55,10 @@ export const createDonorAccount = async (
   }
   return false;
 };
-
-export type CreateDonorAccountProps = {
-  _donorWalletAddress: `0x${string}`;
+export type CreateApplicantAccountProps = {
+  _applicantWalletAddress: `0x${string}`;
   _adjective: string;
-  _mainIndustryOfInterest: string;
+  _gender: string;
+  _countryOfResidence: string;
+  _ageBracket: string;
 };

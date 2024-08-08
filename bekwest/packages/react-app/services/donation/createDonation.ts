@@ -3,13 +3,17 @@ import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress
 import { createPublicClient, createWalletClient, custom } from "viem";
 import { celoAlfajores } from "viem/chains";
 
-export const createDonorAccount = async (
+export const createDonation = async (
   _signerAddress: `0x${string}` | undefined,
   {
+    _donorId,
     _donorWalletAddress,
-    _adjective,
-    _mainIndustryOfInterest,
-  }: CreateDonorAccountProps
+    _topic,
+    _industry,
+    _maxNumberOfApplications,
+    _maxNumberOfVotes,
+    _amountDonated,
+  }: CreateDonationProps
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
@@ -22,20 +26,28 @@ export const createDonorAccount = async (
     });
     const [address] = await privateClient.getAddresses();
     try {
-      const createDonorAccountTxnHash = await privateClient.writeContract({
+      const createDonationAccountTxnHash = await privateClient.writeContract({
         account: address,
         address: bekwestContractAddress,
         abi: bekwestContractABI,
         functionName: "createDonorAccount",
-        args: [_donorWalletAddress, _adjective, _mainIndustryOfInterest],
+        args: [
+          _donorId,
+          _donorWalletAddress,
+          _topic,
+          _industry,
+          _maxNumberOfApplications,
+          _maxNumberOfVotes,
+          _amountDonated,
+        ],
       });
 
-      const createDonorAccountTxnReceipt =
+      const createDonationTxnReceipt =
         await publicClient.waitForTransactionReceipt({
-          hash: createDonorAccountTxnHash,
+          hash: createDonationAccountTxnHash,
         });
 
-      if (createDonorAccountTxnReceipt.status == "success") {
+      if (createDonationTxnReceipt.status == "success") {
         return true;
       } else {
         return false;
@@ -47,9 +59,12 @@ export const createDonorAccount = async (
   }
   return false;
 };
-
-export type CreateDonorAccountProps = {
+export type CreateDonationProps = {
+  _donorId: number;
   _donorWalletAddress: `0x${string}`;
-  _adjective: string;
-  _mainIndustryOfInterest: string;
+  _topic: string;
+  _industry: string;
+  _maxNumberOfApplications: number;
+  _maxNumberOfVotes: number;
+  _amountDonated: number;
 };
