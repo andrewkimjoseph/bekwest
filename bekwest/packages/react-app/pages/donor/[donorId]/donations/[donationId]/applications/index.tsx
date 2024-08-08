@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Box,
@@ -15,10 +15,37 @@ import {
 } from "@chakra-ui/react";
 
 import { ArrowBackIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { useState } from "react";
-import router from "next/router";
+import { useEffect, useState } from "react";
+import router, { useRouter } from "next/router";
+import { useAccount } from "wagmi";
+import { Application } from "@/entities/application";
+import { getAllApplicationsOfDonation } from "@/services/donation/getAllApplicationsOfDonation";
 export default function ParticularDonation() {
+  const { address, isConnected } = useAccount();
+
+  const router = useRouter();
+  const { donorId, donationId } = router.query;
+
   const [entitySelection, setEntitySelection] = useState("Donor");
+
+  const [allApplicationsOfDonation, setAllApplicationsOfDonation] = useState<
+    Application[]
+  >([]);
+
+  useEffect(() => {
+    const getAllApplicationsOfDonationAndSet = async () => {
+      if (address) {
+        const applicationsOfDonation = await getAllApplicationsOfDonation(
+          address,
+          { _donationId: Number(donationId) }
+        );
+
+        setAllApplicationsOfDonation(applicationsOfDonation);
+      }
+    };
+
+    getAllApplicationsOfDonationAndSet();
+  }, [address]);
 
   return (
     <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
@@ -38,39 +65,57 @@ export default function ParticularDonation() {
       </Box>
 
       <Box overflowY="auto">
-        {[1, 2, 3, 4, 5, 6].map((survey) => (
-          <div>
-            <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-              <Card variant={"elevated"} borderRadius={12} w={"full"}  onClick={() => router.push("/donor/1/donations/1/applications/1")}>
-                <CardBody>
-                  <Box className="flex flex-row items-left items-center relative">
-                    {/* <Avatar
-                        name="Sasuke Uchiha"
-                        size="lg"
-                        bgColor={"#EB3C7F"}
-                      /> */}
+        {allApplicationsOfDonation.length === 0 ? (
+          <Box w={"full"} px={4} className="flex flex-col" mt={4}>
+            <Card variant={"outlined"} borderRadius={12} w={"full"}>
+              <CardBody p={3}>
+                <Box className="flex flex-row items-left items-center relative">
+                  <Text fontSize={16}>No applications found.</Text>
+                </Box>
+              </CardBody>
+            </Card>
+          </Box>
+        ) : (
+          allApplicationsOfDonation.map((survey) => (
+            <div>
+              <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
+                <Card
+                  variant={"elevated"}
+                  borderRadius={12}
+                  w={"full"}
+                  onClick={() =>
+                    router.push("/donor/1/donations/1/applications/1")
+                  }
+                >
+                  <CardBody>
+                    <Box className="flex flex-row items-left items-center relative">
+                      {/* <Avatar
+                          name="Sasuke Uchiha"
+                          size="lg"
+                          bgColor={"#EB3C7F"}
+                        /> */}
 
-                    <CheckCircleIcon
-                      color={"#EB3C7F"}
-                      onClick={() => router.back()}
-                      
-                      boxSize={14}
-                    />
+                      <CheckCircleIcon
+                        color={"#EB3C7F"}
+                        onClick={() => router.back()}
+                        boxSize={14}
+                      />
 
-                    <Box className="flex flex-col items-left relative ml-4">
-                      <Text fontSize={20} mb={2}>
-                        Pitch statement
-                      </Text>
-                      <Text fontSize={16} mb={2}>
-                        I need to improve
-                      </Text>
+                      <Box className="flex flex-col items-left relative ml-4">
+                        <Text fontSize={20} mb={2}>
+                          Pitch statement
+                        </Text>
+                        <Text fontSize={16} mb={2}>
+                          I need to improve
+                        </Text>
+                      </Box>
                     </Box>
-                  </Box>
-                </CardBody>
-              </Card>
-            </Box>
-          </div>
-        ))}
+                  </CardBody>
+                </Card>
+              </Box>
+            </div>
+          ))
+        )}
       </Box>
     </Box>
   );

@@ -1,17 +1,12 @@
-"use client"
+"use client";
 
 import {
   Box,
-  Button,
-  Select,
   Text,
   Spacer,
   Divider,
   Card,
   CardBody,
-  Avatar,
-  AvatarBadge,
-  AvatarGroup,
   Circle,
 } from "@chakra-ui/react";
 
@@ -36,10 +31,19 @@ ChartJS.register(
 );
 
 import { ArrowBackIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { useState } from "react";
-import router from "next/router";
-export default function ParticularDonation() {
-  const [entitySelection, setEntitySelection] = useState("Donor");
+import { useEffect, useState } from "react";
+import router, { useRouter } from "next/router";
+import { Result } from "@/entities/result";
+import { useAccount } from "wagmi";
+import { getLatestResultsOfDonation } from "@/services/result/getLatestResultsOfDonation";
+export default function ParticularApplicationMade() {
+  const [latestResultsOfDonation, setLatestResultsOfDonation] = useState<
+    Result[]
+  >([]);
+  const { address, isConnected } = useAccount();
+
+  const router = useRouter();
+  const { applicantId, donationId } = router.query;
 
   const data = {
     labels: ["January", "February", "March"],
@@ -54,23 +58,25 @@ export default function ParticularDonation() {
     ],
   };
 
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Chart.js Bar Chart",
-      },
-    },
-  };
+  useEffect(() => {
+    const getLatestResultsOfDonationAndSet = async () => {
+      if (address) {
+        const latestResultsOfDonation = await getLatestResultsOfDonation(
+          address,
+          { _donationId: Number(donationId) }
+        );
+
+        setLatestResultsOfDonation(latestResultsOfDonation);
+      }
+    };
+
+    getLatestResultsOfDonationAndSet();
+  }, [address]);
 
   return (
     <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-        <Text fontSize={26}>Donation 1: Applications</Text>
+        <Text fontSize={26}>Donation {donationId}: Applications</Text>
 
         <Spacer></Spacer>
         <ArrowBackIcon
@@ -78,6 +84,10 @@ export default function ParticularDonation() {
           onClick={() => router.back()}
           boxSize={6}
         />
+      </Box>
+      <Box w={"full"} px={4} className="flex flex-col" my={4}>
+        <Text fontSize={20}>Applications so far: {latestResultsOfDonation.length}</Text>
+
       </Box>
 
       <Box px={4} mb={2}>
@@ -89,13 +99,18 @@ export default function ParticularDonation() {
           Live voting
         </Text>
 
-        <Circle size="10px" bg="#EB3C7F" color="white" ml={2}></Circle>
+        <Circle size="10px" bg="#EB3C7F" color="white" ml={2} onClick={()=>{
+          console.log(latestResultsOfDonation);
+        }}></Circle>
       </Box>
 
       <Box px={4} mb={2} className="align-center justify-center flex flex-row">
-        {/* <Line data={data} /> */}
-
         <Bar data={data} />
+      </Box>
+
+
+      <Box px={4} mb={2}>
+        <Divider borderColor="black" />
       </Box>
 
       <Box w={"full"} px={4} className="flex flex-col" mt={4}>

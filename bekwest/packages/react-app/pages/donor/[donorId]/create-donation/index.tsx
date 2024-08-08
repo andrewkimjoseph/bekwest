@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Box,
@@ -16,10 +16,45 @@ import {
 
 import { ArrowBackIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import router from "next/router";
-export default function Home() {
-  const [entitySelection, setEntitySelection] = useState("Donor");
-  const [sliderValue, setSliderValue] = useState(2);
+import { useRouter } from "next/router";
+import { createDonation } from "@/services/donation/createDonation";
+import toast, { Toaster } from "react-hot-toast";
+import { useAccount } from "wagmi";
+export default function CreateDonation() {
+  const [industry, setIndustry] = useState("Education");
+  const [topic, setTopic] = useState("Finance");
+  const [maximumNumberOfApplicants, setMaximumNumberOfApplicants] = useState(1);
+  const [maximumNumberOfVoters, setMaximumNumberOfVoters] = useState(1);
+  const [isCreatingDonation, setIsCreatingDonation] = useState(false);
+  const { address, isConnected } = useAccount();
+  const router = useRouter();
+  const { donorId } = router.query;
+
+  const [amountDonated, setAmountDonated] = useState(2);
+
+  const createDonationFn = async () => {
+    setIsCreatingDonation(true);
+
+    const donationIsCreated = await createDonation(address, {
+      _donorId: Number(donorId),
+      _donorWalletAddress: address as `0x${string}`,
+      _topic: topic,
+      _industry: industry,
+      _maxNumberOfApplications: maximumNumberOfApplicants,
+      _maxNumberOfVotes: maximumNumberOfVoters,
+      _amountDonated: amountDonated,
+    });
+
+    if (donationIsCreated) {
+      toast.success("Donation creation successful");
+
+      router.push(`/donor/${donorId}`);
+    } else {
+      toast.error("Donation creation failed");
+    }
+    setIsCreatingDonation(false);
+  };
+
   const labelStyles = {
     mt: "4",
     // fontSize: "sm",
@@ -27,6 +62,7 @@ export default function Home() {
 
   return (
     <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
+      <Toaster />
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
         <Text fontSize={20}>Donation Creation Form Creation</Text>
         <Spacer></Spacer>
@@ -48,14 +84,14 @@ export default function Home() {
         <Select
           bgColor={"white"}
           focusBorderColor="#EB3C7F"
-          //   value={entitySelection}
-          //   onChange={(event) => {
-          //     setEntitySelection(event.target.value);
-          //   }}
+          value={industry}
+          onChange={(event) => {
+            setIndustry(event.target.value);
+          }}
         >
-          <option value="Smart">Smart</option>
-          <option value="Humble">Humble</option>
-          <option value="Powerful">Powerful</option>
+          <option value="Education">Education</option>
+          <option value="Agriculture">Agriculture</option>
+          <option value="ICT">ICT</option>
         </Select>
       </Box>
 
@@ -67,14 +103,14 @@ export default function Home() {
         <Select
           bgColor={"white"}
           focusBorderColor="#EB3C7F"
-          //   value={entitySelection}
-          //   onChange={(event) => {
-          //     setEntitySelection(event.target.value);
-          //   }}
+          value={topic}
+          onChange={(event) => {
+            setTopic(event.target.value);
+          }}
         >
-          <option value="Education">Education</option>
-          <option value="Technology">Technology</option>
-          <option value="Climate">Climate</option>
+          <option value="Law">Law</option>
+          <option value="Economics">Economics</option>
+          <option value="Finance">Finance</option>
         </Select>
       </Box>
 
@@ -86,14 +122,13 @@ export default function Home() {
         <Select
           bgColor={"white"}
           focusBorderColor="#EB3C7F"
-          //   value={entitySelection}
-          //   onChange={(event) => {
-          //     setEntitySelection(event.target.value);
-          //   }}
+          value={maximumNumberOfApplicants}
+          onChange={(event) => {
+            setMaximumNumberOfApplicants(Number(event.target.value));
+          }}
         >
-          <option value="Education">Education</option>
-          <option value="Technology">Technology</option>
-          <option value="Climate">Climate</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
         </Select>
       </Box>
 
@@ -105,14 +140,13 @@ export default function Home() {
         <Select
           bgColor={"white"}
           focusBorderColor="#EB3C7F"
-          //   value={entitySelection}
-          //   onChange={(event) => {
-          //     setEntitySelection(event.target.value);
-          //   }}
+          value={maximumNumberOfVoters}
+          onChange={(event) => {
+            setMaximumNumberOfVoters(Number(event.target.value));
+          }}
         >
-          <option value="Education">Education</option>
-          <option value="Technology">Technology</option>
-          <option value="Climate">Climate</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
         </Select>
       </Box>
 
@@ -122,7 +156,7 @@ export default function Home() {
         </Text>
         <Slider
           aria-label="slider-ex-6"
-          onChange={(val) => setSliderValue(val)}
+          onChange={(amount) => setAmountDonated(amount)}
           min={1}
           max={3}
           colorScheme="pink"
@@ -137,31 +171,29 @@ export default function Home() {
             3
           </SliderMark>
           <SliderMark
-            value={sliderValue}
+            value={amountDonated}
             textAlign="center"
             bg="#EB3C7F"
             color="white"
             mt="-10"
-
             ml={-1}
-
             w="4"
           >
-            {sliderValue}
+            {amountDonated}
           </SliderMark>
-          <SliderTrack bg='pink.100'>
-            <SliderFilledTrack  bg='#1E1E49'/>
-            
+          <SliderTrack bg="pink.100">
+            <SliderFilledTrack bg="#1E1E49" />
           </SliderTrack>
-          <SliderThumb bg={"#EB3C7F"}/>
+          <SliderThumb bg={"#EB3C7F"} />
         </Slider>
       </Box>
 
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
-          onClick={() => router.push("/donor/1")}
-          loadingText="Creating your donor account"
+          isLoading={isCreatingDonation}
+          onClick={() => createDonationFn()}
+          loadingText="Creating your donation"
           borderRadius={"10"}
           bgColor={"#EB3C7F"}
           textColor={"white"}

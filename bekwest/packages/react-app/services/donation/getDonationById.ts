@@ -18,7 +18,7 @@ export const getDonationById = async (
       const fetchedDonation = (await publicClient.readContract({
         address: bekwestContractAddress,
         abi: bekwestContractABI,
-        functionName: "getDonorByWalletAddress",
+        functionName: "getDonationById",
         args: [_donationId],
       })) as any;
 

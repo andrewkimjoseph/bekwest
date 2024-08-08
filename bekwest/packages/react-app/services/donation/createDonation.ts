@@ -30,7 +30,7 @@ export const createDonation = async (
         account: address,
         address: bekwestContractAddress,
         abi: bekwestContractABI,
-        functionName: "createDonorAccount",
+        functionName: "createDonation",
         args: [
           _donorId,
           _donorWalletAddress,

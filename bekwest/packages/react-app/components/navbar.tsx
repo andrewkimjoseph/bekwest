@@ -16,6 +16,7 @@ import {
   Slide,
   Collapse,
   Circle,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -31,34 +32,51 @@ import { injected } from "wagmi/connectors";
 import LogoLink from "./logoLink";
 import { BekwestLogo } from "./logo";
 import NavLink from "./navLink";
+import { checkIfVoterExists } from "@/services/voter/checkIfVoterExists";
+import { checkIfDonorExists } from "@/services/donor/checkIfDonorExists";
+import { checkIfApplicantExists } from "@/services/applicant/checkIfApplicantExists";
+import { Donor } from "@/entities/donor";
+import { Applicant } from "@/entities/applicant";
+import { Voter } from "@/entities/voter";
+import { getDonorByWalletAddress } from "@/services/donor/getDonorByWalletAddress";
+import { getApplicantByWalletAddress } from "@/services/applicant/getApplicantByWalletAddress";
+import { getVoterByWalletAddress } from "@/services/voter/getVoterByWalletAddress";
 
 export default function BekwestNavbar() {
   const { isOpen, onToggle } = useDisclosure();
   const [userAddress, setUserAddress] = useState("");
-  // const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
-
-  const [participantExists, setParticipantExists] = useState(false);
-  const [researcherExists, setResearcherExists] = useState(false);
-
   const { connect } = useConnect();
+
+  const [isMounted, setIsMounted] = useState(false);
 
   const [isMiniPay, setIsMiniPay] = useState(false);
 
-  const Links = [
+  const [donorExists, setDonorExists] = useState(false);
+  const [applicantExists, setApplicantExists] = useState(false);
+  const [voterExists, setVoterExists] = useState(false);
+
+  const [donor, setDonor] = useState<Donor | null>(null);
+  const [applicant, setApplicant] = useState<Applicant | null>(null);
+  const [voter, setVoter] = useState<Voter | null>(null);
+
+  const links = [
     {
       title: "Onboarding",
       href: "/",
     },
     {
       title: "Donor View",
-      href: "/donor/1",    },
+      href: donorExists? `/donor/${donor?.id}` : "/create-account/donor"
+    },
     {
       title: "Applicant View",
-      href: "/applicant/1",    },
+      href: applicantExists? `/applicant/${applicant?.id}`: "/create-account/applicant"
+    },
     {
       title: "Voter View",
-      href: "/voter/1",    },
+      href: voterExists? `/voter/${voter?.id}`: "/create-account/voter"
+    },
   ];
 
   useEffect(() => {
@@ -71,15 +89,72 @@ export default function BekwestNavbar() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   setIsMounted(true);
-  // }, []);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const checkIfDonorExistsAndSetFn = async () => {
+      if (address) {
+        const donorIsFound = await checkIfDonorExists(address);
+
+        if (donorIsFound) {
+          setDonorExists(donorIsFound);
+          const donor = await getDonorByWalletAddress(address, {
+            _donorWalletAddress: address,
+          });
+          setDonor(donor);
+        }
+      }
+    };
+
+    const checkIfApplicantExistsAndSetFn = async () => {
+      if (address) {
+        const applicantIsFound = await checkIfApplicantExists(address);
+
+
+        if (applicantIsFound) {
+          setApplicantExists(applicantIsFound);
+          const applicant = await getApplicantByWalletAddress(address, {
+            _applicantWalletAddress: address,
+          });
+          setApplicant(applicant);
+        }
+      }
+    };
+
+    const checkIfVoterExistsAndSetFn = async () => {
+      if (address) {
+        const voterIsFound = await checkIfVoterExists(address);
+
+        if (voterIsFound) {
+          setVoterExists(voterIsFound);
+          const voter = await getVoterByWalletAddress(address, {
+            _voterWalletAddress: address,
+          });
+          setVoter(voter);
+        }
+      }
+    };
+
+    checkIfDonorExistsAndSetFn();
+    checkIfApplicantExistsAndSetFn();
+    checkIfVoterExistsAndSetFn();
+  }, [address]);
 
   useEffect(() => {
     if (isConnected && address) {
       setUserAddress(address);
     }
   }, [address, isConnected]);
+
+  if (!isMounted) {
+    return (
+      <div className="flex flex-col justify-center h-screen items-center mb-24">
+        <Spinner />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -106,8 +181,8 @@ export default function BekwestNavbar() {
               spacing={4}
               display={{ base: "none", md: "flex" }}
             >
-              {Links.map((link) => (
-                <NavLink href={link.href} key={link.href}>
+              {links.map((link) => (
+                <NavLink href={link.href} key={links.indexOf(link)}>
                   {link.title}
                 </NavLink>
               ))}
@@ -153,8 +228,8 @@ export default function BekwestNavbar() {
             // borderTopRadius={20}
           >
             <Stack as={"nav"} spacing={4}>
-              {Links.map((link) => (
-                <NavLink href={link.href} key={link.href}>
+              {links.map((link) => (
+                <NavLink href={link.href} key={links.indexOf(link)}>
                   {link.title}
                 </NavLink>
               ))}
