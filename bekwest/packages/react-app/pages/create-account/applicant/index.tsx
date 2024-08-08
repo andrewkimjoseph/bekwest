@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Button, Select, Text, Spacer, Divider } from "@chakra-ui/react";
 
 import { ArrowBackIcon } from "@chakra-ui/icons";
@@ -7,7 +9,7 @@ export default function Home() {
   const [entitySelection, setEntitySelection] = useState("Donor");
 
   return (
-    <Box className="flex flex-col h-screen align-center" bgColor={"#E6E8FA"}>
+    <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
         <Text fontSize={20}>Applicant Account Creation</Text>
         <Spacer></Spacer>
@@ -98,8 +100,6 @@ export default function Home() {
         <Button
           w={"full"}
           onClick={() => router.push("/applicant/1")}
-
-          mb={24}
           loadingText="Creating your donor account"
           borderRadius={"10"}
           bgColor={"#EB3C7F"}

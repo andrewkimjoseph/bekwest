@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Box,
     Button,
@@ -52,7 +54,7 @@ import {
     };
   
     return (
-      <Box className="flex flex-col h-screen align-center" bgColor={"#E6E8FA"}>
+      <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
         <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
           <Text fontSize={26}>Donation 1: Applications</Text>
   
@@ -69,7 +71,7 @@ import {
           <Divider borderColor="black" />
         </Box>
 
-        <Box px={4} mb={2} className="align-center justify-center flex flex-row" h={300}>
+        <Box px={4} mb={2} className="align-center justify-center flex flex-row" >
         {/* <Line data={data} /> */}
 
         <Pie data={data}  />
@@ -109,7 +111,7 @@ import {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
-          mb={24}
+      
           onClick={() => router.push("/donor/1/donations/1/applications")}
           loadingText="Creating your donor account"
           borderRadius={"10"}
