@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Box,
   Button,
@@ -66,7 +68,7 @@ export default function ParticularDonation() {
   };
 
   return (
-    <Box className="flex flex-col h-screen align-center" bgColor={"#E6E8FA"}>
+    <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
         <Text fontSize={26}>Donation 1: Applications</Text>
 

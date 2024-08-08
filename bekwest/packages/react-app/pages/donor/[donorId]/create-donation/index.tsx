@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Box,
   Button,
@@ -24,7 +26,7 @@ export default function Home() {
   };
 
   return (
-    <Box className="flex flex-col h-screen align-center" bgColor={"#E6E8FA"}>
+    <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
         <Text fontSize={20}>Donation Creation Form Creation</Text>
         <Spacer></Spacer>
@@ -115,7 +117,7 @@ export default function Home() {
       </Box>
 
       <Box w={"full"} px={4} className="flex flex-col" mt={4}>
-        <Text fontSize={16} mb={10}>
+        <Text fontSize={16} mb={4}>
           Amount (cUSD)
         </Text>
         <Slider
@@ -158,7 +160,6 @@ export default function Home() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
-          mb={24}
           onClick={() => router.push("/donor/1")}
           loadingText="Creating your donor account"
           borderRadius={"10"}

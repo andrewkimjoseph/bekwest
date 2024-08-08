@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Image, Button, Select } from "@chakra-ui/react";
 import router from "next/router";
 import { useState } from "react";
@@ -5,7 +7,7 @@ export default function Home() {
   const [entitySelection, setEntitySelection] = useState("Donor");
 
   return (
-    <Box className="flex flex-col  items-center h-screen" bgColor={"#E6E8FA"}>
+    <Box className="flex flex-col  items-center h-svh" bgColor={"#E6E8FA"}>
       <Box boxSize="sm">
         <Image
           src="/feature.png"
@@ -32,7 +34,6 @@ export default function Home() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
-          mb={24}
           loadingText="Creating your participant account"
           onClick={()=>{
 

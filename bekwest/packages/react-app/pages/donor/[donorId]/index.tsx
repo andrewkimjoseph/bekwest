@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Box,
     Button,
@@ -19,7 +21,7 @@ import {
     const [entitySelection, setEntitySelection] = useState("Donor");
   
     return (
-      <Box className="flex flex-col h-screen align-center" bgColor={"#E6E8FA"}>
+      <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
         <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
           <Text fontSize={26}>Welcome, AK!</Text>
   
@@ -103,10 +105,10 @@ import {
           ))}
         </Box>
   
-        <Box px={4} mt={10} mb={16} className="w-full">
+        <Box px={4} mt={6} mb={24} className="w-full">
           <Button
             w={"full"}
-            mb={24}
+  
             onClick={() => router.push("/donor/1/create-donation")}
 
             boxShadow="base"
