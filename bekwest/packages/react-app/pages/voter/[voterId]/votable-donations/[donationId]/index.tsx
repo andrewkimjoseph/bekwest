@@ -1,29 +1,109 @@
-"use client"
+"use client";
 
 import {
   Box,
   Button,
-  Select,
   Text,
   Spacer,
   Divider,
   Card,
   CardBody,
   Avatar,
-  AvatarBadge,
-  AvatarGroup,
 } from "@chakra-ui/react";
 
-import { ArrowBackIcon, CheckCircleIcon } from "@chakra-ui/icons";
-import { useState } from "react";
-import router from "next/router";
+import { ArrowBackIcon } from "@chakra-ui/icons";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
+import { Application } from "@/entities/application";
+import { getAllApplicationsOfDonation } from "@/services/donation/getAllApplicationsOfDonation";
+import { getDonationById } from "@/services/donation/getDonationById";
+import { Donation } from "@/entities/donation";
+import { makeAVote } from "@/services/voter/makeAVote";
+import toast, { Toaster } from "react-hot-toast";
+import { checkIfVoterHasAlreadyMadeAVoteInDonation } from "@/services/voter/checkIfVoterHasAlreadyMadeAVoteInDonation";
 export default function VoteInParticularDonation() {
-  const [entitySelection, setEntitySelection] = useState("Donor");
+  const { address, isConnected } = useAccount();
+  const [donation, setDonation] = useState<Donation | null>(null);
+  const [isMakingAVote, setIsMakingAVote] = useState(false);
+
+  const [voterHasAlreadyMadeVote, setVoterHasAlreadyMadeVote] = useState(false);
+
+  const [allApplicationsOfDonation, setAllApplicationsOfDonation] = useState<
+    Application[]
+  >([]);
+
+  const router = useRouter();
+  const { voterId, donationId } = router.query;
+
+  const makeAVoteFn = async (
+    applicationId: number,
+    applicantWalletAddress: `0x${string}`
+  ) => {
+    setIsMakingAVote(true);
+
+    const donationIsCreated = await makeAVote(address, {
+      _donationId: Number(donationId),
+      _applicationId: applicationId,
+      _applicantWalletAddress: applicantWalletAddress,
+      _voterWalletAddress: address as `0x${string}`,
+    });
+
+    if (donationIsCreated) {
+      toast.success("Vote made successful");
+
+      router.push(`/voter/${voterId}`);
+    } else {
+      toast.error("Vote making failed");
+    }
+    setIsMakingAVote(false);
+  };
+
+  useEffect(() => {
+    const getAndSetDonation = async () => {
+      if (address) {
+        const donation = await getDonationById(address, {
+          _donationId: Number(donationId),
+        });
+        setDonation(donation);
+      }
+    };
+
+    const getAllApplicationsOfDonationAndSet = async () => {
+      if (address) {
+        const applicationsOfDonation = await getAllApplicationsOfDonation(
+          address,
+          { _donationId: Number(donationId) }
+        );
+
+        setAllApplicationsOfDonation(applicationsOfDonation);
+      }
+    };
+
+
+    const checkIfAlreadyVotedSet = async () => {
+      if (address) {
+        const hadAlreadyVoted =
+          await checkIfVoterHasAlreadyMadeAVoteInDonation(address, {
+            _donationId: Number(donationId),
+            _voterWalletAddress: address,
+          });
+
+          setVoterHasAlreadyMadeVote(hadAlreadyVoted);
+      }
+    };
+
+
+    getAndSetDonation();
+    checkIfAlreadyVotedSet();
+    getAllApplicationsOfDonationAndSet();
+  }, [address]);
 
   return (
     <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
+      <Toaster />
       <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-        <Text fontSize={26}>Donation 1: Applications</Text>
+        <Text fontSize={26}>Donation {donation?.id}: Applications</Text>
 
         <Spacer></Spacer>
         <ArrowBackIcon
@@ -38,61 +118,70 @@ export default function VoteInParticularDonation() {
       </Box>
 
       <Box overflowY="auto">
-        {[1, 2].map((survey) => (
-          <div>
-            <Box className="flex flex-col">
-              <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-                <Card variant={"elevated"} borderRadius={12} w={"full"}>
-                  <CardBody>
-                    <Box className="flex flex-row items-left items-center relative">
-                      {/* <Avatar
-                          name="Sasuke Uchiha"
+        {allApplicationsOfDonation.length === 0 ? (
+          <Box w={"full"} px={4} className="flex flex-col" mt={4}>
+            <Card variant={"outlined"} borderRadius={12} w={"full"}>
+              <CardBody p={3}>
+                <Box className="flex flex-row items-left items-center relative">
+                  <Text fontSize={16}>No applications found.</Text>
+                </Box>
+              </CardBody>
+            </Card>
+          </Box>
+        ) : (
+          allApplicationsOfDonation.map((application) => (
+         
+              <Box className="flex flex-col" key={application.id}>
+                <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
+                  <Card variant={"elevated"} borderRadius={12} w={"full"}>
+                    <CardBody>
+                      <Box className="flex flex-row items-left items-center relative">
+                        <Avatar
+                          name={`Applicant ${application.applicantId}`}
                           size="lg"
                           bgColor={"#EB3C7F"}
                           boxSize={14}
-                        /> */}
+                        />
 
-                      <CheckCircleIcon
-                        color={"#1E1E49"}
-                        onClick={() => router.back()}
-                        boxSize={14}
-                      />
-
-                      <Box className="flex flex-col items-left relative ml-4">
-                        <Text fontSize={20} mb={2}>
-                          Topic: Climate change
-                        </Text>
-                        <Text fontSize={16} mb={2}>
-                          Votes: 11
-                        </Text>
+                        <Box className="flex flex-col items-left relative ml-4">
+                          <Text fontSize={20} mb={2}>
+                            Topic: {donation?.topic}
+                          </Text>
+                        </Box>
                       </Box>
-                    </Box>
 
                       <Text fontSize={16} my={3}>
-                        Maximum number of applicants
+                        {application.pitchStatement}
                       </Text>
-                    <Button
-
-                    mt={2}
-               
-                      w={"full"}
-                      loadingText="Creating your donor account"
-                      borderRadius={"10"}
-                      bgColor={"#EB3C7F"}
-                      textColor={"white"}
-                      _hover={{
-                        bgColor: "#1E1E49",
-                        textColor: "white",
-                      }}
-                    >
-                      Vote
-                    </Button>
-                  </CardBody>
-                </Card>
+                      <Button
+                        mt={2}
+                        w={"full"}
+                        onClick={() =>
+                          makeAVoteFn(
+                            application.id,
+                            application.applicantWalletAddress
+                          )
+                        }
+                        isDisabled={voterHasAlreadyMadeVote}
+                        isLoading={isMakingAVote}
+                        loadingText="Voting for application"
+                        borderRadius={"10"}
+                        bgColor={"#EB3C7F"}
+                        textColor={"white"}
+                        _hover={{
+                          bgColor: "#1E1E49",
+                          textColor: "white",
+                        }}
+                      >
+                        {voterHasAlreadyMadeVote ? "Already voted": "Vote for this application"}
+                      </Button>
+                    </CardBody>
+                  </Card>
+                </Box>
               </Box>
-            </Box>
-          </div>
-        ))}
+          
+          ))
+        )}
       </Box>
     </Box>
   );

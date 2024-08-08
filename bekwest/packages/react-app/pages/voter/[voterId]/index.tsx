@@ -68,7 +68,7 @@ export default function Home() {
       }
     };
 
-    const getTotalAmountOfGrantsGivenToApplicantInWeiAndSet = async () => {
+    const getTotalAmountOfRewardsGivenToVoterInWeiAndSet = async () => {
       if (address) {
         const amount = await getTotalAmountOfRewardsGivenToVoterInWei(address, {
           _voterId: Number(voterId),
@@ -80,7 +80,7 @@ export default function Home() {
     getAndSetVoter();
     getAllDonationsAndSet();
     getTotalAmountOfVotesMadeByVoterVotesOfVoterAndSet();
-    getTotalAmountOfGrantsGivenToApplicantInWeiAndSet();
+    getTotalAmountOfRewardsGivenToVoterInWeiAndSet();
   }, [address]);
 
   return (
@@ -127,7 +127,7 @@ export default function Home() {
         <Card variant={"outlined"} borderRadius={12} w={"full"}>
           <CardBody>
             <Text fontWeight={"bold"} fontSize={"20"}>
-              {totalAmountOfVotesMadeByVoter} cUSD
+              {parseWeiAmountToEther(totalAmountRewarded)} cUSD
             </Text>
           </CardBody>
         </Card>
