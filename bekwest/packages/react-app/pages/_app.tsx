@@ -18,6 +18,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { fonts } from "@/utils/font";
 import Head from "next/head";
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const connectors = connectorsForWallets(
   [
@@ -73,6 +74,7 @@ function App({ Component, pageProps }: AppProps) {
               <Layout>
                 <Component {...pageProps} />
                 <Analytics />
+                <SpeedInsights />
               </Layout>
             </RainbowKitProvider>
           </QueryClientProvider>
