@@ -1,4 +1,4 @@
-ort type Grant = {
+export type Grant = {
     id: number;
     donationId: number;
     applicationId: number;
