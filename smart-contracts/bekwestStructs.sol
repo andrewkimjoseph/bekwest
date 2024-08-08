@@ -7,7 +7,6 @@ struct Donor {
     address walletAddress;
     string adjective;
     string mainIndustryOfInterest;
-    uint256 numberOfDonationsCreated;
     bool isNotBlank;
 }
 

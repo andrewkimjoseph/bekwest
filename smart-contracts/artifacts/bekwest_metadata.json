@@ -1568,6 +1568,57 @@
 						"type": "uint256"
 					}
 				],
+				"name": "getLatestResultsOfDonation",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "donationId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "applicantId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "address",
+								"name": "applicantWalletAddress",
+								"type": "address"
+							},
+							{
+								"internalType": "uint256",
+								"name": "voteCount",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isNotBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Result[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_donationId",
+						"type": "uint256"
+					}
+				],
 				"name": "getPotentialAmountOfGrantOfDonationInWei",
 				"outputs": [
 					{
@@ -2113,11 +2164,11 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0x18b2ecc381789249ce8284de28a5e4204e0ece1f47dab23bbf95bc819fd5a235",
+			"keccak256": "0xe0598210743ebf2e3cbd86c4e94b68958d6a355737a6e29517f3b6c0313af05a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://929ea35e848618fc634f33d84c8d27bb1a509254d6f8e65f84a2c169d8213d06",
-				"dweb:/ipfs/QmaBwyyUKPoH6AKTtsNRimYBX63mktXAwiq9ea1TJSUvvp"
+				"bzz-raw://b75071b0b11e42a9bbf9bbec1758c80cfecd8b098bc1afcac178e852f6a5d00e",
+				"dweb:/ipfs/QmdUenmUKHw1aCCqRYuXZ16bMjjxQf8hkLALYccYmPFhiM"
 			]
 		},
 		"smart-contracts/bekwestInterfaces.sol": {
@@ -2129,11 +2180,11 @@
 			]
 		},
 		"smart-contracts/bekwestStructs.sol": {
-			"keccak256": "0x24beeb4f3a17fbb209f0f0096bcde0f2eb27368bff4820638f9146cdf1dcf364",
+			"keccak256": "0x8f94e95386c4f2f95a7be62cd153f40d80327faa6ded573fa5819e32da7bbd6a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://accb7c07d75025c295999884cabd4cb52b5e80aab7cc1c6d0e4796f7236c452c",
-				"dweb:/ipfs/QmZ91JV2M5Z3rbAhLXyYgBZqDg4kZDHfLuzV4ZNFxwxTW4"
+				"bzz-raw://fb71f588f562a86e01de354f6f4896e7aaf58476b99e0feb6b886f8a42e4546f",
+				"dweb:/ipfs/QmP7uirKcPVi92cuBtVaQX8SsvQjC1W4PiAADLmmnhuu18"
 			]
 		}
 	},

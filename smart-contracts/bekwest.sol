@@ -104,7 +104,6 @@ contract bekwest {
         newDonor.walletAddress = _donorWalletAddress;
         newDonor.adjective = _adjective;
         newDonor.mainIndustryOfInterest = _mainIndustryOfInterest;
-        newDonor.numberOfDonationsCreated = 0;
         newDonor.isNotBlank = true;
 
         allDonors[_donorWalletAddress] = newDonor;
@@ -502,6 +501,8 @@ contract bekwest {
         newApplication.isNotBlank = true;
         allApplications.push(newApplication);
 
+        applicationsToDonations[_donationId][_applicantWalletAddress] = true;
+
         uint256 currentNumberOfApplicationsForDonation = numbersOfApplicationsForDonations[
                 _donationId
             ];
@@ -627,6 +628,35 @@ contract bekwest {
         }
 
         return voteOfVoterForDonation;
+    }
+
+    function getAllVotesOfVoter(address _voterWalletAddress)
+        public
+        view
+        returns (Vote[] memory)
+    {
+        uint256 numberOfVotesMadeByVoter = numbersOfVotesOfVoters[
+            _voterWalletAddress
+        ];
+
+        Vote[] memory votesMadeByVoter = new Vote[](numberOfVotesMadeByVoter);
+
+        uint256 voteIndex = 0;
+
+        for (uint256 voteId = 0; voteId < allVotes.length; voteId++) {
+            Vote memory runningVote = allVotes[voteId];
+
+            if (runningVote.voterId == runningVote.id) {
+                votesMadeByVoter[voteIndex] = runningVote;
+                voteIndex++;
+            }
+
+            if (voteIndex == numberOfVotesMadeByVoter) {
+                break;
+            }
+        }
+
+        return votesMadeByVoter;
     }
 
     function getPotentialAmountOfRewardOfDonationInWei(uint256 _donationId)
