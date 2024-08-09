@@ -57,7 +57,6 @@ export default function ParticularApplicationMade() {
 
   const [barChartData, setBarChartData] = useState<ChartData | null>(null);
 
-
   const { address, isConnected } = useAccount();
 
   const router = useRouter();
@@ -140,12 +139,11 @@ export default function ParticularApplicationMade() {
         }
       ).applicantWalletAddress;
 
-
       const winner = await getApplicantByWalletAddress(address, {
         _applicantWalletAddress: winningApplicantWalletAddress,
       });
 
-      setWinner(winner)
+      setWinner(winner);
 
       for (
         let resultId = 0;
@@ -211,29 +209,28 @@ export default function ParticularApplicationMade() {
         </Text>
 
         {!donation?.votingIsClosed && (
-          <Circle
-            size="10px"
-            bg="#EB3C7F"
-            color="white"
-            ml={2}
-            onClick={() => {
-              console.log(latestResultsOfDonation);
-            }}
-          ></Circle>
-
-          
+          <Circle size="10px" bg="#EB3C7F" color="white" ml={2}></Circle>
         )}
       </Box>
 
-      <Box w={"full"} px={4} className="flex flex-col" mb={4}>
-        <Card variant={"outline"} borderRadius={12} w={"full"} bgColor={"#EB3C7F"}>
-          <CardBody p={2}>
-            <Text fontSize={16} m={1} color={"white"}>
-              {winner?.walletAddress === address ? "You won! Check your balance!": "You did not win! Try another donation!"}
-            </Text>
-          </CardBody>
-        </Card>
-      </Box>
+      {donation?.votingIsClosed && (
+        <Box w={"full"} px={4} className="flex flex-col" mb={4}>
+          <Card
+            variant={"outline"}
+            borderRadius={12}
+            w={"full"}
+            bgColor={"#EB3C7F"}
+          >
+            <CardBody p={2}>
+              <Text fontSize={16} m={1} color={"white"}>
+                {winner?.walletAddress === address
+                  ? "You won! Check your balance!"
+                  : "You did not win! Try another donation!"}
+              </Text>
+            </CardBody>
+          </Card>
+        </Box>
+      )}
 
       {latestResultsOfDonation.length === 0 ? (
         <Box w={"full"} px={4} className="flex flex-col" mt={4}>
