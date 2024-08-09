@@ -423,10 +423,10 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest_flattened.sol": {
-			"keccak256": "0x53381758d8f0fdcb03f3dc36ccf12657d689929450bfe36ce64ee9a2e406a5f9",
+			"keccak256": "0x0efef472fe4822011de1fc775fcffaccc52bdb4f043d32c2a06d3bccae1fc694",
 			"urls": [
-				"bzz-raw://bdf1a50e714564109da60a10a57bf25cfc982b3e285a6d672d99f6f62d37f39c",
-				"dweb:/ipfs/QmTZRE58ahCDAKvombrNuZp4fqZubh9JmGap7tBvgqs7uv"
+				"bzz-raw://3bc7e892cbd6c9b0e00bb47a6c9788dddf92d59a920e992ec4c15d4574ad76e7",
+				"dweb:/ipfs/Qmc2KSJpj1Jsz6HVuLw6DsuVzEeUzFThK7qRjx5DVzB7Do"
 			]
 		}
 	},

@@ -2190,7 +2190,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"smart-contracts/bekwest.sol": "bekwest"
+			"smart-contracts/bekwest_flattened.sol": "bekwest"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -2204,28 +2204,11 @@
 		"remappings": []
 	},
 	"sources": {
-		"smart-contracts/bekwest.sol": {
-			"keccak256": "0xa83a640e039cb04a642085d681d9f97d70b52c8f57a5ca89fd49f927d2f8eb1a",
-			"license": "MIT",
+		"smart-contracts/bekwest_flattened.sol": {
+			"keccak256": "0x0efef472fe4822011de1fc775fcffaccc52bdb4f043d32c2a06d3bccae1fc694",
 			"urls": [
-				"bzz-raw://a41c76167b9ec986ec6c07e3bf15144098c99c623a03801e2c115ecd61b48b12",
-				"dweb:/ipfs/QmZMz9n85EaeYnnLWe4BiEbzwt6vu2kuY2XVEf6UFR4F2M"
-			]
-		},
-		"smart-contracts/bekwestInterfaces.sol": {
-			"keccak256": "0x4acce7d460c304b2e6126a4bfb77efda48174390fdcd08c77158a20ca8594f82",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://bddf71c061b3b723fd321e4c24882258a00b5a4f537626b01ef741c70f29d1fd",
-				"dweb:/ipfs/QmRvNKgdkJxuheMZjgTmxAWhyhhQnASnereevJHpM4TZmH"
-			]
-		},
-		"smart-contracts/bekwestStructs.sol": {
-			"keccak256": "0x85541182117dd31df804f40e97f91c25062610d6185943e19b35ec615cbcb260",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://aa9f50f52c9e27be8bf03ad94ca02a36d4c8d41e7e9952b342e5736cf2eaa76a",
-				"dweb:/ipfs/QmQympTHjoygaQsP7kFAiRffydh9umzJXJLVuBCEC9q5cZ"
+				"bzz-raw://3bc7e892cbd6c9b0e00bb47a6c9788dddf92d59a920e992ec4c15d4574ad76e7",
+				"dweb:/ipfs/Qmc2KSJpj1Jsz6HVuLw6DsuVzEeUzFThK7qRjx5DVzB7Do"
 			]
 		}
 	},

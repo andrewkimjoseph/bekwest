@@ -10,7 +10,6 @@ struct Donor {
     address walletAddress;
     string adjective;
     string mainIndustryOfInterest;
-    uint256 numberOfDonationsCreated;
     bool isNotBlank;
 }
 
@@ -64,6 +63,15 @@ struct Vote {
     uint256 applicantId;
     uint256 donationId;
     bool isRewarded;
+    bool isNotBlank;
+}
+
+struct Result {
+    uint256 id;
+    uint256 donationId;
+    uint256 applicantId;
+    address applicantWalletAddress;
+    uint256 voteCount;
     bool isNotBlank;
 }
 
@@ -223,7 +231,6 @@ contract bekwest {
         newDonor.walletAddress = _donorWalletAddress;
         newDonor.adjective = _adjective;
         newDonor.mainIndustryOfInterest = _mainIndustryOfInterest;
-        newDonor.numberOfDonationsCreated = 0;
         newDonor.isNotBlank = true;
 
         allDonors[_donorWalletAddress] = newDonor;
@@ -621,6 +628,8 @@ contract bekwest {
         newApplication.isNotBlank = true;
         allApplications.push(newApplication);
 
+        applicationsToDonations[_donationId][_applicantWalletAddress] = true;
+
         uint256 currentNumberOfApplicationsForDonation = numbersOfApplicationsForDonations[
                 _donationId
             ];
@@ -746,6 +755,37 @@ contract bekwest {
         }
 
         return voteOfVoterForDonation;
+    }
+
+    function getAllVotesOfVoter(address _voterWalletAddress)
+        public
+        view
+        returns (Vote[] memory)
+    {
+        uint256 numberOfVotesMadeByVoter = numbersOfVotesOfVoters[
+            _voterWalletAddress
+        ];
+
+        Voter memory particularVoter = getVoterByWalletAddress(_voterWalletAddress);
+
+        Vote[] memory votesMadeByVoter = new Vote[](numberOfVotesMadeByVoter);
+
+        uint256 voteIndex = 0;
+
+        for (uint256 voteId = 0; voteId < allVotes.length; voteId++) {
+            Vote memory runningVote = allVotes[voteId];
+
+            if (runningVote.voterId == particularVoter.id) {
+                votesMadeByVoter[voteIndex] = runningVote;
+                voteIndex++;
+            }
+
+            if (voteIndex == numberOfVotesMadeByVoter) {
+                break;
+            }
+        }
+
+        return votesMadeByVoter;
     }
 
     function getPotentialAmountOfRewardOfDonationInWei(uint256 _donationId)
@@ -985,13 +1025,59 @@ contract bekwest {
         );
         return grantee;
     }
+
+    function getLatestResultsOfDonation(uint256 _donationId)
+        public
+        view
+        returns (Result[] memory)
+    {
+        uint256 votesOfDonation = numbersOfVotesForDonations[_donationId];
+        if (votesOfDonation == 0) {
+            return new Result[](0);
+        } else {
+            Applicant[]
+                memory applicantsOfDonation = getAllApplicantsOfDonation(
+                    _donationId
+                );
+
+            Result[] memory latestResultsOfDonation = new Result[](
+                applicantsOfDonation.length
+            );
+
+            for (
+                uint256 applicantId = 0;
+                applicantId < applicantsOfDonation.length;
+                applicantId++
+            ) {
+                Applicant memory runningApplicant = applicantsOfDonation[
+                    applicantId
+                ];
+
+                uint256 latestVoteCountOfApplicant = allVoteCountsOfApplicantsOfDonation[
+                        _donationId
+                    ][runningApplicant.walletAddress];
+
+                Result memory newResult;
+
+                newResult.id = applicantId;
+                newResult.donationId = _donationId;
+                newResult.applicantId = runningApplicant.id;
+                newResult.applicantWalletAddress = runningApplicant.walletAddress;
+                newResult.voteCount = latestVoteCountOfApplicant;
+                newResult.isNotBlank = true;
+
+                latestResultsOfDonation[applicantId] = newResult;
+            }
+
+            return latestResultsOfDonation;
+        }
+    }
 }
 
 //  First deployment address -   0x24E31f08335DD02Ac02d2C8BEb976a9d6370A0C2
 //  Second deployment address -  0x374E05c7AFB37B286EeD7F421a26494AdDA20D8A
-//  FINAL - 0x19E0FcBd394F174aAa0840D4871622742fC3883c
 //  FINAL FINAL                  0x19E0FcBd394F174aAa0840D4871622742fC3883c
-//  
+//
 //  Donor wallet address -       0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
 //  ...
 //  Applicant wallet address 1 - 0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
@@ -1000,4 +1086,5 @@ contract bekwest {
 //  Voter wallet address 1 -     0xecE897a85688f2e83a73Fed36b9d1a6efCC99e93 - The Old Lad
 //  Voter wallet address 2 -     0xdaB7EB2409fdD974CF93357C61aEA141729AEfF5 - The Old Lord
 //  Voter wallet address 3 -     0x1c30082ae6F51E31F28736be3f715261223E4EDe - The Old Lady
+//  ...
 //  ...
