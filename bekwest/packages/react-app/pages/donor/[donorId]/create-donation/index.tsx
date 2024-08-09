@@ -20,6 +20,7 @@ import { useRouter } from "next/router";
 import { createDonation } from "@/services/donation/createDonation";
 import toast, { Toaster } from "react-hot-toast";
 import { useAccount } from "wagmi";
+import { fundDonation } from "@/services/donation/fundDonation";
 export default function CreateDonation() {
   const [industry, setIndustry] = useState("Education");
   const [topic, setTopic] = useState("Finance");
@@ -35,24 +36,33 @@ export default function CreateDonation() {
   const createDonationFn = async () => {
     setIsCreatingDonation(true);
 
-    const donationIsCreated = await createDonation(address, {
-      _donorId: Number(donorId),
-      _donorWalletAddress: address as `0x${string}`,
-      _topic: topic,
-      _industry: industry,
-      _maxNumberOfApplications: maximumNumberOfApplicants,
-      _maxNumberOfVotes: maximumNumberOfVoters,
-      _amountDonated: amountDonated,
+    const donationIsFunded = await fundDonation(address, {
+      _amount: amountDonated,
     });
 
-    if (donationIsCreated) {
-      toast.success("Donation creation successful");
+    if (donationIsFunded) {
+      const donationIsCreated = await createDonation(address, {
+        _donorId: Number(donorId),
+        _donorWalletAddress: address as `0x${string}`,
+        _topic: topic,
+        _industry: industry,
+        _maxNumberOfApplications: maximumNumberOfApplicants,
+        _maxNumberOfVotes: maximumNumberOfVoters,
+        _amountDonated: amountDonated,
+      });
 
-      router.push(`/donor/${donorId}`);
+      if (donationIsCreated) {
+        toast.success("Donation creation successful");
+
+        router.push(`/donor/${donorId}`);
+      } else {
+        toast.error("Donation creation failed");
+      }
+      setIsCreatingDonation(false);
     } else {
-      toast.error("Donation creation failed");
+      toast.error("Donation funding failed");
+      setIsCreatingDonation(false);
     }
-    setIsCreatingDonation(false);
   };
 
   const labelStyles = {
@@ -146,7 +156,7 @@ export default function CreateDonation() {
           }}
         >
           <option value="1">1</option>
-          <option value="2">2</option>
+          <option value="3">3</option>
         </Select>
       </Box>
 

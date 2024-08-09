@@ -118,7 +118,7 @@ export default function Home() {
         >
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Others">Others</option>
+          <option value="Other">Other</option>
         </Select>
       </Box>
 
@@ -153,7 +153,7 @@ export default function Home() {
           focusBorderColor="#EB3C7F"
             value={ageBracket}
             onChange={(event) => {
-              setAdjective(event.target.value);
+              setAgeBracket(event.target.value);
             }}
         >
           <option value="Under 18">Under 18</option>

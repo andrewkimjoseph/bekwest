@@ -127,7 +127,7 @@ export default function ApplicantHome() {
           Total Granted So Far:
         </Text>
         <Text fontWeight={"bold"} fontSize={"20"}>
-          {totalAmountGranted} cUSD
+          {parseWeiAmountToEther(totalAmountGranted)} cUSD
         </Text>
       </Box>
 
