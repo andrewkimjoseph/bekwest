@@ -11,6 +11,16 @@
 
 
 
+# Partners
+- #### MiniPay - Celo
+https://bekwest.xyz
+
+- #### Dango - Celo
+https://bekwest-on-dango.vercel.app/
+
+- #### Block Scout - Dango Explorer
+https://celo-dango.blockscout.com/address/0x3aEc2Feebfc424FAa75e5e9bc0b1831ca509CB5D?tab=txs
+
 # How to use bekwest within MiniPay
 1. Launch MiniPay from Opera Mini.
 2. Enable developer mode.
