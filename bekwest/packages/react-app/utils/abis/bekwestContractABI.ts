@@ -1,2122 +1,2173 @@
 export const bekwestContractABI = [
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        "internalType": "uint256",
+        "name": "_applicationId",
+        "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "allApplicants",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "applicantId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "walletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "adjective",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "gender",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "countryOfResidence",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "ageBracket",
-        type: "string",
-      },
-      {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "approveApplication",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
       },
+      {
+        "internalType": "string",
+        "name": "_adjective",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_gender",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_countryOfResidence",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_ageBracket",
+        "type": "string"
+      }
     ],
-    name: "allApplications",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "applicantId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "applicantWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "pitchStatement",
-        type: "string",
-      },
-      {
-        internalType: "bool",
-        name: "isApproved",
-        type: "bool",
-      },
-      {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "createApplicantAccount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "_donorId",
+        "type": "uint256"
       },
+      {
+        "internalType": "address",
+        "name": "_donorWalletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_topic",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_industry",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxNumberOfApplications",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_maxNumberOfVotes",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amountDonated",
+        "type": "uint256"
+      }
     ],
-    name: "allDonations",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "donorId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "donorWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "topic",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "industry",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "maxNumberOfApplications",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "maxNumberOfVotes",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amountDonatedInWei",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "applicationIsClosed",
-        type: "bool",
-      },
-      {
-        internalType: "bool",
-        name: "votingIsClosed",
-        type: "bool",
-      },
-      {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "createDonation",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        "internalType": "address",
+        "name": "_donorWalletAddress",
+        "type": "address"
       },
+      {
+        "internalType": "string",
+        "name": "_adjective",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_mainIndustryOfInterest",
+        "type": "string"
+      }
     ],
-    name: "allDonors",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "walletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "adjective",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "mainIndustryOfInterest",
-        type: "string",
-      },
-      {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "createDonorAccount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
       },
+      {
+        "internalType": "string",
+        "name": "_adjective",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_gender",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_countryOfResidence",
+        "type": "string"
+      }
     ],
-    name: "allGrants",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "applicationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "applicantId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "applicantWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "amountGrantedInWei",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "createVoterAccount",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
       },
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "_applicantId",
+        "type": "uint256"
       },
+      {
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "_pitchStatement",
+        "type": "string"
+      }
     ],
-    name: "allRewards",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "voterId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "voterWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "amountRewardedInWei",
-        type: "uint256",
-      },
-      {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "makeApplication",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
       },
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        "internalType": "uint256",
+        "name": "_applicationId",
+        "type": "uint256"
       },
+      {
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "allVoteCountsOfApplicantsOfDonation",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
+    "name": "makeAVote",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "allVoters",
-    outputs: [
+    "name": "allApplicants",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
       {
-        internalType: "address",
-        name: "walletAddress",
-        type: "address",
+        "internalType": "uint256",
+        "name": "applicantId",
+        "type": "uint256"
       },
       {
-        internalType: "string",
-        name: "adjective",
-        type: "string",
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
       },
       {
-        internalType: "string",
-        name: "gender",
-        type: "string",
+        "internalType": "string",
+        "name": "adjective",
+        "type": "string"
       },
       {
-        internalType: "string",
-        name: "countryOfResidence",
-        type: "string",
+        "internalType": "string",
+        "name": "gender",
+        "type": "string"
       },
       {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
+        "internalType": "string",
+        "name": "countryOfResidence",
+        "type": "string"
       },
+      {
+        "internalType": "string",
+        "name": "ageBracket",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "allVotes",
-    outputs: [
+    "name": "allApplications",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "id",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
       {
-        internalType: "uint256",
-        name: "voterId",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "applicantId",
+        "type": "uint256"
       },
       {
-        internalType: "uint256",
-        name: "applicantId",
-        type: "uint256",
+        "internalType": "address",
+        "name": "applicantWalletAddress",
+        "type": "address"
       },
       {
-        internalType: "uint256",
-        name: "donationId",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "donationId",
+        "type": "uint256"
       },
       {
-        internalType: "bool",
-        name: "isRewarded",
-        type: "bool",
+        "internalType": "string",
+        "name": "pitchStatement",
+        "type": "string"
       },
       {
-        internalType: "bool",
-        name: "isNotBlank",
-        type: "bool",
+        "internalType": "bool",
+        "name": "isApproved",
+        "type": "bool"
       },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "applicationsToDonations",
-    outputs: [
+    "name": "allDonations",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "donorId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "donorWalletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "topic",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "industry",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxNumberOfApplications",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "maxNumberOfVotes",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountDonatedInWei",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "applicationIsClosed",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "votingIsClosed",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_applicationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "approveApplication",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "allDonors",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "adjective",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "mainIndustryOfInterest",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "checkIfApplicantExists",
-    outputs: [
+    "name": "allGrants",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "donationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "applicationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "applicantId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "applicantWalletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountGrantedInWei",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
+        "internalType": "address",
+        "name": "",
+        "type": "address"
       },
       {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "checkIfApplicantHasAlreadyMadeAnApplicationToDonation",
-    outputs: [
+    "name": "allRewards",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "voterId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "voterWalletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "donationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountRewardedInWei",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_donorWalletAddress",
-        type: "address",
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       },
-    ],
-    name: "checkIfDonorExists",
-    outputs: [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "allVoteCountsOfApplicantsOfDonation",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "checkIfVoterExists",
-    outputs: [
+    "name": "allVoters",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
+      {
+        "internalType": "address",
+        "name": "walletAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "adjective",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "gender",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "countryOfResidence",
+        "type": "string"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "checkIfVoterHasAlreadyMadeAVoteInDonation",
-    outputs: [
+    "name": "allVotes",
+    "outputs": [
       {
-        internalType: "bool",
-        name: "",
-        type: "bool",
+        "internalType": "uint256",
+        "name": "id",
+        "type": "uint256"
       },
+      {
+        "internalType": "uint256",
+        "name": "voterId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "applicantId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "donationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "isRewarded",
+        "type": "bool"
+      },
+      {
+        "internalType": "bool",
+        "name": "isNotBlank",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       },
       {
-        internalType: "string",
-        name: "_adjective",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_gender",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_countryOfResidence",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_ageBracket",
-        type: "string",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "createApplicantAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "applicationsToDonations",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donorId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_donorWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_topic",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_industry",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_maxNumberOfApplications",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_maxNumberOfVotes",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_amountDonated",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "createDonation",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "checkIfApplicantExists",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_donorWalletAddress",
-        type: "address",
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
       },
       {
-        internalType: "string",
-        name: "_adjective",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_mainIndustryOfInterest",
-        type: "string",
-      },
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "createDonorAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "checkIfApplicantHasAlreadyMadeAnApplicationToDonation",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_adjective",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_gender",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_countryOfResidence",
-        type: "string",
-      },
+        "internalType": "address",
+        "name": "_donorWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "createVoterAccount",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "checkIfDonorExists",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentApplicantId",
-    outputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "checkIfVoterExists",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentApplicationId",
-    outputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
       },
+      {
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "name": "checkIfVoterHasAlreadyMadeAVoteInDonation",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentDonationId",
-    outputs: [
+    "inputs": [],
+    "name": "currentApplicantId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentDonorId",
-    outputs: [
+    "inputs": [],
+    "name": "currentApplicationId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentGrantId",
-    outputs: [
+    "inputs": [],
+    "name": "currentDonationId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentRewardId",
-    outputs: [
+    "inputs": [],
+    "name": "currentDonorId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentVoteId",
-    outputs: [
+    "inputs": [],
+    "name": "currentGrantId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "currentVoterId",
-    outputs: [
+    "inputs": [],
+    "name": "currentRewardId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [],
+    "name": "currentVoteId",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "getAllApplicantsOfDonation",
-    outputs: [
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "currentVoterId",
+    "outputs": [
       {
-        components: [
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAllApplicantsOfDonation",
+    "outputs": [
+      {
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "gender",
-            type: "string",
+            "internalType": "string",
+            "name": "gender",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "countryOfResidence",
-            type: "string",
+            "internalType": "string",
+            "name": "countryOfResidence",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "ageBracket",
-            type: "string",
+            "internalType": "string",
+            "name": "ageBracket",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Applicant[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct Applicant[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "getAllApplicationsOfDonation",
-    outputs: [
+    "name": "getAllApplicationsOfDonation",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "applicantWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "applicantWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "uint256",
-            name: "donationId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "pitchStatement",
-            type: "string",
+            "internalType": "string",
+            "name": "pitchStatement",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isApproved",
-            type: "bool",
+            "internalType": "bool",
+            "name": "isApproved",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Application[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct Application[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [],
-    name: "getAllDonations",
-    outputs: [
+    "inputs": [],
+    "name": "getAllDonations",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "donorId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "donorId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "donorWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "donorWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "string",
-            name: "topic",
-            type: "string",
+            "internalType": "string",
+            "name": "topic",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "industry",
-            type: "string",
+            "internalType": "string",
+            "name": "industry",
+            "type": "string"
           },
           {
-            internalType: "uint256",
-            name: "maxNumberOfApplications",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "maxNumberOfApplications",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "maxNumberOfVotes",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "maxNumberOfVotes",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "amountDonatedInWei",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "amountDonatedInWei",
+            "type": "uint256"
           },
           {
-            internalType: "bool",
-            name: "applicationIsClosed",
-            type: "bool",
+            "internalType": "bool",
+            "name": "applicationIsClosed",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "votingIsClosed",
-            type: "bool",
+            "internalType": "bool",
+            "name": "votingIsClosed",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Donation[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct Donation[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_donorWalletAddress",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_donorWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "getAllDonationsCreatedByDonor",
-    outputs: [
+    "name": "getAllDonationsCreatedByDonor",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "donorId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "donorId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "donorWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "donorWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "string",
-            name: "topic",
-            type: "string",
+            "internalType": "string",
+            "name": "topic",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "industry",
-            type: "string",
+            "internalType": "string",
+            "name": "industry",
+            "type": "string"
           },
           {
-            internalType: "uint256",
-            name: "maxNumberOfApplications",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "maxNumberOfApplications",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "maxNumberOfVotes",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "maxNumberOfVotes",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "amountDonatedInWei",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "amountDonatedInWei",
+            "type": "uint256"
           },
           {
-            internalType: "bool",
-            name: "applicationIsClosed",
-            type: "bool",
+            "internalType": "bool",
+            "name": "applicationIsClosed",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "votingIsClosed",
-            type: "bool",
+            "internalType": "bool",
+            "name": "votingIsClosed",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Donation[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct Donation[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "getApplicantByWalletAddress",
-    outputs: [
+    "name": "getAllVotesOfVoter",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "voterId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "gender",
-            type: "string",
+            "internalType": "bool",
+            "name": "isRewarded",
+            "type": "bool"
           },
           {
-            internalType: "string",
-            name: "countryOfResidence",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "ageBracket",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Applicant",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Vote[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_applicationId",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "getApplicantOfDonation",
-    outputs: [
+    "name": "getApplicantByWalletAddress",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "gender",
-            type: "string",
+            "internalType": "string",
+            "name": "gender",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "countryOfResidence",
-            type: "string",
+            "internalType": "string",
+            "name": "countryOfResidence",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "ageBracket",
-            type: "string",
+            "internalType": "string",
+            "name": "ageBracket",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Applicant",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Applicant",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_applicationId",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_applicationId",
+        "type": "uint256"
+      }
     ],
-    name: "getApplicationById",
-    outputs: [
+    "name": "getApplicantOfDonation",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "applicantWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           },
           {
-            internalType: "uint256",
-            name: "donationId",
-            type: "uint256",
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "pitchStatement",
-            type: "string",
+            "internalType": "string",
+            "name": "gender",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isApproved",
-            type: "bool",
+            "internalType": "string",
+            "name": "countryOfResidence",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
+            "internalType": "string",
+            "name": "ageBracket",
+            "type": "string"
           },
+          {
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Application",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Applicant",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_applicationId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "_applicationId",
+        "type": "uint256"
+      }
     ],
-    name: "getApplicationOfApplicantForDonation",
-    outputs: [
+    "name": "getApplicationById",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "applicantWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "applicantWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "uint256",
-            name: "donationId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "pitchStatement",
-            type: "string",
+            "internalType": "string",
+            "name": "pitchStatement",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isApproved",
-            type: "bool",
+            "internalType": "bool",
+            "name": "isApproved",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Application",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Application",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
       },
-    ],
-    name: "getApplicationsOfApplicant",
-    outputs: [
       {
-        components: [
+        "internalType": "uint256",
+        "name": "_applicationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getApplicationOfApplicantForDonation",
+    "outputs": [
+      {
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "applicantWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "applicantWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "uint256",
-            name: "donationId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "pitchStatement",
-            type: "string",
+            "internalType": "string",
+            "name": "pitchStatement",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isApproved",
-            type: "bool",
+            "internalType": "bool",
+            "name": "isApproved",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Application[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct Application",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "getDonationById",
-    outputs: [
+    "name": "getApplicationsOfApplicant",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "donorId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "donorWalletAddress",
-            type: "address",
+            "internalType": "address",
+            "name": "applicantWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "string",
-            name: "topic",
-            type: "string",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "industry",
-            type: "string",
+            "internalType": "string",
+            "name": "pitchStatement",
+            "type": "string"
           },
           {
-            internalType: "uint256",
-            name: "maxNumberOfApplications",
-            type: "uint256",
+            "internalType": "bool",
+            "name": "isApproved",
+            "type": "bool"
           },
           {
-            internalType: "uint256",
-            name: "maxNumberOfVotes",
-            type: "uint256",
-          },
-          {
-            internalType: "uint256",
-            name: "amountDonatedInWei",
-            type: "uint256",
-          },
-          {
-            internalType: "bool",
-            name: "applicationIsClosed",
-            type: "bool",
-          },
-          {
-            internalType: "bool",
-            name: "votingIsClosed",
-            type: "bool",
-          },
-          {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Donation",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Application[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_donorWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "getDonorByWalletAddress",
-    outputs: [
+    "name": "getDonationById",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "uint256",
+            "name": "donorId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "address",
+            "name": "donorWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "string",
-            name: "mainIndustryOfInterest",
-            type: "string",
+            "internalType": "string",
+            "name": "topic",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
+            "internalType": "string",
+            "name": "industry",
+            "type": "string"
           },
+          {
+            "internalType": "uint256",
+            "name": "maxNumberOfApplications",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "maxNumberOfVotes",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "amountDonatedInWei",
+            "type": "uint256"
+          },
+          {
+            "internalType": "bool",
+            "name": "applicationIsClosed",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "votingIsClosed",
+            "type": "bool"
+          },
+          {
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Donor",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Donation",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_donorWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "getGranteeOfDonation",
-    outputs: [
+    "name": "getDonorByWalletAddress",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "string",
+            "name": "mainIndustryOfInterest",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "gender",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "countryOfResidence",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "ageBracket",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Applicant",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Donor",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "getLatestResultsOfDonation",
-    outputs: [
+    "name": "getGranteeOfDonation",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "donationId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           },
           {
-            internalType: "address",
-            name: "applicantWalletAddress",
-            type: "address",
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
           },
           {
-            internalType: "uint256",
-            name: "voteCount",
-            type: "uint256",
+            "internalType": "string",
+            "name": "gender",
+            "type": "string"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
+            "internalType": "string",
+            "name": "countryOfResidence",
+            "type": "string"
           },
+          {
+            "internalType": "string",
+            "name": "ageBracket",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Result[]",
-        name: "",
-        type: "tuple[]",
-      },
+        "internalType": "struct Applicant",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "getPotentialAmountOfGrantOfDonationInWei",
-    outputs: [
+    "name": "getLatestResultsOfDonation",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-    ],
-    name: "getPotentialAmountOfRewardOfDonationInWei",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-    ],
-    name: "getPotentialAmountOfRewardToBekwest",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "getTotalAmountOfGrantsGivenToApplicantInWei",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_voterId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "getTotalAmountOfRewardsGivenToVoterInWei",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-    ],
-    name: "getTotalAmountOfVotesForDonation",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "getTotalAmountOfVotesMadeByVoter",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "getVoteCountOfApplicantOfDonation",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
-    ],
-    name: "getVoteOfVoterForDonation",
-    outputs: [
-      {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "voterId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "donationId",
-            type: "uint256",
+            "internalType": "address",
+            "name": "applicantWalletAddress",
+            "type": "address"
           },
           {
-            internalType: "bool",
-            name: "isRewarded",
-            type: "bool",
+            "internalType": "uint256",
+            "name": "voteCount",
+            "type": "uint256"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Vote",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Result[]",
+        "name": "",
+        "type": "tuple[]"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "getVoterByWalletAddress",
-    outputs: [
+    "name": "getPotentialAmountOfGrantOfDonationInWei",
+    "outputs": [
       {
-        components: [
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPotentialAmountOfRewardOfDonationInWei",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getPotentialAmountOfRewardToBekwest",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getTotalAmountOfGrantsGivenToApplicantInWei",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_voterId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getTotalAmountOfRewardsGivenToVoterInWei",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTotalAmountOfVotesForDonation",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getTotalAmountOfVotesMadeByVoter",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_applicantWalletAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getVoteCountOfApplicantOfDonation",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
+    ],
+    "name": "getVoteOfVoterForDonation",
+    "outputs": [
+      {
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "uint256",
+            "name": "voterId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "gender",
-            type: "string",
+            "internalType": "uint256",
+            "name": "donationId",
+            "type": "uint256"
           },
           {
-            internalType: "string",
-            name: "countryOfResidence",
-            type: "string",
+            "internalType": "bool",
+            "name": "isRewarded",
+            "type": "bool"
           },
           {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Voter",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Vote",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "_voterWalletAddress",
+        "type": "address"
+      }
     ],
-    name: "getWinningApplicantOfDonation",
-    outputs: [
+    "name": "getVoterByWalletAddress",
+    "outputs": [
       {
-        components: [
+        "components": [
           {
-            internalType: "uint256",
-            name: "id",
-            type: "uint256",
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
           },
           {
-            internalType: "uint256",
-            name: "applicantId",
-            type: "uint256",
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
           },
           {
-            internalType: "address",
-            name: "walletAddress",
-            type: "address",
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "adjective",
-            type: "string",
+            "internalType": "string",
+            "name": "gender",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "gender",
-            type: "string",
+            "internalType": "string",
+            "name": "countryOfResidence",
+            "type": "string"
           },
           {
-            internalType: "string",
-            name: "countryOfResidence",
-            type: "string",
-          },
-          {
-            internalType: "string",
-            name: "ageBracket",
-            type: "string",
-          },
-          {
-            internalType: "bool",
-            name: "isNotBlank",
-            type: "bool",
-          },
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
         ],
-        internalType: "struct Applicant",
-        name: "",
-        type: "tuple",
-      },
+        "internalType": "struct Voter",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "_donationId",
+        "type": "uint256"
+      }
     ],
-    name: "granteesOfDonations",
-    outputs: [
+    "name": "getWinningApplicantOfDonation",
+    "outputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "id",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "applicantId",
+            "type": "uint256"
+          },
+          {
+            "internalType": "address",
+            "name": "walletAddress",
+            "type": "address"
+          },
+          {
+            "internalType": "string",
+            "name": "adjective",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "gender",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "countryOfResidence",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "ageBracket",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "isNotBlank",
+            "type": "bool"
+          }
+        ],
+        "internalType": "struct Applicant",
+        "name": "",
+        "type": "tuple"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_applicationId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "address",
-        name: "_voterWalletAddress",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "makeAVote",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "granteesOfDonations",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "_donationId",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "_applicantId",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "_applicantWalletAddress",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "_pitchStatement",
-        type: "string",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "makeApplication",
-    outputs: [],
-    stateMutability: "nonpayable",
-    type: "function",
+    "name": "numbersOfApplicationsForDonations",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "numbersOfApplicationsForDonations",
-    outputs: [
+    "name": "numbersOfApplicationsOfApplicants",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "numbersOfApplicationsOfApplicants",
-    outputs: [
+    "name": "numbersOfDonationsCreatedByDonors",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    name: "numbersOfDonationsCreatedByDonors",
-    outputs: [
+    "name": "numbersOfVotesForDonations",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "numbersOfVotesForDonations",
-    outputs: [
+    "name": "numbersOfVotesOfVoters",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
+    "stateMutability": "view",
+    "type": "function"
   },
   {
-    inputs: [
+    "inputs": [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
       },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
     ],
-    name: "numbersOfVotesOfVoters",
-    outputs: [
+    "name": "votingInDonation",
+    "outputs": [
       {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
     ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-      {
-        internalType: "address",
-        name: "",
-        type: "address",
-      },
-    ],
-    name: "votingInDonation",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-];
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
