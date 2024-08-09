@@ -1,6 +1,4 @@
-import { Donation } from "@/entities/donation";
 import { Vote } from "@/entities/vote";
-import { Voter } from "@/entities/voter";
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
 import { createPublicClient, custom } from "viem";
@@ -25,12 +23,12 @@ export const getAllVotesOfVoter = async (
       })) as Array<any>;
 
       for (
-        let donationId = 0;
-        donationId < fetchedVotesMadeByVoter.length;
-        donationId++
+        let voterId = 0;
+        voterId < fetchedVotesMadeByVoter.length;
+        voterId++
       ) {
         const fetchedVoteToBeParsed =
-          fetchedVotesMadeByVoter[donationId];
+          fetchedVotesMadeByVoter[voterId];
 
         const fetchedVote: Vote = {
           id: Number(fetchedVoteToBeParsed["id"]),

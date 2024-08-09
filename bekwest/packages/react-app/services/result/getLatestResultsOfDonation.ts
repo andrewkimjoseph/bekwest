@@ -37,7 +37,7 @@ export const getLatestResultsOfDonation = async (
           ),
 
           applicantId: Number(
-            fetchedLatestResultOfDonationToBeParsed["applicationId"]
+            fetchedLatestResultOfDonationToBeParsed["applicantId"]
           ),
 
           applicantWalletAddress:
