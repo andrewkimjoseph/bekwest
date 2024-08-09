@@ -25,22 +25,25 @@ import { checkIfVoterHasAlreadyMadeAVoteInDonation } from "@/services/voter/chec
 export default function VoteInParticularDonation() {
   const { address, isConnected } = useAccount();
   const [donation, setDonation] = useState<Donation | null>(null);
-  const [isMakingAVote, setIsMakingAVote] = useState(false);
-
   const [voterHasAlreadyMadeVote, setVoterHasAlreadyMadeVote] = useState(false);
 
   const [allApplicationsOfDonation, setAllApplicationsOfDonation] = useState<
     Application[]
   >([]);
 
+  const [isMakingAVote, setIsMakingAVote] = useState<boolean[]>([]);
+
   const router = useRouter();
   const { voterId, donationId } = router.query;
 
   const makeAVoteFn = async (
     applicationId: number,
-    applicantWalletAddress: `0x${string}`
+    applicantWalletAddress: `0x${string}`,
+    index: number
   ) => {
-    setIsMakingAVote(true);
+    setIsMakingAVote((prevState) =>
+      prevState.map((item, i) => (i === index ? true : item))
+    );
 
     const donationIsCreated = await makeAVote(address, {
       _donationId: Number(donationId),
@@ -56,7 +59,9 @@ export default function VoteInParticularDonation() {
     } else {
       toast.error("Vote making failed");
     }
-    setIsMakingAVote(false);
+    setIsMakingAVote((prevState) =>
+      prevState.map((item, i) => (i === index ? false : item))
+    );
   };
 
   useEffect(() => {
@@ -80,24 +85,32 @@ export default function VoteInParticularDonation() {
       }
     };
 
-
     const checkIfAlreadyVotedSet = async () => {
       if (address) {
-        const hadAlreadyVoted =
-          await checkIfVoterHasAlreadyMadeAVoteInDonation(address, {
+        const hadAlreadyVoted = await checkIfVoterHasAlreadyMadeAVoteInDonation(
+          address,
+          {
             _donationId: Number(donationId),
             _voterWalletAddress: address,
-          });
+          }
+        );
 
-          setVoterHasAlreadyMadeVote(hadAlreadyVoted);
+        setVoterHasAlreadyMadeVote(hadAlreadyVoted);
       }
     };
-
 
     getAndSetDonation();
     checkIfAlreadyVotedSet();
     getAllApplicationsOfDonationAndSet();
   }, [address]);
+
+  useEffect(() => {
+    const setIsMakingVotes = async () => {
+      setIsMakingAVote(new Array(allApplicationsOfDonation.length).fill(false));
+    };
+
+    setIsMakingVotes();
+  }, [allApplicationsOfDonation]);
 
   return (
     <Box className="flex flex-col h-svh align-center" bgColor={"#E6E8FA"}>
@@ -130,56 +143,61 @@ export default function VoteInParticularDonation() {
           </Box>
         ) : (
           allApplicationsOfDonation.map((application) => (
-         
-              <Box className="flex flex-col" key={application.id}>
-                <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
-                  <Card variant={"elevated"} borderRadius={12} w={"full"}>
-                    <CardBody>
-                      <Box className="flex flex-row items-left items-center relative">
-                        <Avatar
-                          name={`Applicant ${application.applicantId}`}
-                          size="lg"
-                          bgColor={"#EB3C7F"}
-                          boxSize={14}
-                        />
-
-                        <Box className="flex flex-col items-left relative ml-4">
-                          <Text fontSize={20} mb={2}>
-                            Topic: {donation?.topic}
-                          </Text>
-                        </Box>
-                      </Box>
-
-                      <Text fontSize={16} my={3}>
-                        {application.pitchStatement}
-                      </Text>
-                      <Button
-                        mt={2}
-                        w={"full"}
-                        onClick={() =>
-                          makeAVoteFn(
-                            application.id,
-                            application.applicantWalletAddress
-                          )
-                        }
-                        isDisabled={voterHasAlreadyMadeVote}
-                        isLoading={isMakingAVote}
-                        loadingText="Voting for application"
-                        borderRadius={"10"}
+            <Box className="flex flex-col" key={application.id}>
+              <Box className="flex flex-row items-left items-center py-2 mx-4 relative">
+                <Card variant={"elevated"} borderRadius={12} w={"full"}>
+                  <CardBody>
+                    <Box className="flex flex-row items-left items-center relative">
+                      <Avatar
+                        name={`Applicant ${application.applicantId}`}
+                        size="lg"
                         bgColor={"#EB3C7F"}
-                        textColor={"white"}
-                        _hover={{
-                          bgColor: "#1E1E49",
-                          textColor: "white",
-                        }}
-                      >
-                        {voterHasAlreadyMadeVote ? "Already voted": "Vote for this application"}
-                      </Button>
-                    </CardBody>
-                  </Card>
-                </Box>
+                        boxSize={14}
+                      />
+
+                      <Box className="flex flex-col items-left relative ml-4">
+                        <Text fontSize={20} mb={2}>
+                          Topic: {donation?.topic}
+                        </Text>
+                      </Box>
+                    </Box>
+
+                    <Text fontSize={16} my={3}>
+                      {application.pitchStatement}
+                    </Text>
+                    <Button
+                      mt={2}
+                      w={"full"}
+                      onClick={() =>
+                        makeAVoteFn(
+                          application.id,
+                          application.applicantWalletAddress,
+                          allApplicationsOfDonation.indexOf(application)
+                        )
+                      }
+                      isDisabled={voterHasAlreadyMadeVote}
+                      isLoading={
+                        isMakingAVote[
+                          allApplicationsOfDonation.indexOf(application)
+                        ]
+                      }
+                      loadingText="Voting for application"
+                      borderRadius={"10"}
+                      bgColor={"#EB3C7F"}
+                      textColor={"white"}
+                      _hover={{
+                        bgColor: "#1E1E49",
+                        textColor: "white",
+                      }}
+                    >
+                      {voterHasAlreadyMadeVote
+                        ? "Already voted in this donation"
+                        : "Vote for this application"}
+                    </Button>
+                  </CardBody>
+                </Card>
               </Box>
-          
+            </Box>
           ))
         )}
       </Box>

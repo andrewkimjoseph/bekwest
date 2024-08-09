@@ -41,6 +41,7 @@ import { getDonationById } from "@/services/donation/getDonationById";
 import { getApplicationsOfApplicant } from "@/services/application/getAllApplicationsOfApplicant";
 import { Application } from "@/entities/application";
 import { getApplicantByWalletAddress } from "@/services/applicant/getApplicantByWalletAddress";
+import { Applicant } from "@/entities/applicant";
 export default function ParticularApplicationMade() {
   const [latestResultsOfDonation, setLatestResultsOfDonation] = useState<
     Result[]
@@ -51,6 +52,8 @@ export default function ParticularApplicationMade() {
   const [donation, setDonation] = useState<Donation | null>(null);
 
   const [application, setApplication] = useState<Application | null>(null);
+
+  const [winner, setWinner] = useState<Applicant | null>(null);
 
   const [barChartData, setBarChartData] = useState<ChartData | null>(null);
 
@@ -137,11 +140,12 @@ export default function ParticularApplicationMade() {
         }
       ).applicantWalletAddress;
 
-      console.log(winningApplicantWalletAddress);
 
       const winner = await getApplicantByWalletAddress(address, {
         _applicantWalletAddress: winningApplicantWalletAddress,
       });
+
+      setWinner(winner)
 
       for (
         let resultId = 0;
@@ -155,9 +159,9 @@ export default function ParticularApplicationMade() {
         data.push(result.voteCount);
 
         if (winner?.walletAddress === result.applicantWalletAddress) {
-          backgroundColors.push("rgba(30, 30, 73, 1)");
+          backgroundColors.push("rgba(235, 60, 127, 1)");
         } else {
-          backgroundColors.push("rgba(30, 30, 73, 1, 0.2)");
+          backgroundColors.push("rgba(235, 60, 127, 0.2)");
         }
       }
 
@@ -216,7 +220,19 @@ export default function ParticularApplicationMade() {
               console.log(latestResultsOfDonation);
             }}
           ></Circle>
+
+          
         )}
+      </Box>
+
+      <Box w={"full"} px={4} className="flex flex-col" mb={4}>
+        <Card variant={"outline"} borderRadius={12} w={"full"} bgColor={"#EB3C7F"}>
+          <CardBody p={2}>
+            <Text fontSize={16} m={1} color={"white"}>
+              {winner?.walletAddress === address ? "You won! Check your balance!": "You did not win! Try another donation!"}
+            </Text>
+          </CardBody>
+        </Card>
       </Box>
 
       {latestResultsOfDonation.length === 0 ? (
