@@ -1,7 +1,7 @@
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
 import { createPublicClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { dango } from "@/utils/dangoChain";
 
 export const checkIfApplicantHasAlreadyMadeAnApplicationToDonation = async (
   _signerAddress: `0x${string}` | undefined,
@@ -13,7 +13,7 @@ export const checkIfApplicantHasAlreadyMadeAnApplicationToDonation = async (
   if (window.ethereum) {
     try {
       const publicClient = createPublicClient({
-        chain: celoAlfajores,
+        chain: dango,
         transport: custom(window.ethereum),
       });
       try {

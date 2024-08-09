@@ -8,7 +8,7 @@ import {
     parseEther,
 
   } from "viem";
-  import { celoAlfajores } from "viem/chains";
+  import { dango } from "@/utils/dangoChain";
  
   
   export const fundDonation = async (
@@ -17,11 +17,11 @@ import {
   ): Promise<boolean> => {
     if (window.ethereum) {
       const privateClient = createWalletClient({
-        chain: celoAlfajores,
+        chain: dango,
         transport: custom(window.ethereum),
       });
       const publicClient = createPublicClient({
-        chain: celoAlfajores,
+        chain: dango,
         transport: custom(window.ethereum),
       });
       const [address] = await privateClient.getAddresses();

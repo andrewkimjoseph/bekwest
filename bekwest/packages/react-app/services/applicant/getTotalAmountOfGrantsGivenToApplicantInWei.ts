@@ -1,7 +1,7 @@
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
+import { dango } from "@/utils/dangoChain";
 import { createPublicClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
 
 export const getTotalAmountOfGrantsGivenToApplicantInWei = async (
   _signerAddress: `0x${string}` | undefined,
@@ -11,7 +11,7 @@ export const getTotalAmountOfGrantsGivenToApplicantInWei = async (
   if (window.ethereum) {
     try {
       const publicClient = createPublicClient({
-        chain: celoAlfajores,
+        chain: dango,
         transport: custom(window.ethereum),
       });
       totalAmountOfGrantsGivenToApplicantInWei = Number(

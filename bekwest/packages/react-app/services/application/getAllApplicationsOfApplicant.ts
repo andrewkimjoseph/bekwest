@@ -3,7 +3,7 @@ import { Application } from "@/entities/application";
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
 import { createPublicClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { dango } from "@/utils/dangoChain";
 
 export const getApplicationsOfApplicant = async (
   _signerAddress: `0x${string}` | undefined,
@@ -12,7 +12,7 @@ export const getApplicationsOfApplicant = async (
   let allApplicationsOfApplicant: Application[] = [];
   if (window.ethereum) {
     const publicClient = createPublicClient({
-      chain: celoAlfajores,
+      chain: dango,
       transport: custom(window.ethereum),
     });
     try {

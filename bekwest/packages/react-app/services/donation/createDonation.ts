@@ -1,7 +1,7 @@
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
 import { createPublicClient, createWalletClient, custom } from "viem";
-import { celoAlfajores } from "viem/chains";
+import { dango } from "@/utils/dangoChain";
 
 export const createDonation = async (
   _signerAddress: `0x${string}` | undefined,
@@ -17,11 +17,11 @@ export const createDonation = async (
 ): Promise<boolean> => {
   if (window.ethereum) {
     const privateClient = createWalletClient({
-      chain: celoAlfajores,
+      chain: dango,
       transport: custom(window.ethereum),
     });
     const publicClient = createPublicClient({
-      chain: celoAlfajores,
+      chain: dango,
       transport: custom(window.ethereum),
     });
     const [address] = await privateClient.getAddresses();

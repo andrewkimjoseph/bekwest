@@ -1,6 +1,7 @@
 "use client"
 
 import {
+  Chain,
   RainbowKitProvider,
   connectorsForWallets,
   lightTheme,
@@ -9,7 +10,6 @@ import "@rainbow-me/rainbowkit/styles.css";
 import { injectedWallet, metaMaskWallet } from "@rainbow-me/rainbowkit/wallets";
 import type { AppProps } from "next/app";
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { celo, celoAlfajores } from "wagmi/chains";
 import "../styles/globals.css";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -19,6 +19,7 @@ import { fonts } from "@/utils/font";
 import Head from "next/head";
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { dango } from "@/utils/dangoChain";
 
 const connectors = connectorsForWallets(
   [
@@ -33,12 +34,12 @@ const connectors = connectorsForWallets(
   }
 );
 
+
 const config = createConfig({
   connectors,
-  chains: [celo, celoAlfajores],
+  chains: [dango],
   transports: {
-    [celo.id]: http(),
-    [celoAlfajores.id]: http(),
+    [dango.id]: http(),
   },
 });
 
