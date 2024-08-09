@@ -639,6 +639,8 @@ contract bekwest {
             _voterWalletAddress
         ];
 
+        Voter memory particularVoter = getVoterByWalletAddress(_voterWalletAddress);
+
         Vote[] memory votesMadeByVoter = new Vote[](numberOfVotesMadeByVoter);
 
         uint256 voteIndex = 0;
@@ -646,7 +648,7 @@ contract bekwest {
         for (uint256 voteId = 0; voteId < allVotes.length; voteId++) {
             Vote memory runningVote = allVotes[voteId];
 
-            if (runningVote.voterId == runningVote.id) {
+            if (runningVote.voterId == particularVoter.id) {
                 votesMadeByVoter[voteIndex] = runningVote;
                 voteIndex++;
             }
@@ -902,39 +904,46 @@ contract bekwest {
         view
         returns (Result[] memory)
     {
-        Applicant[] memory applicantsOfDonation = getAllApplicantsOfDonation(
-            _donationId
-        );
-
-        Result[] memory latestResultsOfDonation = new Result[](
-            applicantsOfDonation.length
-        );
-
-        for (
-            uint256 applicantId = 0;
-            applicantId < applicantsOfDonation.length;
-            applicantId++
-        ) {
-            Applicant memory runningApplicant = applicantsOfDonation[
-                applicantId
-            ];
-
-            uint256 latestVoteCountOfApplicant = allVoteCountsOfApplicantsOfDonation[
+        uint256 votesOfDonation = numbersOfVotesForDonations[_donationId];
+        if (votesOfDonation == 0) {
+            return new Result[](0);
+        } else {
+            Applicant[]
+                memory applicantsOfDonation = getAllApplicantsOfDonation(
                     _donationId
-                ][runningApplicant.walletAddress];
+                );
 
-            Result memory newResult;
+            Result[] memory latestResultsOfDonation = new Result[](
+                applicantsOfDonation.length
+            );
 
-            newResult.id = applicantId;
-            newResult.donationId = _donationId;
-            newResult.applicantId = runningApplicant.id;
-            newResult.voteCount = latestVoteCountOfApplicant;
-            newResult.isNotBlank = true;
+            for (
+                uint256 applicantId = 0;
+                applicantId < applicantsOfDonation.length;
+                applicantId++
+            ) {
+                Applicant memory runningApplicant = applicantsOfDonation[
+                    applicantId
+                ];
 
-            latestResultsOfDonation[applicantId] = newResult;
+                uint256 latestVoteCountOfApplicant = allVoteCountsOfApplicantsOfDonation[
+                        _donationId
+                    ][runningApplicant.walletAddress];
+
+                Result memory newResult;
+
+                newResult.id = applicantId;
+                newResult.donationId = _donationId;
+                newResult.applicantId = runningApplicant.id;
+                newResult.applicantWalletAddress = runningApplicant.walletAddress;
+                newResult.voteCount = latestVoteCountOfApplicant;
+                newResult.isNotBlank = true;
+
+                latestResultsOfDonation[applicantId] = newResult;
+            }
+
+            return latestResultsOfDonation;
         }
-
-        return latestResultsOfDonation;
     }
 }
 

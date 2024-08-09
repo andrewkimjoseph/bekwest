@@ -208,11 +208,6 @@
 						"type": "string"
 					},
 					{
-						"internalType": "uint256",
-						"name": "numberOfDonationsCreated",
-						"type": "uint256"
-					},
-					{
 						"internalType": "bool",
 						"name": "isNotBlank",
 						"type": "bool"
@@ -1076,6 +1071,57 @@
 				"inputs": [
 					{
 						"internalType": "address",
+						"name": "_voterWalletAddress",
+						"type": "address"
+					}
+				],
+				"name": "getAllVotesOfVoter",
+				"outputs": [
+					{
+						"components": [
+							{
+								"internalType": "uint256",
+								"name": "id",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "voterId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "applicantId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "uint256",
+								"name": "donationId",
+								"type": "uint256"
+							},
+							{
+								"internalType": "bool",
+								"name": "isRewarded",
+								"type": "bool"
+							},
+							{
+								"internalType": "bool",
+								"name": "isNotBlank",
+								"type": "bool"
+							}
+						],
+						"internalType": "struct Vote[]",
+						"name": "",
+						"type": "tuple[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
 						"name": "_applicantWalletAddress",
 						"type": "address"
 					}
@@ -1479,11 +1525,6 @@
 								"internalType": "string",
 								"name": "mainIndustryOfInterest",
 								"type": "string"
-							},
-							{
-								"internalType": "uint256",
-								"name": "numberOfDonationsCreated",
-								"type": "uint256"
 							},
 							{
 								"internalType": "bool",
@@ -2164,11 +2205,11 @@
 	},
 	"sources": {
 		"smart-contracts/bekwest.sol": {
-			"keccak256": "0xe0598210743ebf2e3cbd86c4e94b68958d6a355737a6e29517f3b6c0313af05a",
+			"keccak256": "0xa83a640e039cb04a642085d681d9f97d70b52c8f57a5ca89fd49f927d2f8eb1a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b75071b0b11e42a9bbf9bbec1758c80cfecd8b098bc1afcac178e852f6a5d00e",
-				"dweb:/ipfs/QmdUenmUKHw1aCCqRYuXZ16bMjjxQf8hkLALYccYmPFhiM"
+				"bzz-raw://a41c76167b9ec986ec6c07e3bf15144098c99c623a03801e2c115ecd61b48b12",
+				"dweb:/ipfs/QmZMz9n85EaeYnnLWe4BiEbzwt6vu2kuY2XVEf6UFR4F2M"
 			]
 		},
 		"smart-contracts/bekwestInterfaces.sol": {
@@ -2180,11 +2221,11 @@
 			]
 		},
 		"smart-contracts/bekwestStructs.sol": {
-			"keccak256": "0x8f94e95386c4f2f95a7be62cd153f40d80327faa6ded573fa5819e32da7bbd6a",
+			"keccak256": "0x85541182117dd31df804f40e97f91c25062610d6185943e19b35ec615cbcb260",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://fb71f588f562a86e01de354f6f4896e7aaf58476b99e0feb6b886f8a42e4546f",
-				"dweb:/ipfs/QmP7uirKcPVi92cuBtVaQX8SsvQjC1W4PiAADLmmnhuu18"
+				"bzz-raw://aa9f50f52c9e27be8bf03ad94ca02a36d4c8d41e7e9952b342e5736cf2eaa76a",
+				"dweb:/ipfs/QmQympTHjoygaQsP7kFAiRffydh9umzJXJLVuBCEC9q5cZ"
 			]
 		}
 	},
