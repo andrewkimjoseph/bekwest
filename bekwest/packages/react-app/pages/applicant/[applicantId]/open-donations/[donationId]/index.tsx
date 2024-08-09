@@ -166,7 +166,7 @@ export default function ParticularOpenDonation() {
       <Box mb={24} bottom={0} px={4} position={"absolute"} className="w-full">
         <Button
           w={"full"}
-          disabled={applicantHasAlreadyMadeApplication}
+          isDisabled={applicantHasAlreadyMadeApplication}
           isLoading={isMakingApplication}
           onClick={() => makeApplicationFn()}
           loadingText="Making your application"

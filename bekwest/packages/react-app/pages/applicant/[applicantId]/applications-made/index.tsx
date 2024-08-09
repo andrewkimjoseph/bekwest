@@ -94,7 +94,7 @@ export default function Home() {
               w={"full"}
               onClick={() =>
                 router.push(
-                  `/applicant/${applicantId}/applications-made/${application.donationId}?donationId=${application.donationId}`
+                  `/applicant/${applicantId}/applications-made/${application.donationId}`
                 )
               }
             >
