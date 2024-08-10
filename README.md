@@ -18,9 +18,6 @@
 5. Enter the URL as https://bekwest.xyz
 6. Tap `Go`, and find your way through the app.
 
-### Or watch a demo video of the product here: 
-...
-
 # Technologies Used
 1. Front-end: `Next.js`
 2. Back-end: `Solidity (smart contract)`
