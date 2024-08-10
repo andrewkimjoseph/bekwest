@@ -153,6 +153,7 @@ export default function VoteInParticularDonation() {
                         size="lg"
                         bgColor={"#EB3C7F"}
                         boxSize={14}
+                        textColor={"white"}
                       />
 
                       <Box className="flex flex-col items-left relative ml-4">
