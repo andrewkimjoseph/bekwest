@@ -161,7 +161,11 @@ export default function Home() {
             >
               <CardBody p={3}>
                 <Box className="flex flex-row items-left items-center relative">
-                  <Avatar name="Sasuke Uchiha" size="lg" bgColor={"#EB3C7F"} />
+                  <Avatar
+                    name={`Donation ${donation.id}`}
+                    size="lg"
+                    bgColor={"#EB3C7F"}
+                  />
 
                   <Box className="flex flex-col items-left relative ml-4">
                     <Text fontSize={18} mb={2}>

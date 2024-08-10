@@ -36,7 +36,6 @@ export default function DonorHome() {
 
   const [donor, setDonor] = useState<Donor | null>(null);
 
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -68,8 +67,6 @@ export default function DonorHome() {
     checkIfDonorExistsAndSetFn();
     getAllDonationsCreatedByDonorAndSet();
   }, [address]);
-
-
 
   if (!isMounted) {
     return (
@@ -148,17 +145,22 @@ export default function DonorHome() {
           </Box>
         ) : (
           allDonationsCreatedByDonor.map((donation) => (
-            <Box className="flex flex-row items-left items-center py-2 mx-4 relative" key={donation.id}>
+            <Box
+              className="flex flex-row items-left items-center py-2 mx-4 relative"
+              key={donation.id}
+            >
               <Card
                 variant={"elevated"}
                 borderRadius={12}
                 w={"full"}
-                onClick={() => router.push(`/donor/${donor?.id}/donations/${donation?.id}`)}
+                onClick={() =>
+                  router.push(`/donor/${donor?.id}/donations/${donation?.id}`)
+                }
               >
                 <CardBody p={3}>
                   <Box className="flex flex-row items-left items-center relative">
                     <Avatar
-                      name="Sasuke Uchiha"
+                      name={`Donation ${donation.id}`}
                       size="lg"
                       bgColor={"#EB3C7F"}
                     />
@@ -169,7 +171,8 @@ export default function DonorHome() {
                       </Text>
                       <Text fontSize={14} mb={2}>
                         Amount:{" "}
-                        {parseWeiAmountToEther(donation.amountDonatedInWei)} cUSD
+                        {parseWeiAmountToEther(donation.amountDonatedInWei)}{" "}
+                        cUSD
                       </Text>
                     </Box>
                   </Box>
