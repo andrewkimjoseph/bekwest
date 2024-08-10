@@ -18,9 +18,6 @@
 5. Enter the URL as https://bekwest.xyz
 6. Tap `Go`, and find your way through the app.
 
-### Or watch a demo video of the product here: 
-...
-
 # Technologies Used
 1. Front-end: `Next.js`
 2. Back-end: `Solidity (smart contract)`
@@ -31,13 +28,11 @@
 https://www.canva.com/design/DAGMbzmGJPk/2-4ODMBQ_8bA5NnPC8MQrQ/view?utm_content=DAGMbzmGJPk&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 ## Product Demo Video
-...
+https://www.youtube.com/watch?v=eMZTBc_Zxds
 
 ## Project Demo Link
-https://bekwest.xyz
-
-## Snapshots
-...
+Celo Alfajores: https://bekwest.xyz
+Celo Dango: https://bekwest-on-dango.vercel.app
 
 ## Figma Prototype Link
 https://www.figma.com/proto/BtNgsqeEDmeg4aSAlC6Irx/bekwest?node-id=0-1&t=Jxeo4BIv8ghPG6Ey-1
