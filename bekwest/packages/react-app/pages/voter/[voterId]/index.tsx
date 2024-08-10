@@ -165,6 +165,7 @@ export default function Home() {
                     name={`Donation ${donation.id}`}
                     size="lg"
                     bgColor={"#EB3C7F"}
+                    textColor={"white"}
                   />
 
                   <Box className="flex flex-col items-left relative ml-4">

@@ -104,6 +104,7 @@ export default function Home() {
                     name={`Application ${application.id}`}
                     size="lg"
                     bgColor={"#EB3C7F"}
+                    textColor={"white"}
                   />
 
                   <Box className="flex flex-col items-left relative ml-4">
