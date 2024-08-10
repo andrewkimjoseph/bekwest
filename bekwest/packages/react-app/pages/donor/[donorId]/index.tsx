@@ -158,7 +158,7 @@ export default function DonorHome() {
                 <CardBody p={3}>
                   <Box className="flex flex-row items-left items-center relative">
                     <Avatar
-                      name="Sasuke Uchiha"
+                      name={`Donation ${donation.id}`}
                       size="lg"
                       bgColor={"#EB3C7F"}
                     />
