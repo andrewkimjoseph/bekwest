@@ -49,10 +49,11 @@ https://celo-dango.blockscout.com/address/0x3aEc2Feebfc424FAa75e5e9bc0b1831ca509
 https://www.canva.com/design/DAGMbzmGJPk/2-4ODMBQ_8bA5NnPC8MQrQ/view?utm_content=DAGMbzmGJPk&utm_campaign=designshare&utm_medium=link&utm_source=editor
 
 ## Product Demo Video
-...
+https://www.youtube.com/watch?v=eMZTBc_Zxds
 
 ## Project Demo Link
-https://bekwest.xyz
+- Celo Alfarojes: https://bekwest.xyz
+- Celo Dango: https://bekwest-on-dango.vercel.app
 
 ## Snapshots
 ![4-6](https://github.com/user-attachments/assets/0fa22412-68ad-41e2-be00-72cf6afb3bcb)
