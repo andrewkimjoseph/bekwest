@@ -31,7 +31,8 @@ https://www.canva.com/design/DAGMbzmGJPk/2-4ODMBQ_8bA5NnPC8MQrQ/view?utm_content
 https://www.youtube.com/watch?v=eMZTBc_Zxds
 
 ## Project Demo Link
-https://bekwest.xyz
+Celo Alfajores: https://bekwest.xyz
+Celo Dango: https://bekwest-on-dango.vercel.app
 
 ## Figma Prototype Link
 https://www.figma.com/proto/BtNgsqeEDmeg4aSAlC6Irx/bekwest?node-id=0-1&t=Jxeo4BIv8ghPG6Ey-1
