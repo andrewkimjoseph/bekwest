@@ -2,6 +2,7 @@ import { Applicant } from "@/entities/applicant";
 import { Application } from "@/entities/application";
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
+import { publicClient } from "@/utils/clients/public";
 import { createPublicClient, custom } from "viem";
 import { celoAlfajores } from "viem/chains";
 
@@ -11,10 +12,6 @@ export const getApplicationsOfApplicant = async (
 ): Promise<Application[]> => {
   let allApplicationsOfApplicant: Application[] = [];
   if (window.ethereum) {
-    const publicClient = createPublicClient({
-      chain: celoAlfajores,
-      transport: custom(window.ethereum),
-    });
     try {
       const fetchedApplicationsOfApplicant = (await publicClient.readContract({
         address: bekwestContractAddress,

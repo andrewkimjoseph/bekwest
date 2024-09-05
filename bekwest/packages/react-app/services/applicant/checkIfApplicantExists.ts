@@ -1,5 +1,6 @@
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
+import { publicClient } from "@/utils/clients/public";
 import { createPublicClient, custom } from "viem";
 import { celoAlfajores } from "viem/chains";
 
@@ -9,10 +10,6 @@ export const checkIfApplicantExists = async (
 ): Promise<boolean> => {
   if (window.ethereum) {
     try {
-      const publicClient = createPublicClient({
-        chain: celoAlfajores,
-        transport: custom(window.ethereum),
-      });
       try {
         const applicantExists = await publicClient.readContract({
           address: bekwestContractAddress,

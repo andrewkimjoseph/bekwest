@@ -1,5 +1,6 @@
 import { bekwestContractABI } from "@/utils/abis/bekwestContractABI";
 import { bekwestContractAddress } from "@/utils/addresses/bewkestContractAddress";
+import { publicClient } from "@/utils/clients/public";
 import { createPublicClient, custom } from "viem";
 import { celoAlfajores } from "viem/chains";
 
@@ -10,10 +11,7 @@ export const getTotalAmountOfGrantsGivenToApplicantInWei = async (
   let totalAmountOfGrantsGivenToApplicantInWei: number = 0;
   if (window.ethereum) {
     try {
-      const publicClient = createPublicClient({
-        chain: celoAlfajores,
-        transport: custom(window.ethereum),
-      });
+  
       totalAmountOfGrantsGivenToApplicantInWei = Number(
         (await publicClient.readContract({
           address: bekwestContractAddress,
