@@ -25,6 +25,7 @@ import { getDonorByWalletAddress } from "@/services/donor/getDonorByWalletAddres
 import { Donation } from "@/entities/donation";
 import { getAllDonationsCreatedByDonor } from "@/services/donation/getAllDonationsCreatedByDonor";
 import { parseWeiAmountToEther } from "@/utils/conversion/weiToEther";
+import Link from "next/link";
 export default function DonorHome() {
   const [isMounted, setIsMounted] = useState(false);
   const { address, isConnected } = useAccount();
@@ -35,7 +36,6 @@ export default function DonorHome() {
   >([]);
 
   const [donor, setDonor] = useState<Donor | null>(null);
-
 
   useEffect(() => {
     setIsMounted(true);
@@ -68,8 +68,6 @@ export default function DonorHome() {
     checkIfDonorExistsAndSetFn();
     getAllDonationsCreatedByDonorAndSet();
   }, [address]);
-
-
 
   if (!isMounted) {
     return (
@@ -148,35 +146,43 @@ export default function DonorHome() {
           </Box>
         ) : (
           allDonationsCreatedByDonor.map((donation) => (
-            <Box className="flex flex-row items-left items-center py-2 mx-4 relative" key={donation.id}>
-              <Card
-                variant={"elevated"}
-                borderRadius={12}
-                w={"full"}
-                onClick={() => router.push(`/donor/${donor?.id}/donations/${donation?.id}`)}
+            <Link href={`/donor/${donor?.id}/donations/${donation?.id}`}>
+              <Box
+                className="flex flex-row items-left items-center py-2 mx-4 relative"
+                key={donation.id}
               >
-                <CardBody p={3}>
-                  <Box className="flex flex-row items-left items-center relative">
-                    <Avatar
-                      name={`Donation ${donation.id}`}
-                      size="lg"
-                      bgColor={"#EB3C7F"}
-                      textColor={"white"}
-                    />
+                <Card
+                  variant={"elevated"}
+                  borderRadius={12}
+                  w={"full"}
+                  onClick={() =>
+                    router.push(`/donor/${donor?.id}/donations/${donation?.id}`)
+                  }
+                >
+                  <CardBody p={3}>
+                    <Box className="flex flex-row items-left items-center relative">
+                      <Avatar
+                        name={`Donation ${donation.id}`}
+                        size="lg"
+                        bgColor={"#EB3C7F"}
+                        textColor={"white"}
+                      />
 
-                    <Box className="flex flex-col items-left relative ml-4">
-                      <Text fontSize={16} mb={2}>
-                        Topic: {donation.topic}
-                      </Text>
-                      <Text fontSize={14} mb={2}>
-                        Amount:{" "}
-                        {parseWeiAmountToEther(donation.amountDonatedInWei)} cUSD
-                      </Text>
+                      <Box className="flex flex-col items-left relative ml-4">
+                        <Text fontSize={16} mb={2}>
+                          Topic: {donation.topic}
+                        </Text>
+                        <Text fontSize={14} mb={2}>
+                          Amount:{" "}
+                          {parseWeiAmountToEther(donation.amountDonatedInWei)}{" "}
+                          cUSD
+                        </Text>
+                      </Box>
                     </Box>
-                  </Box>
-                </CardBody>
-              </Card>
-            </Box>
+                  </CardBody>
+                </Card>
+              </Box>
+            </Link>
           ))
         )}
       </Box>
@@ -186,7 +192,7 @@ export default function DonorHome() {
           w={"full"}
           onClick={() => router.push(`/donor/${donor?.id}/create-donation`)}
           boxShadow="base"
-          loadingText="Creating your donor account"
+          loadingText="Creating your donation"
           borderRadius={"10"}
           bgColor={"#EB3C7F"}
           textColor={"white"}
